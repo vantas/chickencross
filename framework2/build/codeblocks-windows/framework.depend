@@ -1,0 +1,3130 @@
+# depslib dependency file v1.0
+1301944331 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/CGame.cpp
+	"CGame.h"
+	"CGameState.h"
+
+1301936000 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/CGame.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<stack>
+
+1278057020 /usr/include/SDL/SDL.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1278057020 /usr/include/SDL/SDL_platform.h
+
+1278057020 /usr/include/SDL/begin_code.h
+
+1278057020 /usr/include/SDL/close_code.h
+
+1278057020 /usr/include/SDL/SDL_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_keysym.h
+
+1278057020 /usr/include/SDL/SDL_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1278057020 /usr/include/SDL/SDL_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1278057020 /usr/include/SDL/SDL_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl.h>
+	<glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<windows.h>
+	<stddef.h>
+
+1301939477 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/CGameState.h
+	"CGame.h"
+
+1302013883 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/CImage.cpp
+	"CImage.h"
+
+1302012768 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/CImage.h
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<SDL_image.h>
+
+1273659171 /usr/include/SDL/SDL_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1302012866 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/MenuState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+
+1301931267 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/MenuState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1301942563 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/PlayState.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+
+1301939493 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/PauseState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"PauseState.h"
+
+1301942522 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/PauseState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1302013974 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/PlayState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1301936390 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1302013535 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/CSprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1302013527 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/CSprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+
+1302013245 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/CMultiImage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1302011272 /home/PORTOALEGRE/10049190/ed/03-sprites/framework/TexRect.h
+
+1302013583 source:/home/PORTOALEGRE/10049190/ed/03-sprites/framework/CMultiImage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/CFont.cpp
+	"CFont.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/CFont.h
+	"CMultiImage.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/CMultiImage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/CImage.h
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<SDL_image.h>
+
+1302539432 /home/pjogos/ed/framework-timebased/TexRect.h
+
+1302546389 source:/home/pjogos/ed/framework-timebased/CGame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1302540453 /home/pjogos/ed/framework-timebased/CGame.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<stack>
+
+1302539432 /home/pjogos/ed/framework-timebased/CGameState.h
+	"CGame.h"
+
+1302545800 source:/home/pjogos/ed/framework-timebased/CImage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/TextureManager.h
+	<SDL_opengl.h>
+	<map>
+	<string>
+
+1302547314 source:/home/pjogos/ed/framework-timebased/CMultiImage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/CSprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1302539432 /home/pjogos/ed/framework-timebased/CSprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/MenuState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/MenuState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/PlayState.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1302545892 /home/pjogos/ed/framework-timebased/PlayMap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/PauseState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/PauseState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/PlayState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/TextureManager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1302547281 source:/home/pjogos/ed/framework-timebased/PlayMap.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1302540812 source:/home/pjogos/ed/framework-timebased/maploader/TMXLoader.cpp
+	"TMXLoader.h"
+	<iomanip>
+
+1302539431 /home/pjogos/ed/framework-timebased/maploader/TMXLoader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1302539431 /home/pjogos/ed/framework-timebased/maploader/base64.h
+	<string>
+	<vector>
+
+1302539431 source:/home/pjogos/ed/framework-timebased/maploader/base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1302539432 source:/home/pjogos/ed/framework-timebased/tinyxml/tinystr.cpp
+	"tinystr.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/tinyxml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1302539432 source:/home/pjogos/ed/framework-timebased/tinyxml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1302539432 /home/pjogos/ed/framework-timebased/tinyxml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/tinyxml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1302539432 source:/home/pjogos/ed/framework-timebased/tinyxml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1302551917 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CFont.cpp
+	"CFont.h"
+
+1302551920 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CFont.h
+	"CMultiImage.h"
+
+1302532051 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CMultiImage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1302523578 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CImage.h
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<SDL_image.h>
+
+1302523578 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/TexRect.h
+
+1303327207 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CGame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1303305583 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CGame.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<stack>
+
+1302523578 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CGameState.h
+	"CGame.h"
+
+1303128932 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CImage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1302548181 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/TextureManager.h
+	<SDL_opengl.h>
+	<map>
+	<string>
+
+1302548181 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CMultiImage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1303325750 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CSprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1302551168 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/CSprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+
+1303320469 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/MenuState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+	"PlayMapTop.h"
+
+1302523578 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/MenuState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1302532016 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayState.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303326191 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayMap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1302531993 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PauseState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1302531983 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PauseState.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1303326798 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayMap.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1302532012 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayState.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1302548181 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/TextureManager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1303128932 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1303133719 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/maploader/TMXLoader.cpp
+	"TMXLoader.h"
+	<iomanip>
+	<cmath>
+
+1303128931 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/maploader/TMXLoader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1302532084 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/maploader/base64.h
+	<string>
+	<vector>
+
+1302532084 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/maploader/base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1302532081 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinystr.cpp
+	"tinystr.h"
+
+1302532081 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1302532081 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1302532081 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1302532081 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1302532081 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/tinyxml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1303309768 source:/home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayMapTop.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMapTop.h"
+	"PauseState.h"
+
+1303309147 /home/PORTOALEGRE/10049190/ed/svn/ed/framework-timebased/PlayMapTop.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\cfont.cpp
+	"CFont.h"
+
+1303759859 c:\temp\ed\framework-timebased\cfont.h
+	"CMultiImage.h"
+
+1303759859 c:\temp\ed\framework-timebased\cmultiimage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1303759859 c:\temp\ed\framework-timebased\cimage.h
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<SDL_image.h>
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1255800464 x:\graficos\sdl-1.2.14-mingw\include\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_platform.h
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\begin_code.h
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\close_code.h
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_keysym.h
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 x:\graficos\sdl-1.2.14-mingw\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 x:\graficos\sdl-1.2.14-mingw\include\sdl_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl.h>
+	<glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<windows.h>
+	<stddef.h>
+
+1301333299 x:\graficos\sdl-1.2.14-mingw\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303759859 c:\temp\ed\framework-timebased\texrect.h
+
+1303759859 source:c:\temp\ed\framework-timebased\cgame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1303759859 c:\temp\ed\framework-timebased\cgame.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<stack>
+	<irrKlang.h>
+
+1303760399 x:\graficos\irrklang-1.3.0\include\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_irrklangtypes.h
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_esoundoutputdrivers.h
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_esoundengineoptions.h
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_estreammodes.h
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303760399 x:\graficos\irrklang-1.3.0\include\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1303760398 x:\graficos\irrklang-1.3.0\include\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
+
+1303759859 c:\temp\ed\framework-timebased\cgamestate.h
+	"CGame.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\cimage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1303759859 c:\temp\ed\framework-timebased\texturemanager.h
+	<SDL_opengl.h>
+	<map>
+	<string>
+
+1303759859 source:c:\temp\ed\framework-timebased\cmultiimage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\csprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1303759859 c:\temp\ed\framework-timebased\csprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+
+1303760770 source:c:\temp\ed\framework-timebased\menustate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+	"PlayMapTop.h"
+
+1303759859 c:\temp\ed\framework-timebased\menustate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1303759859 c:\temp\ed\framework-timebased\playstate.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303759855 c:\temp\ed\framework-timebased\maploader\tmxloader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1303759856 c:\temp\ed\framework-timebased\maploader\base64.h
+	<string>
+	<vector>
+
+1303759858 c:\temp\ed\framework-timebased\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1303759858 c:\temp\ed\framework-timebased\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1303759859 c:\temp\ed\framework-timebased\playmap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303759859 c:\temp\ed\framework-timebased\playmaptop.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\pausestate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1303759859 c:\temp\ed\framework-timebased\pausestate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\playmap.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\playmaptop.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMapTop.h"
+	"PauseState.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\playstate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1303759859 source:c:\temp\ed\framework-timebased\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1303761235 source:c:\temp\ed\framework-timebased\main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1303759855 source:c:\temp\ed\framework-timebased\maploader\tmxloader.cpp
+	"TMXLoader.h"
+	<iomanip>
+	<cmath>
+
+1303759855 source:c:\temp\ed\framework-timebased\maploader\base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1303759859 source:c:\temp\ed\framework-timebased\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1303759858 source:c:\temp\ed\framework-timebased\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1303759858 source:c:\temp\ed\framework-timebased\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1303759858 source:c:\temp\ed\framework-timebased\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\cfont.cpp
+	"CFont.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\cfont.h
+	"CMultiImage.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\cmultiimage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\cimage.h
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<SDL_image.h>
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_platform.h
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\begin_code.h
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\close_code.h
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_keysym.h
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl.h>
+	<glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<windows.h>
+	<stddef.h>
+
+1303951151 c:\users\10049190.portoalegre\documents\svn\lib\sdl-mingw\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\texrect.h
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\cgame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\cgame.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<stack>
+	<irrKlang.h>
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_irrklangtypes.h
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_esoundoutputdrivers.h
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_esoundengineoptions.h
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_estreammodes.h
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1303951159 c:\users\10049190.portoalegre\documents\svn\lib\irrklang-1.3.0\include\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\cgamestate.h
+	"CGame.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\cimage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\texturemanager.h
+	<SDL_opengl.h>
+	<map>
+	<string>
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\cmultiimage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\csprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\csprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\menustate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+	"PlayMapTop.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\menustate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\playstate.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\maploader\tmxloader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\maploader\base64.h
+	<string>
+	<vector>
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\playmap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\playmaptop.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\pausestate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1303951149 c:\users\10049190.portoalegre\documents\svn\include\pausestate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\playmap.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\playmaptop.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayMapTop.h"
+	"PauseState.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\playstate.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_opengl.h>
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\maploader\tmxloader.cpp
+	"TMXLoader.h"
+	<iomanip>
+	<cmath>
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\maploader\base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1303951148 source:c:\users\10049190.portoalegre\documents\svn\source\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1306177446 source:c:\users\10049190\desktop\base\source\cfont.cpp
+	"CFont.h"
+
+1306177448 c:\users\10049190\desktop\base\include\cfont.h
+	"CMultiImage.h"
+
+1306177447 c:\users\10049190\desktop\base\include\cmultiimage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1307451622 c:\users\10049190\desktop\base\include\cimage.h
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<SDL_image.h>
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_platform.h
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\begin_code.h
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\close_code.h
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_keysym.h
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl.h>
+	<glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<windows.h>
+	<stddef.h>
+
+1306177449 c:\users\10049190\desktop\base\lib\sdl-mingw\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1306177448 c:\users\10049190\desktop\base\include\texrect.h
+
+1307451621 source:c:\users\10049190\desktop\base\source\cgame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1307451622 c:\users\10049190\desktop\base\include\cgame.h
+	<SDL.h>
+	"Graphics.h"
+	<stack>
+	<irrKlang.h>
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_irrklangtypes.h
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_esoundoutputdrivers.h
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_esoundengineoptions.h
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_estreammodes.h
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1306177464 c:\users\10049190\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
+
+1306177448 c:\users\10049190\desktop\base\include\cgamestate.h
+	"CGame.h"
+
+1306177446 source:c:\users\10049190\desktop\base\source\cimage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1307451622 c:\users\10049190\desktop\base\include\texturemanager.h
+	"Graphics.h"
+	<map>
+	<string>
+
+1307451621 source:c:\users\10049190\desktop\base\source\cmultiimage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1307451622 c:\users\10049190\desktop\base\include\graphics.h
+	<GL/glew.h>
+	<SDL_opengl.h>
+
+1306177447 source:c:\users\10049190\desktop\base\source\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1306177446 source:c:\users\10049190\desktop\base\source\main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1306177447 c:\users\10049190\desktop\base\include\menustate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1306177446 source:c:\users\10049190\desktop\base\source\maploader\base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1306177447 c:\users\10049190\desktop\base\include\maploader\base64.h
+	<string>
+	<vector>
+
+1306177446 source:c:\users\10049190\desktop\base\source\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1306177447 c:\users\10049190\desktop\base\include\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1306177446 source:c:\users\10049190\desktop\base\source\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1306177447 c:\users\10049190\desktop\base\include\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1306177446 source:c:\users\10049190\desktop\base\source\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1306177446 source:c:\users\10049190\desktop\base\source\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1307454474 c:\users\10049190\desktop\base\lib\glew-1.6.0\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1307451622 source:c:\users\10049190\desktop\base\source\cphysics.cpp
+	"CPhysics.h"
+	<iostream>
+	<math.h>
+
+1307451622 c:\users\10049190\desktop\base\include\cphysics.h
+	<Box2D/Box2D.h>
+	"CImage.h"
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\box2d.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/Shapes/b2CircleShape.h>
+	<Box2D/Collision/Shapes/b2PolygonShape.h>
+	<Box2D/Collision/b2BroadPhase.h>
+	<Box2D/Collision/b2Distance.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<Box2D/Collision/b2TimeOfImpact.h>
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Dynamics/b2Fixture.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+	<Box2D/Dynamics/b2World.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/Joints/b2DistanceJoint.h>
+	<Box2D/Dynamics/Joints/b2FrictionJoint.h>
+	<Box2D/Dynamics/Joints/b2GearJoint.h>
+	<Box2D/Dynamics/Joints/b2LineJoint.h>
+	<Box2D/Dynamics/Joints/b2MouseJoint.h>
+	<Box2D/Dynamics/Joints/b2PrismaticJoint.h>
+	<Box2D/Dynamics/Joints/b2PulleyJoint.h>
+	<Box2D/Dynamics/Joints/b2RevoluteJoint.h>
+	<Box2D/Dynamics/Joints/b2WeldJoint.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2settings.h
+	<cassert>
+	<cmath>
+
+1306177470 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2circleshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1306177470 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2shape.h
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2blockallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2math.h
+	<Box2D/Common/b2Settings.h>
+	<cmath>
+	<cfloat>
+	<cstddef>
+	<limits>
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2collision.h
+	<Box2D/Common/b2Math.h>
+	<climits>
+
+1306177470 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2polygonshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2broadphase.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<algorithm>
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2dynamictree.h
+	<Box2D/Collision/b2Collision.h>
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2distance.h
+	<Box2D/Common/b2Math.h>
+	<climits>
+
+1306177471 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2timeofimpact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Distance.h>
+	<climits>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2body.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<memory>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2fixture.h
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2worldcallbacks.h
+	<Box2D/Common/b2Settings.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2timestep.h
+	<Box2D/Common/b2Settings.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2world.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2StackAllocator.h>
+	<Box2D/Dynamics/b2ContactManager.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2stackallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2contactmanager.h
+	<Box2D/Collision/b2BroadPhase.h>
+
+1306177469 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\contacts\b2contact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/b2Fixture.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2distancejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2joint.h
+	<Box2D/Common/b2Math.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2frictionjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2gearjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2linejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2mousejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2prismaticjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2pulleyjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2revolutejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1306177468 c:\users\10049190\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2weldjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1307451621 source:c:\users\10049190\desktop\base\source\csprite.cpp
+	"CSprite.h"
+	<iostream>
+
+1306177448 c:\users\10049190\desktop\base\include\csprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+	"tinyxml.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\menustate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+	"PlayMapTop.h"
+	"PlayPhysics.h"
+	"PlayMapPhysics.h"
+
+1306177448 c:\users\10049190\desktop\base\include\playstate.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1306177447 c:\users\10049190\desktop\base\include\maploader\tmxloader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1306177447 c:\users\10049190\desktop\base\include\playmap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1306177448 c:\users\10049190\desktop\base\include\playmaptop.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1307451622 c:\users\10049190\desktop\base\include\playphysics.h
+	<SDL.h>
+	<Box2D/Box2D.h>
+	<irrKlang.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+	"CPhysics.h"
+
+1307451622 c:\users\10049190\desktop\base\include\playmapphysics.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+	"CPhysics.h"
+	"ShaderManager.h"
+
+1307451622 c:\users\10049190\desktop\base\include\shadermanager.h
+	"Graphics.h"
+	<unistd.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	"Shader.h"
+	"ShaderProgram.h"
+	<iostream>
+	<vector>
+	<map>
+
+1307455711 c:\users\10049190\desktop\base\include\shader.h
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<unistd.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<iostream>
+	<cstdlib>
+
+1307451622 c:\users\10049190\desktop\base\include\shaderprogram.h
+	<GL/glew.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<unistd.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<iostream>
+	<vector>
+	<map>
+	"Shader.h"
+
+1307451622 source:c:\users\10049190\desktop\base\source\pausestate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1306177448 c:\users\10049190\desktop\base\include\pausestate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\playmap.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1307451622 source:c:\users\10049190\desktop\base\source\playmaptop.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMapTop.h"
+	"PauseState.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\playphysics.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PauseState.h"
+	"PlayPhysics.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\playstate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\shader.cpp
+	"Shader.h"
+	<iostream>
+	<fstream>
+
+1307451621 source:c:\users\10049190\desktop\base\source\shadermanager.cpp
+	"ShaderManager.h"
+	"Shader.h"
+	"ShaderProgram.h"
+	<fstream>
+
+1307451621 source:c:\users\10049190\desktop\base\source\shaderprogram.cpp
+	"ShaderProgram.h"
+	"ShaderManager.h"
+
+1307451621 source:c:\users\10049190\desktop\base\source\maploader\tmxloader.cpp
+	"TMXLoader.h"
+	<iomanip>
+	<cmath>
+
+1307451621 source:c:\users\10049190\desktop\base\source\playmapphysics.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMapPhysics.h"
+	"PauseState.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\cfont.cpp
+	"CFont.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cfont.h
+	"CMultiImage.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cmultiimage.h
+	<vector>
+	"CImage.h"
+	"TexRect.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cimage.h
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<SDL_image.h>
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_platform.h
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\begin_code.h
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\close_code.h
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_keysym.h
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\graphics.h
+	<GL/glew.h>
+	<SDL_opengl.h>
+
+1313426652 c:\users\10049190.portoalegre\desktop\base\lib\glew-1.6.0\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_opengl.h
+	"SDL_config.h"
+	<windows.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<gl.h>
+	<glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<windows.h>
+	<stddef.h>
+
+1313426633 c:\users\10049190.portoalegre\desktop\base\lib\sdl-mingw\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\texrect.h
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\cgame.cpp
+	"CGame.h"
+	"CGameState.h"
+	<iostream>
+	<assert.h>
+	<cmath>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cgame.h
+	<SDL.h>
+	"Graphics.h"
+	<stack>
+	<irrKlang.h>
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_irrklangtypes.h
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_esoundoutputdrivers.h
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_esoundengineoptions.h
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_estreammodes.h
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1313426639 c:\users\10049190.portoalegre\desktop\base\lib\irrklang-1.3.0\include\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cgamestate.h
+	"CGame.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\cimage.cpp
+	"CImage.h"
+	"TextureManager.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\texturemanager.h
+	"Graphics.h"
+	<map>
+	<string>
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\cmultiimage.cpp
+	<iostream>
+	"CMultiImage.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\cphysics.cpp
+	"CPhysics.h"
+	<iostream>
+	<math.h>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\cphysics.h
+	<Box2D/Box2D.h>
+	"CImage.h"
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\box2d.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/Shapes/b2CircleShape.h>
+	<Box2D/Collision/Shapes/b2PolygonShape.h>
+	<Box2D/Collision/b2BroadPhase.h>
+	<Box2D/Collision/b2Distance.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<Box2D/Collision/b2TimeOfImpact.h>
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Dynamics/b2Fixture.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+	<Box2D/Dynamics/b2World.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/Joints/b2DistanceJoint.h>
+	<Box2D/Dynamics/Joints/b2FrictionJoint.h>
+	<Box2D/Dynamics/Joints/b2GearJoint.h>
+	<Box2D/Dynamics/Joints/b2LineJoint.h>
+	<Box2D/Dynamics/Joints/b2MouseJoint.h>
+	<Box2D/Dynamics/Joints/b2PrismaticJoint.h>
+	<Box2D/Dynamics/Joints/b2PulleyJoint.h>
+	<Box2D/Dynamics/Joints/b2RevoluteJoint.h>
+	<Box2D/Dynamics/Joints/b2WeldJoint.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2settings.h
+	<cassert>
+	<cmath>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2circleshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2shape.h
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2blockallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2math.h
+	<Box2D/Common/b2Settings.h>
+	<cmath>
+	<cfloat>
+	<cstddef>
+	<limits>
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2collision.h
+	<Box2D/Common/b2Math.h>
+	<climits>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\shapes\b2polygonshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2broadphase.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<algorithm>
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2dynamictree.h
+	<Box2D/Collision/b2Collision.h>
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2distance.h
+	<Box2D/Common/b2Math.h>
+	<climits>
+
+1313426644 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\collision\b2timeofimpact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Distance.h>
+	<climits>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2body.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<memory>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2fixture.h
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2worldcallbacks.h
+	<Box2D/Common/b2Settings.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2timestep.h
+	<Box2D/Common/b2Settings.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2world.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2StackAllocator.h>
+	<Box2D/Dynamics/b2ContactManager.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\common\b2stackallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\b2contactmanager.h
+	<Box2D/Collision/b2BroadPhase.h>
+
+1313426643 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\contacts\b2contact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/b2Fixture.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2distancejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2joint.h
+	<Box2D/Common/b2Math.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2frictionjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2gearjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2linejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2mousejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2prismaticjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2pulleyjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2revolutejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426642 c:\users\10049190.portoalegre\desktop\base\lib\box2d-2.1.0\include\box2d\dynamics\joints\b2weldjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\csprite.cpp
+	"CSprite.h"
+	<iostream>
+	<string>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\csprite.h
+	<vector>
+	"CMultiImage.h"
+	"TexRect.h"
+	"tinyxml.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1313427655 source:c:\users\10049190.portoalegre\desktop\base\source\menustate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	"CGame.h"
+	"MenuState.h"
+	"PlayState.h"
+	"PlayMap.h"
+	"PlayMapTop.h"
+	"PlayMapPhysics.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\menustate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playstate.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\maploader\tmxloader.h
+	"../CMultiImage.h"
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"base64.h"
+	"tinyxml.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\maploader\base64.h
+	<string>
+	<vector>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playmap.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playmaptop.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playphysics.h
+	<SDL.h>
+	<Box2D/Box2D.h>
+	<irrKlang.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+	"CPhysics.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playmapphysics.h
+	<SDL.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+	"CPhysics.h"
+	"ShaderManager.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\shadermanager.h
+	"Graphics.h"
+	"Shader.h"
+	"ShaderProgram.h"
+	<iostream>
+	<vector>
+	<map>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\shader.h
+	"Graphics.h"
+	<iostream>
+	<cstdlib>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\shaderprogram.h
+	<iostream>
+	<vector>
+	<map>
+	<string>
+	"Shader.h"
+
+1313427287 source:c:\users\10049190.portoalegre\desktop\base\source\pausestate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	"CGame.h"
+	"CFont.h"
+	"PauseState.h"
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\pausestate.h
+	<SDL.h>
+	"CGameState.h"
+	"CImage.h"
+
+1313427310 source:c:\users\10049190.portoalegre\desktop\base\source\playmap.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMap.h"
+	"PauseState.h"
+
+1313427336 source:c:\users\10049190.portoalegre\desktop\base\source\playmapphysics.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMapPhysics.h"
+	"PauseState.h"
+
+1313427420 source:c:\users\10049190.portoalegre\desktop\base\source\playmaptop.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayMapTop.h"
+	"PauseState.h"
+
+1313427392 source:c:\users\10049190.portoalegre\desktop\base\source\playphysics.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PauseState.h"
+	"PlayPhysics.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\playstate.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PlayState.h"
+	"PauseState.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\shader.cpp
+	"Shader.h"
+	<iostream>
+	<fstream>
+	<string>
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\shadermanager.cpp
+	"ShaderManager.h"
+	"Shader.h"
+	"ShaderProgram.h"
+	<fstream>
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\shaderprogram.cpp
+	"ShaderProgram.h"
+	"ShaderManager.h"
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\texturemanager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1313426632 source:c:\users\10049190.portoalegre\desktop\base\source\main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<cmath>
+	<SDL.h>
+	"CGame.h"
+	"MenuState.h"
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\maploader\tmxloader.cpp
+	"TMXLoader.h"
+	<iomanip>
+	<cmath>
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\maploader\base64.cpp
+	"base64.h"
+	<iostream>
+	<string>
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1313426631 source:c:\users\10049190.portoalegre\desktop\base\source\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1313426632 c:\users\10049190.portoalegre\desktop\base\include\playmapai.h
+	<SDL.h>
+	<irrKlang.h>
+	"CGameState.h"
+	"CSprite.h"
+	"TMXLoader.h"
+
+1313427556 source:c:\users\10049190.portoalegre\desktop\base\source\playmapai.cpp
+	<iostream>
+	<SDL.h>
+	"Graphics.h"
+	<cmath>
+	"CGame.h"
+	"PauseState.h"
+	"PlayMapAI.h"
+
