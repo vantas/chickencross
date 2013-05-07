@@ -10,10 +10,9 @@
 #ifndef PLAY_STATE_H_
 #define PLAY_STATE_H_
 
-#include <SDL.h>
 #include "CGameState.h"
 #include "CSprite.h"
-#include "TMXLoader.h"
+//#include "TMXLoader.h"
 
 class PlayState : public CGameState
 {
@@ -45,8 +44,8 @@ class PlayState : public CGameState
 
     int x, y;
     int dir;
-    CSprite* playSprite1;
-    CSprite* playSprite2;
+    CImage* playSprite1;
+    CImage* playSprite2;
 };
 
 #endif

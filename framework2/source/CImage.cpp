@@ -18,80 +18,20 @@ CImage::CImage()
 
 bool CImage::loadImage(char nomeArq[])
 {
-    SDL_Surface* surf = IMG_Load(nomeArq);
-	if (!surf) {
+    if(!tex.loadFromFile(nomeArq)) {
 		cout << "Error loading " << nomeArq << endl;
 		return false;
 	}
 
-    // power of two ?
-    if(surf->w & (surf->w-1) != 0)
-    {
-        cout << "Warning: " << nomeArq << " width isn't a power of 2!" << endl;
-    }
+	width  = tex.getSize().x;
+	height = tex.getSize().y;
 
-    if(surf->h & (surf->h-1) != 0)
-    {
-        cout << "Warning: " << nomeArq << " height isn't a power of 2!" << endl;
-    }
-
-    // get the number of channels in the SDL surface
-    GLint nOfColors = surf->format->BytesPerPixel;
-    GLenum texture_format;
-
-    if (nOfColors == 4)     // contains an alpha channel
-    {
-        cout << nomeArq << " has alpha" << endl;
-        if (surf->format->Rmask == 0x000000ff)
-            texture_format = GL_RGBA;
-        else
-            texture_format = GL_BGRA;
-    }
-    else if (nOfColors == 3)       // no alpha channel
-    {
-        cout << nomeArq << " has no alpha" << endl;
-        if (surf->format->Rmask == 0x000000ff)
-            texture_format = GL_RGB;
-        else
-            texture_format = GL_BGR;
-    }
-    else
-    {
-        cout << "Warning: " << nomeArq << " is not truecolor..  this will probably break" << endl;
-        // this error should not go unhandled
-    }
-
-	width  = surf->w;
-	height = surf->h;
-
-    texture = TextureManager::getInstance()->findTexture(nomeArq);
-
-    if(texture == -1) {
-        // 2nd time, now we get the texture id
-        texture = TextureManager::getInstance()->findTexture(nomeArq);
-
-        // Bind the texture object
-        glBindTexture(GL_TEXTURE_2D, texture);
-
-        // Set the texture's stretching properties
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        // Set the texture's repeating properties
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-        // Edit the texture object's image data using the information SDL_Surface gives us
-        
-        glTexImage2D( GL_TEXTURE_2D, 0, nOfColors, surf->w, surf->h, 0,
-                     texture_format, GL_UNSIGNED_BYTE, surf->pixels );
-    }
-
-    // Finally, free the SDL surface
-    SDL_FreeSurface(surf);
+//    texture = TextureManager::getInstance()->findTexture(nomeArq);
 
     xOffset = width/2;
     yOffset = height/2;
+
+    sprite.setTexture(tex);
 
 	return true;
 }
@@ -113,6 +53,7 @@ void CImage::setPosition(float x, float y)
 void CImage::setY(float y)
 {
     this->y = y;
+    sprite.setPosition(x,y);
 }
 
 /** @brief setX
@@ -122,6 +63,7 @@ void CImage::setY(float y)
 void CImage::setX(float x)
 {
     this->x = x;
+    sprite.setPosition(x,y);
 }
 
 /** @brief setRotation
@@ -131,6 +73,7 @@ void CImage::setX(float x)
 void CImage::setRotation(float r)
 {
     this->rotation = r;
+    sprite.setRotation(r);
 }
 
 /** @brief setScale
@@ -140,47 +83,15 @@ void CImage::setRotation(float r)
 void CImage::setScale(float s)
 {
     this->scale = s;
+    sprite.setScale(s,s);
 }
 
 // Funcao que desenha a imagem toda e sera sobrescrita nas subclasses.
-void CImage::draw()
+void CImage::draw(sf::RenderWindow* screen)
 {
     if(!visible) return;
 
-    float u1 = xTexOffset;
-    float v1 = yTexOffset;
-    float u2 = xTexOffset+1;
-    float v2 = yTexOffset+1;
-
-    if(!glIsEnabled(GL_TEXTURE_2D))
-       glEnable(GL_TEXTURE_2D);
-    glBindTexture( GL_TEXTURE_2D, texture );
-
-    glPushMatrix();
-    glTranslatef(xOffset,yOffset,0);
-    glTranslatef(x,y,0);
-    glRotatef(rotation, 0, 0, 1);
-    glScalef(scale, scale, 1);
-    glTranslatef(-xOffset,-yOffset,0);
-    glBegin( GL_QUADS );
-
-    //Bottom-left vertex (corner)
-    glTexCoord2f( u1, v1 );
-    glVertex3f( 0, 0, 0.0f );
-
-    //Bottom-right vertex (corner)
-    glTexCoord2f( u2, v1 );
-    glVertex3f( width, 0, 0.f );
-
-    //Top-right vertex (corner)
-    glTexCoord2f( u2, v2 );
-    glVertex3f( width, height, 0.f );
-
-    //Top-left vertex (corner)
-    glTexCoord2f( u1, v2 );
-    glVertex3f( 0, height, 0.f );
-    glEnd();
-    glPopMatrix();
+    screen->draw(sprite);
 }
 
 void CImage::setXOffset(float xo)

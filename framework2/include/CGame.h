@@ -2,18 +2,17 @@
  *  CGame.h
  *  Main game class
  *
- *  Created by Marcelo Cohen on 04/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Created by Marcelo Cohen on 05/13.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 
 #ifndef CGAME_H
 #define CGAME_H
 
-#include <SDL.h>
-#include "Graphics.h"
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <stack>
-//#include <irrKlang.h>
 
 class CGameState;
 
@@ -22,7 +21,7 @@ class CGame
     public:
 
         CGame(int minFrameRate=15, int maxFrameRate=20);
-        void init(const char* title, int width, int height, int bpp, bool fullscreen);
+        void init(const char* title, int width, int height, bool fullscreen);
         void handleEvents();
         void changeState(CGameState* state);
         void pushState(CGameState* state);
@@ -34,7 +33,7 @@ class CGame
         void quit()    { running = false; }
         void resize(int w, int h);
         void updateCamera();
-        SDL_Surface* getScreen() { return screen; }
+        sf::RenderWindow* getScreen() { return screen; }
         static void printAttributes();
         double getUpdateInterval() { return updateInterval; }
 
@@ -56,7 +55,7 @@ class CGame
 
     private:
 
-        SDL_Surface* screen;
+        sf::RenderWindow* screen;
         bool running;
         bool fullscreen;
         int bpp; // bits per pixel (screen colour depth)
@@ -67,6 +66,7 @@ class CGame
         float panX;
         float panY;
         // Fixed interval time-based animation
+        sf::Clock gameClock;
         int minFrameRate;
         int maxFrameRate;
         double updateInterval;

@@ -10,7 +10,6 @@
 #include <string>
 #include <cmath>
 
-#include <SDL.h>
 #include "CGame.h"
 #include "MenuState.h"
 
@@ -18,7 +17,7 @@ int main(int argc, char **argv)
 {
     CGame game(5,30);
 
-	game.init("Framework com estados, sprites e tiling",800,600,0,false);
+	game.init("Framework com estados, sprites e tiling",800,600,false);
 
     game.changeState(MenuState::instance());
 

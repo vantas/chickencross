@@ -9,13 +9,12 @@
 
 
 #include <iostream>
-#include <SDL.h>
-#include "Graphics.h"
 #include "CGame.h"
+#include "InputManager.h"
 #include "MenuState.h"
 #include "PlayState.h"
-#include "PlayMap.h"
-#include "PlayMapTop.h"
+//#include "PlayMap.h"
+//#include "PlayMapTop.h"
 //#include "PlayMapAI.h"
 //#include "PlayPhysics.h"
 //#include "PlayMapPhysics.h"
@@ -26,56 +25,60 @@ using namespace std;
 
 void MenuState::init()
 {
-	menuSprite = new CImage();
-	menuSprite->loadImage("data/img/menu.png"); // load menu state bitmap
-	cout << "MenuState Init Successful" << endl;
+    menuSprite = new CImage();
+    menuSprite->loadImage("data/img/menu.png"); // load menu state bitmap
+    cout << "MenuState Init Successful" << endl;
 }
 
 void MenuState::cleanup()
 {
     delete menuSprite;
-	cout << "MenuState Cleanup Successful" << endl;
+    cout << "MenuState Cleanup Successful" << endl;
 }
 
 void MenuState::pause()
 {
-	cout << "MenuState Paused" << endl;
+    cout << "MenuState Paused" << endl;
 }
 
 void MenuState::resume()
 {
-	cout << "MenuState Resumed" << endl;
+    cout << "MenuState Resumed" << endl;
 }
 
 void MenuState::handleEvents(CGame* game)
 {
-	SDL_Event event;
+    sf::Event event;
+    sf::RenderWindow* screen = game->getScreen();
 
-    if (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				game->quit();
-				break;
+    while (screen->pollEvent(event))
+    {
+        // check the type of the event...
+        switch (event.type)
+        {
+            // window closed
+        case sf::Event::Closed:
+            game->quit();
+            break;
 
-			case SDL_KEYDOWN:
-                switch(event.key.keysym.sym) {
+            // key pressed
+        case sf::Event::KeyPressed:
+            if(event.key.code == sf::Keyboard::Space)
+                game->changeState(PlayState::instance());
+            if(event.key.code == sf::Keyboard::Escape)
+                game->quit();
+            //game->changeState(PlayMap::instance());
+            //game->changeState(PlayMapTop::instance());
+            //game->changeState(PlayMapAI::instance());
+            //game->changeState(PlayPhysics::instance());
+            //game->changeState(PlayMapPhysics::instance());
+            break;
 
-                    case SDLK_SPACE:
-                        //game->changeState(PlayState::instance());
-                        game->changeState(PlayMap::instance());
-                        //game->changeState(PlayMapTop::instance());
-                        //game->changeState(PlayMapAI::instance());
-                        //game->changeState(PlayPhysics::instance());
-                        //game->changeState(PlayMapPhysics::instance());
-                        break;
-                    case SDLK_ESCAPE:
-                        game->quit();
-                        break;
-                    default:
-                        break;
-                }
-		}
-	}
+            // we don't process other types of events
+        default:
+            break;
+        }
+    }
 }
 
 void MenuState::update(CGame* game)
@@ -84,10 +87,7 @@ void MenuState::update(CGame* game)
 
 void MenuState::draw(CGame* game)
 {
-    glClearColor(0.6,0.6,0.6,1); // gray
-    glClear(GL_COLOR_BUFFER_BIT);
     menuSprite->setPosition(50,50);
-    menuSprite->draw();
-    SDL_GL_SwapBuffers();
+    menuSprite->draw(game->getScreen());
 }
 

@@ -29,34 +29,14 @@ CGame::CGame(int minFrameRate, int maxFrameRate)
     panX = panY = 0; // camera panning
 }
 
-void CGame::init(const char* title, int width, int height, int bpp, bool fullscreen)
+void CGame::init(const char* title, int width, int height, bool fullscreen)
 {
-    flags = SDL_OPENGL | SDL_RESIZABLE;
-    this->bpp = bpp;
-
-	// initialize SDL
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	// set the title bar text
-	SDL_WM_SetCaption(title, title);
-
-	if ( fullscreen ) {
-		flags |= SDL_FULLSCREEN;
-	}
-
-    // Request double-buffered OpenGL
-    SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER, 1);
-
-    // Request 16 bit depth buffer - not used
-    //value = 16;
-    //SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE, value);
-
-	// create the screen surface
-	screen = SDL_SetVideoMode(width, height, bpp, flags);
+    screen = new sf::RenderWindow(sf::VideoMode(width, height), title);
+//    screen-
 
     // Enable transparency through blending
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     xmin = 0;
     xmax = width;
@@ -76,29 +56,20 @@ void CGame::init(const char* title, int width, int height, int bpp, bool fullscr
 
 //	glewInit();
 
-	printf("Game Initialised Succesfully\n");
+	cout << "Game Initialised Succesfully" << endl;
 }
 
 
 void CGame::printAttributes ()
 {
-    int nAttr;
-    int i;
-
-    SDL_GLattr attr[] = { SDL_GL_RED_SIZE, SDL_GL_BLUE_SIZE, SDL_GL_GREEN_SIZE,
-                    SDL_GL_ALPHA_SIZE, SDL_GL_BUFFER_SIZE, SDL_GL_DEPTH_SIZE };
-
-	std::string desc[] = { "Red size:", "Blue size:", "Green size:",
-                     "Alpha size:", "Color buffer size:",
-                     "Depth bufer size:" };
-
-    nAttr = sizeof(attr) / sizeof(int);
-
-    for (i = 0; i < nAttr; i++) {
-
-        int value;
-        SDL_GL_GetAttribute (attr[i], &value);
-        //cout << desc[i] << " " << value << " bits" << endl;
+    return;
+    std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+    for (std::size_t i = 0; i < modes.size(); ++i)
+    {
+        sf::VideoMode mode = modes[i];
+        std::cout << "Mode #" << i << ": "
+                  << mode.width << "x" << mode.height << " - "
+                  << mode.bitsPerPixel << " bpp" << std::endl;
     }
 }
 
@@ -136,6 +107,7 @@ void CGame::setZoom(float z)
 
 void CGame::updateCamera()
 {
+    /*
     // Setup 2D projection
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
@@ -154,6 +126,7 @@ void CGame::updateCamera()
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     glViewport(0,0,screen->w,screen->h);
+    */
 }
 
 float CGame::getWidth()
@@ -170,8 +143,8 @@ float CGame::getHeight()
 
 void CGame::resize(int w, int h)
 {
-    screen = SDL_SetVideoMode(w, h, bpp, flags);
-    assert(screen != NULL);
+    //screen = SDL_SetVideoMode(w, h, bpp, flags);
+    //assert(screen != NULL);
     updateCamera();
 }
 
@@ -218,7 +191,8 @@ void CGame::update()
 {
     double currentTime, updateIterations;
 
-    currentTime = SDL_GetTicks();
+    currentTime = gameClock.getElapsedTime().asMilliseconds();
+    //currentTime = SDL_GetTicks();
     updateIterations = ((currentTime - lastFrameTime) + cyclesLeftOver);
 
     if (updateIterations > maxCyclesPerFrame * updateInterval) {
@@ -239,7 +213,9 @@ void CGame::update()
 void CGame::draw()
 {
     // let the state draw the screen
+    screen->clear();
 	states.top()->draw(this);
+	screen->display();
 }
 
 void CGame::clean()
@@ -248,6 +224,6 @@ void CGame::clean()
 		states.top()->cleanup();
 		states.pop();
 	}
-    SDL_Quit();
+//    SDL_Quit();
 //    audioEngine->drop();
 }

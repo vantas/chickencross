@@ -2,14 +2,14 @@
 #define CIMAGE_H
 
 #include <iostream>
-#include <SDL.h>
-#include "Graphics.h"
-#include <SDL_image.h>
+#include <SFML/Graphics.hpp>
+//#include "Graphics.h"
 
 class CImage
 {
 	protected:
-		GLuint texture;     // texture id for this image
+	    sf::Texture tex;
+	    sf::Sprite sprite;
 		int width, height;	// image width and height
         float x, y;
         float scale;
@@ -19,12 +19,12 @@ class CImage
         float xTexOffset;   // offset to apply to tex coords (for parallax, etc)
         float yTexOffset;
         bool visible;
-		
+
 	public:
 		CImage();
 		virtual ~CImage();
 		bool loadImage(char nomeArq[]);
-        virtual void draw();
+        virtual void draw(sf::RenderWindow* screen);
 		int getWidth()  { return width; }
 		int getHeight() { return height; }
 		void setX(float x);
