@@ -12,6 +12,7 @@
 
 #include "CGameState.h"
 #include "CSprite.h"
+#include "InputManager.h"
 //#include "TMXLoader.h"
 
 class PlayState : public CGameState
@@ -43,9 +44,10 @@ class PlayState : public CGameState
     static PlayState m_PlayState;
 
     int x, y;
-    int dir;
+    int dirx, diry;
     CImage* playSprite1;
     CImage* playSprite2;
+    InputManager* im;
 };
 
 #endif

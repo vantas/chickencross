@@ -15,19 +15,33 @@ public:
         JoystickInput
     };
 
+    // Implement Singleton Pattern
+    static InputManager* instance()
+    {
+        return &m_InputManager;
+    }
+
+    void addKeyInput(sf::String name, sf::Keyboard::Key keyCode);
+    void addMouseInput(sf::String name, sf::Mouse::Button mouseButton);
+    bool testEvent(sf::String name);
+
+    protected:
+
+    InputManager() {}
+
 private:
 
     struct MyKeys
     {
         InputType myInputType;
-        sf::Event::EventType myEventType;
         sf::Keyboard::Key myKeyCode;
         sf::Mouse::Button myMouseButton;
     };
 
-    static std::map<std::string,MyKeys> keys;
-    static void addKeyInput(sf::String name, sf::Event::EventType etype, sf::Keyboard::Key keyCode);
-    static void addMouseInput(sf::String name, sf::Event::EventType etype, sf::Mouse::Button mouseButton);
+    typedef std::map<std::string,MyKeys>  mapT;
+    mapT keys;
+
+    static InputManager m_InputManager;
 };
 
 #endif // INPUT_MANAGER_H

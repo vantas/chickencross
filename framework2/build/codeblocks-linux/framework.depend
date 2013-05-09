@@ -490,9 +490,10 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1367962122 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1368133786 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"CGameState.h"
 	"CSprite.h"
+	"InputManager.h"
 
 1367616104 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayMap.h
 	<SDL.h>
@@ -500,12 +501,13 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1367963730 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1368134619 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"CGame.h"
 	"PlayState.h"
 	"PauseState.h"
+	"InputManager.h"
 
 1367615484 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
 	"TextureManager.h"
@@ -923,7 +925,10 @@
 	<string>
 	<vector>
 
-1367964508 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/InputManager.h
+1368134328 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/InputManager.h
 	<map>
 	<SFML/Graphics.hpp>
+
+1368134401 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/InputManager.cpp
+	"InputManager.h"
 

@@ -12,6 +12,7 @@
 #include "CGame.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "InputManager.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -34,7 +35,18 @@ void PlayState::init()
 	playSprite2->setPosition(10,300);
 //	playSprite2->setAnimRate(10);        // quadros/segundo
 //	playSprite2->setXspeed(30);         // pixels/segundo
-    dir = 1; // direção do sprite: para a direita (1), esquerda (-1)
+    dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
+    diry = 0;
+
+    im = InputManager::instance();
+
+    im->addKeyInput("left", sf::Keyboard::Left);
+    im->addKeyInput("right", sf::Keyboard::Right);
+    im->addKeyInput("up", sf::Keyboard::Up);
+    im->addKeyInput("down", sf::Keyboard::Down);
+    im->addKeyInput("quit", sf::Keyboard::Escape);
+    im->addMouseInput("rightclick", sf::Mouse::Right);
+
 	cout << "PlayState Init Successful" << endl;
 }
 
@@ -62,43 +74,42 @@ void PlayState::handleEvents(CGame* game)
 
     while (screen->pollEvent(event))
     {
-        // check the type of the event...
-        switch (event.type)
-        {
-            // window closed
-        case sf::Event::Closed:
+        if(event.type == sf::Event::Closed)
             game->quit();
-            break;
-
-            // key pressed
-        case sf::Event::KeyPressed:
-            if(event.key.code == sf::Keyboard::Escape)
-                game->quit();
-            //if(event.key.code == sf::Keyboard::P)
-            //    game->pushState(PauseState::instance());
-            if(event.key.code == sf::Keyboard::Left)
-                dir = 1;
-            if(event.key.code == sf::Keyboard::Right)
-                dir = -1;
-             //game->changeState(PlayMap::instance());
-            //game->changeState(PlayMapTop::instance());
-            //game->changeState(PlayMapAI::instance());
-            //game->changeState(PlayPhysics::instance());
-            //game->changeState(PlayMapPhysics::instance());
-            break;
-
-            // we don't process other types of events
-        default:
-            break;
-        }
     }
+
+    dirx = diry = 0;
+
+    if(im->testEvent("left"))
+        dirx = -1;
+
+    if(im->testEvent("right"))
+        dirx = 1;
+
+    if(im->testEvent("up"))
+        diry = -1;
+
+    if(im->testEvent("down"))
+        diry = 1;
+
+    if(im->testEvent("quit") || im->testEvent("rightclick"))
+        game->quit();
+
+    //game->changeState(PlayMap::instance());
+    //game->changeState(PlayMapTop::instance());
+    //game->changeState(PlayMapAI::instance());
+    //game->changeState(PlayPhysics::instance());
+    //game->changeState(PlayMapPhysics::instance());
 }
 
 void PlayState::update(CGame* game)
 {
     float x = playSprite1->getX();
-    x += dir;
+    float y = playSprite1->getY();
+    x += dirx*5;
+    y += diry*5;
     playSprite1->setX(x);
+    playSprite1->setY(y);
 //    playSprite1->update(game->getUpdateInterval());
 //    playSprite1->update(game->getUpdateInterval());
 //    playSprite2->update(game->getUpdateInterval());

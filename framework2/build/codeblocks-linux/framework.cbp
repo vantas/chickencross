@@ -52,12 +52,12 @@
 		<Unit filename="../../include/CGame.h" />
 		<Unit filename="../../include/CGameState.h" />
 		<Unit filename="../../include/CImage.h" />
-		<Unit filename="../../include/InputManager.cpp" />
 		<Unit filename="../../include/InputManager.h" />
 		<Unit filename="../../include/MenuState.h" />
 		<Unit filename="../../include/PlayState.h" />
 		<Unit filename="../../source/CGame.cpp" />
 		<Unit filename="../../source/CImage.cpp" />
+		<Unit filename="../../source/InputManager.cpp" />
 		<Unit filename="../../source/MenuState.cpp" />
 		<Unit filename="../../source/PlayState.cpp" />
 		<Unit filename="../../source/main.cpp" />
