@@ -8,7 +8,7 @@
 class CImage
 {
 	protected:
-	    sf::Texture tex;
+	    sf::Texture* tex;
 	    sf::Sprite sprite;
 		int width, height;	// image width and height
         float x, y;

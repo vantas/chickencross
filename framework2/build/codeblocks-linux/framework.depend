@@ -10,7 +10,7 @@
 	"CImage.h"
 	"TexRect.h"
 
-1367963305 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
+1374872722 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
 	<iostream>
 	<SFML/Graphics.hpp>
 
@@ -218,14 +218,15 @@
 
 1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/TexRect.h
 
-1367963409 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
+1374872775 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
 	"CImage.h"
 	"TextureManager.h"
 
-1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/TextureManager.h
+1374872676 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/TextureManager.h
 	"Graphics.h"
 	<map>
 	<string>
+	<SFML/Graphics.hpp>
 
 1367615484 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CMultiImage.cpp
 	<iostream>
@@ -490,7 +491,7 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1368133786 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1374872811 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"CGameState.h"
 	"CSprite.h"
 	"InputManager.h"
@@ -501,7 +502,7 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1368134619 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1374872841 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"CGame.h"
@@ -509,7 +510,7 @@
 	"PauseState.h"
 	"InputManager.h"
 
-1367615484 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
+1374873017 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
 	"TextureManager.h"
 	<iostream>
 

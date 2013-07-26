@@ -13,25 +13,28 @@ CImage::CImage()
 	rotation = 0;
 	x = 0;
     y = 0;
+    tex = NULL;
     visible = true;
 }
 
 bool CImage::loadImage(char nomeArq[])
 {
-    if(!tex.loadFromFile(nomeArq)) {
-		cout << "Error loading " << nomeArq << endl;
-		return false;
-	}
+    tex = TextureManager::getInstance()->findTexture(nomeArq);
 
-	width  = tex.getSize().x;
-	height = tex.getSize().y;
+//    if(!tex.loadFromFile(nomeArq)) {
+//		cout << "Error loading " << nomeArq << endl;
+//		return false;
+//	}
+
+	width  = tex->getSize().x;
+	height = tex->getSize().y;
 
 //    texture = TextureManager::getInstance()->findTexture(nomeArq);
 
     xOffset = width/2;
     yOffset = height/2;
 
-    sprite.setTexture(tex);
+    sprite.setTexture(*tex);
 
 	return true;
 }

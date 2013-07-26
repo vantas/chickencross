@@ -47,6 +47,7 @@ class PlayState : public CGameState
     int dirx, diry;
     CImage* playSprite1;
     CImage* playSprite2;
+    CImage* playSprite3;
     InputManager* im;
 };
 

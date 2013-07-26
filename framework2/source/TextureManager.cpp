@@ -2,8 +2,8 @@
  *  TextureManager.cpp
  *  framework
  *
- *  Created by Marcelo Cohen on 04/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Created by Marcelo Cohen on 07/13.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 
@@ -22,29 +22,28 @@ TextureManager::TextureManager()
 TextureManager::~TextureManager()
 {
     //dtor
-    cout << "~TextureManager: " << imgs.size() << endl;
-    map<string,GLuint>::iterator it = imgs.begin();
+    cout << "~TextureManager: deleting " << imgs.size() << endl;
+    map<string,sf::Texture*>::iterator it = imgs.begin();
     while(it != imgs.end())
     {
-        GLuint tex = (*it).second;
-        cout << tex << endl;
-        glDeleteTextures(1, &tex);
+        sf::Texture* tex = (*it).second;
+        delete tex;
         it++;
     }
 }
 
-GLuint TextureManager::findTexture(char* nomeArq)
+sf::Texture* TextureManager::findTexture(char* nomeArq)
 {
-    GLuint tex;
     if(imgs.find(nomeArq) == imgs.end()) {
-        cout << "New texture: " << nomeArq << endl;
-        // New texture, generate texture id
-        glGenTextures(1, &tex);
+        cout << "New texture: " << nomeArq;
+        sf::Texture* tex = new sf::Texture();
+        tex->loadFromFile(nomeArq);
+        cout << " (" << tex->getSize().x << " x " << tex->getSize().y << ")" << endl;
         imgs[nomeArq] = tex;
-        return -1;
+        return tex;
     }
     // Return texture id
-    cout << "Existing texture: " << nomeArq << " (" << imgs[nomeArq] << ")" << endl;
+    cout << "Existing texture: " << nomeArq << " (" << imgs[nomeArq]->getSize().x << " x " << imgs[nomeArq]->getSize().y << ")" << endl;
     return imgs[nomeArq];
 }
 
@@ -57,8 +56,9 @@ void TextureManager::releaseTexture(char* nomeArq)
 {
     if(imgs.find(nomeArq) != imgs.end())
     {
-        GLuint tex = imgs[nomeArq];
+        sf::Texture* tex = imgs[nomeArq];
         imgs.erase(nomeArq);
-        glDeleteTextures(1, &tex);
+        delete tex;
+        //glDeleteTextures(1, &tex);
     }
 }

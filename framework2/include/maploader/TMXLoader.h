@@ -3,6 +3,7 @@
 
 #include "../CMultiImage.h"
 
+#include <GL/gl.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -47,6 +48,8 @@ struct Layer
     double opacity;
 };
 
+class CGame;
+
 class TMXLoader : public TiXmlVisitor
 {
     public:
@@ -76,7 +79,7 @@ class TMXLoader : public TiXmlVisitor
         int getNumMapColumns() { return m_NumMapColumns; }
         int getNumMapRows() { return m_NumMapRows; }
 
-        void draw();
+        void draw(CGame* game);
 
         // Return center of cell in world units
         void getCenter(int col, int row, float& x, float& y);

@@ -1,4 +1,5 @@
 #include "TMXLoader.h"
+#include "CGame.h"
 #include <iomanip>
 #include <cmath>
 
@@ -261,7 +262,7 @@ void TMXLoader::decode_and_store_map_data(string encoded_data)
     #endif
 }
 
-void TMXLoader::draw()
+void TMXLoader::draw(CGame* game)
 {
     float origRot = tilesets[0].img->getRotation();
     float origScale = tilesets[0].img->getScale();
@@ -336,7 +337,7 @@ void TMXLoader::draw()
         // Draw this layer's image objects
         for(int o=0; o<m_Images.size(); o++)
             if(m_Images[o].layer == layer)
-                m_Images[o].img->draw();
+                m_Images[o].img->draw(game->getScreen());
     }
     tilesets[0].img->setX(x);
     tilesets[0].img->setY(y);
