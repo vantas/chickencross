@@ -88,6 +88,7 @@ void MenuState::update(CGame* game)
 void MenuState::draw(CGame* game)
 {
     menuSprite->setPosition(50,50);
-    menuSprite->draw(game->getScreen());
+//    menuSprite->draw(game->getScreen());
+    game->getScreen()->draw(*menuSprite);
 }
 

@@ -20,27 +20,23 @@ using namespace std;
 
 void PlayState::init()
 {
-	playSprite1 = new CImage();
-    playSprite2 = new CImage();
-    playSprite3 = new CImage();
-
 	//playSprite->loadSprite("player.png", 36, 44, 0, 0, 0, 0, 7, 1, 7);
 	//playSprite->loadSprite("char2.png", 128,128,0,0,0,53,4,2,7);
 	//playSprite->loadSprite("char4.png",128,128,0,0,0,21,4,3,10);
 //	playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    playSprite1->loadImage("data/img/Char14.png");
-	playSprite1->setPosition(10,100);
+    playSprite1.loadImage("data/img/Char14.png");
+	playSprite1.setPosition(10,100);
 
 //	playSprite1->setAnimRate(30);        // quadros/segundo
 //	playSprite1->setXspeed(200);         // pixels/segundo
 //    playSprite2->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    playSprite2->loadImage("data/img/Char01.png");
-	playSprite2->setPosition(10,300);
+    playSprite2.loadImage("data/img/Char01.png");
+	playSprite2.setPosition(10,300);
 
-	playSprite3->loadImage("data/img/Char01.png");
-	playSprite3->setPosition(50,300);
+	playSprite3.loadImage("data/img/Char01.png");
+	playSprite3.setPosition(50,300);
 
 //	playSprite2->setAnimRate(10);        // quadros/segundo
 //	playSprite2->setXspeed(30);         // pixels/segundo
@@ -62,9 +58,6 @@ void PlayState::init()
 
 void PlayState::cleanup()
 {
-    delete playSprite1;
-    delete playSprite2;
-    delete playSprite3;
 	cout << "PlayState Clean Successful" << endl;
 }
 
@@ -115,12 +108,11 @@ void PlayState::handleEvents(CGame* game)
 
 void PlayState::update(CGame* game)
 {
-    float x = playSprite1->getX();
-    float y = playSprite1->getY();
+    float x = playSprite1.getPosition().x;
+    float y = playSprite1.getPosition().y;
     x += dirx*5;
     y += diry*5;
-    playSprite1->setX(x);
-    playSprite1->setY(y);
+    playSprite1.setPosition(x,y);
 //    playSprite1->update(game->getUpdateInterval());
 //    playSprite1->update(game->getUpdateInterval());
 //    playSprite2->update(game->getUpdateInterval());
@@ -135,11 +127,11 @@ void PlayState::draw(CGame* game)
 
     screen->clear(sf::Color(0,0,0));
 
-    playSprite1->setRotation(0);
-    playSprite1->setScale(1);
-    playSprite1->draw(screen);
-    playSprite2->setRotation(0);
-    playSprite2->setScale(1);
-    playSprite2->draw(screen);
-    playSprite3->draw(screen);
+    playSprite1.setRotation(0);
+    playSprite1.setScale(1,1);
+    screen->draw(playSprite1);
+    playSprite2.setRotation(0);
+    playSprite2.setScale(1,1);
+    screen->draw(playSprite2);
+    screen->draw(playSprite3);
 }
