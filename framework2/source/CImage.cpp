@@ -5,7 +5,7 @@ using namespace std;
 
 TextureManager* CImage::tm = TextureManager::getInstance();
 
-CImage::CImage() : sf::Sprite()
+CImage::CImage()
 {
     tex = NULL;
     visible = true;
@@ -32,4 +32,16 @@ bool CImage::loadImage(char nomeArq[])
 
 	return true;
 }
+
+/*
+void CImage::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    if(!visible) return;
+
+    states.transform *= getTransform();
+    states.texture = getTexture();
+    target.draw(*this, states);
+}
+*/
+
 

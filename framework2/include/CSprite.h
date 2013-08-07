@@ -40,15 +40,8 @@ class CSprite : public CMultiImage, public TiXmlVisitor
         bool circleCollision(CSprite* other);
 
         // TiXmlVisitor overrides
-        //virtual bool 	VisitEnter  (const TiXmlDocument  &);
-        //virtual bool 	VisitExit (const TiXmlDocument &);
         virtual bool 	VisitEnter (const TiXmlElement &, const TiXmlAttribute *);
-        //virtual bool 	VisitExit (const TiXmlElement &);
-        //virtual bool 	Visit (const TiXmlDeclaration &);
-        //virtual bool 	Visit (const TiXmlText &);
-        //virtual bool 	Visit (const TiXmlComment &);
-        //virtual bool 	Visit (const TiXmlUnknown &);
-    
+
 private:
         double xspeed,yspeed;       // speed in pixels/s
         int updateCount;            // current count of updates

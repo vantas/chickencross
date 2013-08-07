@@ -10,7 +10,7 @@
 	"CImage.h"
 	"TexRect.h"
 
-1375826503 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
+1375913090 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"TextureManager.h"
@@ -219,7 +219,7 @@
 
 1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/TexRect.h
 
-1375826515 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
+1375913070 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
 	"CImage.h"
 	"TextureManager.h"
 
@@ -385,7 +385,7 @@
 	<string>
 	<cmath>
 
-1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
+1375912731 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
 	<vector>
 	"CMultiImage.h"
 	"TexRect.h"

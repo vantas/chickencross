@@ -13,6 +13,9 @@ class CImage : public sf::Sprite
         bool visible;
         static TextureManager* tm;
 
+    //private:
+    //    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 	public:
 		CImage();
 		virtual ~CImage() { }
