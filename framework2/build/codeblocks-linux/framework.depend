@@ -10,7 +10,7 @@
 	"CImage.h"
 	"TexRect.h"
 
-1375913090 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
+1375997591 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CImage.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"TextureManager.h"
@@ -219,7 +219,7 @@
 
 1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/TexRect.h
 
-1375913070 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
+1375997611 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CImage.cpp
 	"CImage.h"
 	"TextureManager.h"
 
@@ -379,17 +379,22 @@
 1367615483 /home/PORTOALEGRE/10049190/hg/ed/framework2/lib/Box2D-2.1.0/include/Box2D/Dynamics/Joints/b2WeldJoint.h
 	<Box2D/Dynamics/Joints/b2Joint.h>
 
-1367615484 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
+1376000116 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
 	"CSprite.h"
 	<iostream>
 	<string>
 	<cmath>
 
-1375912731 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
+1376000062 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
 	<vector>
-	"CMultiImage.h"
+	"TextureManager.h"
 	"TexRect.h"
 	"tinyxml.h"
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
 
 1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tinyxml/tinyxml.h
 	<ctype.h>
@@ -492,9 +497,10 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1375826003 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1376000341 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"CGameState.h"
 	"CSprite.h"
+	"CImage.h"
 	"InputManager.h"
 
 1367616104 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayMap.h
@@ -503,7 +509,7 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1375826088 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1376000348 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"CGame.h"

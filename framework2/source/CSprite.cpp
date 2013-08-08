@@ -14,8 +14,10 @@
 
 using namespace std;
 
+TextureManager* CSprite::tm = TextureManager::getInstance();
+
 // Construtor
-CSprite::CSprite() : CMultiImage()
+CSprite::CSprite()
 {
     firstFrame = 0;
     lastFrame = 0;
@@ -23,6 +25,7 @@ CSprite::CSprite() : CMultiImage()
     curframe = 0;
     curframe = 0;
     framedelay = 10;
+    mirror = false;
 }
 
 bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
@@ -41,6 +44,61 @@ bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, i
 	return true;
 }
 
+bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total)
+{
+    tex = tm->findTexture(nomeArq);
+
+    int width  = tex->getSize().x;
+    int height = tex->getSize().y;
+
+    // Check if the input parameters are valid
+	if ( (hSpace<0 || vSpace<0) || (hSpace>width || vSpace>height) )
+		return false;
+
+	if ( xIni<0 || yIni<0 )
+		return false;
+
+	if ( column<1 || row<1 )
+		return false;
+
+    totalFrames = total;
+
+	if (totalFrames < 1)
+		return false;
+
+    int x, y, tot;
+
+    tot = 0;
+    y = yIni;
+
+    for(int r=0; r<row && tot<total; row++)
+    {
+        x = xIni;
+        for(int c=0; c<column && tot<total; c++)
+        {
+            sf::IntRect rect;
+            rect.left = x;
+            rect.width = w;
+            rect.top = y;
+            rect.height = h;
+            frames.push_back(rect);
+
+            x += w + hSpace;
+            tot++;
+        }
+        y += h + vSpace;
+    }
+
+//    xOffset = w/2;
+//    yOffset = h/2;
+
+    //cout << "CMultiImage::load: " << xOffset << " " << yOffset << endl;
+    cout << "CSprite::loadMultimage total frames = " << totalFrames << endl;
+
+    mirror = false;
+    return true;
+}
+
 bool CSprite::loadSpriteSparrowXML(char xmlFile[])
 {
     cout << "CSprite::loadSpriteSparrowXML " << xmlFile << endl;
@@ -54,13 +112,13 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
 
     doc.Accept(this);
 
-    xOffset = spriteW/2;
-    yOffset = spriteH/2;
+//    xOffset = spriteW/2;
+//    yOffset = spriteH/2;
 
-    width = spriteW;
-    height = spriteH;
+//    width = spriteW;
+//    height = spriteH;
 
-    totalFrames = uvs.size();
+    totalFrames = frames.size();
 
     cout << "CSprite::loadSpriteSparrowXML total frames = " << totalFrames << endl;
 
@@ -101,6 +159,24 @@ void CSprite::setCurrentFrame(int c)
 	else
 		curframe = 0;
     curFrameD = curframe;
+
+    //sf::IntRect rect = m_animation->getFrame(m_currentFrame);
+    sf::IntRect rect = frames[curframe];
+
+    vertices[0].position = sf::Vector2f(0, 0);
+    vertices[1].position = sf::Vector2f(0, rect.height);
+    vertices[2].position = sf::Vector2f(rect.width, rect.height);
+    vertices[3].position = sf::Vector2f(rect.width, 0);
+
+    float left = static_cast<float>(rect.left) + 0.0001;
+    float right = left + rect.width;
+    float top = static_cast<float>(rect.top);
+    float bottom = top + rect.height;
+
+    vertices[0].texCoords = sf::Vector2f(left, top);
+    vertices[1].texCoords = sf::Vector2f(left, bottom);
+    vertices[2].texCoords = sf::Vector2f(right, bottom);
+    vertices[3].texCoords = sf::Vector2f(right, top);
 }
 
 /** @brief setFrameRange
@@ -147,13 +223,16 @@ void CSprite::setAnimRate(int fdelay)
 
 // Metodo responsavel por fazer as atualizacoes necessarias para a correta
 // animacao do sprite.
-void CSprite::update(double updateInterval)
+void CSprite::update(double deltaTime)
 {
     // Move sprite according to its speed and the amount of time that has passed
-    x += xspeed/1000*updateInterval;
-    y += yspeed/1000*updateInterval;
+    sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
+//    x += xspeed/1000 * deltaTime;
+//    y += yspeed/1000 * deltaTime;
 
-    curFrameD += (double)framedelay/1000*updateInterval;
+    move(offset);
+
+    curFrameD += (double)framedelay/1000*deltaTime;
     curframe = (int) curFrameD;
     if(curframe > lastFrame) {
         curFrameD = firstFrame;
@@ -161,12 +240,7 @@ void CSprite::update(double updateInterval)
     }
 }
 
-// Draw the sprite
-void CSprite::draw()
-{
-    drawFrame(curframe);
-}
-
+/*
 // Check bounding box collision between this and other sprite
 bool CSprite::bboxCollision(CSprite* other)
 {
@@ -189,7 +263,9 @@ bool CSprite::bboxCollision(CSprite* other)
     return !(x1<x2 || x3<x0 || y1<y2 || y3<y0);
     //return !(x1<other->x || x3<this->x || y1<other->y || y3<this->y);
 }
+*/
 
+/*
 // Check circle collision between this and other sprite
 bool CSprite::circleCollision(CSprite* other)
 {
@@ -202,6 +278,7 @@ bool CSprite::circleCollision(CSprite* other)
    //cout << "distance: " << dist << endl;
    return (dist < radius1 + radius2);
 }
+*/
 
 // TiXml visitor implementation: load texture atlas in Sparrow format (http://www.sparrow-framework.org/)
 bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib)
@@ -219,14 +296,14 @@ bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib
         spriteH = h;
 
         cout << "Texture: " << x1 << " " << y1 << " " << w-1 << " " << h-1 << endl;
-        float u1 = (float)x1/width;
-        float v1 = (float)y1/height;
-        float u2 = (float)(x1+w)/width;
-        float v2 = (float)(y1+h)/height;
-        TexRect rect = { u1, v1, u2, v2 };
-        cout << "Rect: " << rect.u1 << "," << rect.v1
-            << " - " << rect.u2 << "," << rect.v2 << endl;
-        uvs.push_back(rect);
+        sf::IntRect rect;
+        rect.left = x1;
+        rect.width = w;
+        rect.top = y1;
+        rect.height = h;
+        cout << "Rect: " << rect.left << "," << rect.top
+            << " - " << rect.width << "," << rect.height << endl;
+        frames.push_back(rect);
 
         //TODO: get spacing and margin
     }
@@ -235,11 +312,22 @@ bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib
 		string prefix = "data/img/";
         prefix.append(attrib);// = "data/img/"+attrib;
         cout << "TextureAtlas: " << prefix << endl;
-        bool ok = loadImage((char *) prefix.c_str());
-        if(!ok)
-        {
-			cout << "ERROR LOADING SPRITE IMG: " << prefix.c_str() << endl;
-        }
+        tex = tm->findTexture((char *)prefix.c_str());
+//        bool ok = loadImage((char *) prefix.c_str());
+//        if(!ok)
+//        {
+//			cout << "ERROR LOADING SPRITE IMG: " << prefix.c_str() << endl;
+//        }
     }
     return true;
+}
+
+void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+    if (tex)
+    {
+        states.transform *= getTransform();
+        states.texture = tex;
+        target.draw(vertices, 4, sf::Quads, states);
+    }
 }

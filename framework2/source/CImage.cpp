@@ -7,13 +7,12 @@ TextureManager* CImage::tm = TextureManager::getInstance();
 
 CImage::CImage()
 {
-    tex = NULL;
     visible = true;
 }
 
 bool CImage::loadImage(char nomeArq[])
 {
-    tex = tm->findTexture(nomeArq);
+    sf::Texture* tex = tm->findTexture(nomeArq);
 
 //    if(!tex.loadFromFile(nomeArq)) {
 //		cout << "Error loading " << nomeArq << endl;

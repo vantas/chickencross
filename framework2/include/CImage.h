@@ -9,7 +9,6 @@
 class CImage : public sf::Sprite
 {
 	protected:
-	    sf::Texture* tex;
         bool visible;
         static TextureManager* tm;
 

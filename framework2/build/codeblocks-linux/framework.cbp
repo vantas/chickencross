@@ -52,17 +52,25 @@
 		<Unit filename="../../include/CGame.h" />
 		<Unit filename="../../include/CGameState.h" />
 		<Unit filename="../../include/CImage.h" />
+		<Unit filename="../../include/CSprite.h" />
 		<Unit filename="../../include/InputManager.h" />
 		<Unit filename="../../include/MenuState.h" />
 		<Unit filename="../../include/PlayState.h" />
 		<Unit filename="../../include/TextureManager.h" />
+		<Unit filename="../../include/tinyxml/tinystr.h" />
+		<Unit filename="../../include/tinyxml/tinyxml.h" />
 		<Unit filename="../../source/CGame.cpp" />
 		<Unit filename="../../source/CImage.cpp" />
+		<Unit filename="../../source/CSprite.cpp" />
 		<Unit filename="../../source/InputManager.cpp" />
 		<Unit filename="../../source/MenuState.cpp" />
 		<Unit filename="../../source/PlayState.cpp" />
 		<Unit filename="../../source/TextureManager.cpp" />
 		<Unit filename="../../source/main.cpp" />
+		<Unit filename="../../source/tinyxml/tinystr.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxml.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxmlerror.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxmlparser.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -38,6 +38,11 @@ void PlayState::init()
 	playSprite3.loadImage("data/img/Char01.png");
 	playSprite3.setPosition(50,300);
 
+    player.loadSpriteSparrowXML("data/img/smurfwalk.xml");
+//player->loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 4, 4, 16);
+    player.setAnimRate(15);
+//    player.setScale(1);
+
 //	playSprite2->setAnimRate(10);        // quadros/segundo
 //	playSprite2->setXspeed(30);         // pixels/segundo
 
@@ -134,4 +139,8 @@ void PlayState::draw(CGame* game)
     playSprite2.setScale(1,1);
     screen->draw(playSprite2);
     screen->draw(playSprite3);
+
+    player.setPosition(30,30);
+    player.setCurrentFrame(0);
+    screen->draw(player);
 }
