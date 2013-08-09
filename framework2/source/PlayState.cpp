@@ -2,7 +2,7 @@
  *  PlayState.cpp
  *  Normal "play" state
  *
- *  Created by Marcelo Cohen on 07/13.
+ *  Created by Marcelo Cohen on 08/13.
  *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
@@ -38,9 +38,11 @@ void PlayState::init()
 	playSprite3.loadImage("data/img/Char01.png");
 	playSprite3.setPosition(50,300);
 
-    player.loadSpriteSparrowXML("data/img/smurfwalk.xml");
-//player->loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 4, 4, 16);
+    player.loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
+    //player.loadSpriteSparrowXML("data/img/smurfwalk.xml");
+    player.setPosition(30,30);
     player.setAnimRate(15);
+    player.setXspeed(100);
 //    player.setScale(1);
 
 //	playSprite2->setAnimRate(10);        // quadros/segundo
@@ -124,6 +126,18 @@ void PlayState::update(CGame* game)
 
 //    playSprite1->setXspeed(200*dir);
 //    playSprite1->setMirror(dir==1 ? false : true);
+
+    player.rotate(1);
+    //player.setOrigin(64,64);
+    //player.setXspeed(0);
+    player.update(game->getUpdateInterval());
+
+    if(player.getPosition().x > 600)
+    {
+        player.setXspeed(-100);
+        player.setMirror(true);
+    }
+
 }
 
 void PlayState::draw(CGame* game)
@@ -137,10 +151,9 @@ void PlayState::draw(CGame* game)
     screen->draw(playSprite1);
     playSprite2.setRotation(0);
     playSprite2.setScale(1,1);
+
     screen->draw(playSprite2);
     screen->draw(playSprite3);
 
-    player.setPosition(30,30);
-    player.setCurrentFrame(0);
     screen->draw(player);
 }

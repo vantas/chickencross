@@ -37,7 +37,8 @@ sf::Texture* TextureManager::findTexture(char* nomeArq)
     if(imgs.find(nomeArq) == imgs.end()) {
         cout << "New texture: " << nomeArq;
         sf::Texture* tex = new sf::Texture();
-        tex->loadFromFile(nomeArq);
+        if(!tex->loadFromFile(nomeArq))
+            return NULL;
         cout << " (" << tex->getSize().x << " x " << tex->getSize().y << ")" << endl;
         imgs[nomeArq] = tex;
         return tex;

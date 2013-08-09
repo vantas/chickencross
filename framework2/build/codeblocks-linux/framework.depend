@@ -379,13 +379,14 @@
 1367615483 /home/PORTOALEGRE/10049190/hg/ed/framework2/lib/Box2D-2.1.0/include/Box2D/Dynamics/Joints/b2WeldJoint.h
 	<Box2D/Dynamics/Joints/b2Joint.h>
 
-1376000116 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
+1376083129 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
 	"CSprite.h"
 	<iostream>
+	<iomanip>
 	<string>
 	<cmath>
 
-1376000062 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
+1376081199 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
 	<vector>
 	"TextureManager.h"
 	"TexRect.h"
@@ -509,7 +510,7 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1376000348 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1376085888 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"CGame.h"
@@ -517,7 +518,7 @@
 	"PauseState.h"
 	"InputManager.h"
 
-1374873017 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
+1376080919 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
 	"TextureManager.h"
 	<iostream>
 

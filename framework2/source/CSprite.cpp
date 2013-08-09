@@ -9,6 +9,7 @@
 
 #include "CSprite.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <cmath>
 
@@ -41,6 +42,8 @@ bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, i
     curFrameD = 0;
     firstFrame = 0;
     lastFrame = total-1;
+    setCurrentFrame(0);
+    setOrigin(w/2, h/2);
 	return true;
 }
 
@@ -81,6 +84,7 @@ bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpac
             rect.width = w;
             rect.top = y;
             rect.height = h;
+            cout << "frame " << setw(3) << tot << ": " << x << " " << y << " " << w << " " << h << endl;
             frames.push_back(rect);
 
             x += w + hSpace;
@@ -92,8 +96,10 @@ bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpac
 //    xOffset = w/2;
 //    yOffset = h/2;
 
+    //setOrigin(w/2, h/2);
+
     //cout << "CMultiImage::load: " << xOffset << " " << yOffset << endl;
-    cout << "CSprite::loadMultimage total frames = " << totalFrames << endl;
+    cout << "CSprite::loadMultimage total frames = " << total << endl;
 
     mirror = false;
     return true;
@@ -131,6 +137,8 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
     lastFrame = totalFrames-1;
 
     mirror = false;
+    setCurrentFrame(0);
+
     return true;
 }
 
@@ -232,12 +240,15 @@ void CSprite::update(double deltaTime)
 
     move(offset);
 
+    int lastf = curframe;
     curFrameD += (double)framedelay/1000*deltaTime;
     curframe = (int) curFrameD;
     if(curframe > lastFrame) {
         curFrameD = firstFrame;
         curframe = firstFrame;
     }
+    if(curframe != lastf)
+        setCurrentFrame(curframe);
 }
 
 /*
@@ -283,7 +294,7 @@ bool CSprite::circleCollision(CSprite* other)
 // TiXml visitor implementation: load texture atlas in Sparrow format (http://www.sparrow-framework.org/)
 bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib)
 {
-    cout << "CSprite::VisitEnter " << elem.Value() << "*"<< endl;
+    //cout << "CSprite::VisitEnter " << elem.Value() << "*"<< endl;
 	if (elem.Value() == string("SubTexture")) {
 
         int x1, y1, h, w;
@@ -295,14 +306,14 @@ bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib
         spriteW = w;
         spriteH = h;
 
-        cout << "Texture: " << x1 << " " << y1 << " " << w-1 << " " << h-1 << endl;
+        //cout << "Texture: " << x1 << " " << y1 << " " << w-1 << " " << h-1 << endl;
         sf::IntRect rect;
         rect.left = x1;
         rect.width = w;
         rect.top = y1;
         rect.height = h;
-        cout << "Rect: " << rect.left << "," << rect.top
-            << " - " << rect.width << "," << rect.height << endl;
+        cout << "frame " << setw(3) << frames.size() << ": " << rect.left << "," << rect.top
+            << " - " << rect.width << "x" << rect.height << endl;
         frames.push_back(rect);
 
         //TODO: get spacing and margin
@@ -327,6 +338,7 @@ void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
     if (tex)
     {
         states.transform *= getTransform();
+        if(mirror) states.transform.scale(-1,1);
         states.texture = tex;
         target.draw(vertices, 4, sf::Quads, states);
     }

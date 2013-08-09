@@ -31,6 +31,8 @@ public:
     bool loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                 int column, int row, int total);
     bool loadSpriteSparrowXML(char nomeArq[]);
+    void setMirror(bool mirror) { this->mirror = mirror; }
+    bool getMirror() { return mirror; }
     void setXspeed(double xspeed);
     void setYspeed(double yspeed);
     void setCurrentFrame(int c);
