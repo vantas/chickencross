@@ -13,6 +13,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "InputManager.h"
+#include "ClockHUD.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -24,6 +25,9 @@ void PlayState::init()
 	//playSprite->loadSprite("char2.png", 128,128,0,0,0,53,4,2,7);
 	//playSprite->loadSprite("char4.png",128,128,0,0,0,21,4,3,10);
 //	playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
+
+    map = new tmx::MapLoader("data/maps");
+    map->Load("desert.tmx");
 
     playSprite1.loadImage("data/img/Char14.png");
 	playSprite1.setPosition(10,100);
@@ -38,8 +42,8 @@ void PlayState::init()
 	playSprite3.loadImage("data/img/Char01.png");
 	playSprite3.setPosition(50,300);
 
-    player.loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
-    //player.loadSpriteSparrowXML("data/img/smurfwalk.xml");
+    //player.loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
+    player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
     player.setPosition(30,30);
     player.setAnimRate(15);
     player.setXspeed(100);
@@ -60,12 +64,23 @@ void PlayState::init()
     im->addKeyInput("quit", sf::Keyboard::Escape);
     im->addMouseInput("rightclick", sf::Mouse::Right);
 
+    // Load the font; exit on error.
+    if (!font.loadFromFile("data/fonts/arial.ttf"))
+    {
+        sf::err() << "Failed to load arial.ttf";
+        exit(EXIT_FAILURE);
+    }
+
+    hud = new ClockHUD(clock, font);
+    clock.setSampleDepth(100); // Sample 100 frames for averaging.
+
 	cout << "PlayState Init Successful" << endl;
 }
 
 void PlayState::cleanup()
 {
 	cout << "PlayState Clean Successful" << endl;
+	delete map;
 }
 
 void PlayState::pause()
@@ -127,7 +142,7 @@ void PlayState::update(CGame* game)
 //    playSprite1->setXspeed(200*dir);
 //    playSprite1->setMirror(dir==1 ? false : true);
 
-    player.rotate(1);
+    //player.rotate(1);
     //player.setOrigin(64,64);
     //player.setXspeed(0);
     player.update(game->getUpdateInterval());
@@ -137,14 +152,22 @@ void PlayState::update(CGame* game)
         player.setXspeed(-100);
         player.setMirror(true);
     }
+    if(player.getPosition().x < 50)
+    {
+        player.setXspeed(100);
+        player.setMirror(false);
+    }
 
 }
 
 void PlayState::draw(CGame* game)
 {
+    clock.beginFrame();
     sf::RenderWindow* screen = game->getScreen();
+    sf::View view = screen->getView();
 
     screen->clear(sf::Color(0,0,0));
+    //map->Draw(*screen);
 
     playSprite1.setRotation(0);
     playSprite1.setScale(1,1);
@@ -156,4 +179,10 @@ void PlayState::draw(CGame* game)
     screen->draw(playSprite3);
 
     screen->draw(player);
+
+    // Draw the frame statistics.
+    sf::Vector2f pos = view.getCenter() - view.getSize()/2.f;
+    hud->setPosition(pos);
+    screen->draw(*hud);
+    clock.endFrame();
 }

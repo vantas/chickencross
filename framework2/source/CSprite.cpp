@@ -43,7 +43,7 @@ bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, i
     firstFrame = 0;
     lastFrame = total-1;
     setCurrentFrame(0);
-    setOrigin(w/2, h/2);
+    //setOrigin(w/2, h/2);
 	return true;
 }
 
@@ -180,6 +180,12 @@ void CSprite::setCurrentFrame(int c)
     float right = left + rect.width;
     float top = static_cast<float>(rect.top);
     float bottom = top + rect.height;
+
+    if(mirror) {
+        float tmp = left;
+        left = right;
+        right = tmp;
+    }
 
     vertices[0].texCoords = sf::Vector2f(left, top);
     vertices[1].texCoords = sf::Vector2f(left, bottom);
@@ -338,7 +344,7 @@ void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
     if (tex)
     {
         states.transform *= getTransform();
-        if(mirror) states.transform.scale(-1,1);
+        //if(mirror) states.transform.scale(-1,1);
         states.texture = tex;
         target.draw(vertices, 4, sf::Quads, states);
     }

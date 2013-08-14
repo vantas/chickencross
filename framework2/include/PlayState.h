@@ -14,6 +14,8 @@
 #include "CSprite.h"
 #include "CImage.h"
 #include "InputManager.h"
+#include <MapLoader.h>
+#include "ClockHUD.h"
 //#include "TMXLoader.h"
 
 class PlayState : public CGameState
@@ -51,6 +53,10 @@ class PlayState : public CGameState
     CImage playSprite3;
     CSprite player;
     InputManager* im;
+    tmx::MapLoader* map;
+    sf::Font font;
+    sfx::FrameClock clock;
+    ClockHUD* hud;
 };
 
 #endif
