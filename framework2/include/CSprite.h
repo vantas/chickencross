@@ -13,7 +13,8 @@
 #include <vector>
 #include "TextureManager.h"
 #include "TexRect.h"
-#include "tinyxml.h"
+#include "pugixml/pugixml.hpp"
+//#include "tinyxml.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Drawable.hpp>
@@ -22,7 +23,7 @@
 
 //#include "Animation.hpp"
 
-class CSprite : public sf::Drawable, public sf::Transformable, public TiXmlVisitor
+class CSprite : public sf::Drawable, public sf::Transformable
 {
 public:
     CSprite();
@@ -49,7 +50,7 @@ public:
     bool circleCollision(CSprite* other);
 
     // TiXmlVisitor overrides
-    virtual bool 	VisitEnter (const TiXmlElement &, const TiXmlAttribute *);
+    //virtual bool 	VisitEnter (const TiXmlElement &, const TiXmlAttribute *);
 
 //    void setAnimation(const Animation& animation);
 //    void setFrameTime(sf::Time time);

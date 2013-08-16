@@ -108,15 +108,62 @@ bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpac
 bool CSprite::loadSpriteSparrowXML(char xmlFile[])
 {
     cout << "CSprite::loadSpriteSparrowXML " << xmlFile << endl;
-    TiXmlDocument doc(xmlFile);
 
-    if ( ! doc.LoadFile() ) {
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(xmlFile);
+
+    if ( !result ) {
 		return false;
 	}
 
-    //TiXmlElement* elem = doc.RootElement();
+    // Read texture atlas file name
 
-    doc.Accept(this);
+    pugi::xml_node atlas = doc.child("TextureAtlas");
+    pugi::xml_attribute imagepath = atlas.attribute("imagePath");
+
+    string attrib = imagepath.as_string();
+    string prefix = "data/img/";
+
+    cout << "CSprite::loadSpriteSparrowXML: " << attrib << endl;
+
+    prefix.append(attrib);// = "data/img/"+attrib;
+
+    cout << "TextureAtlas: " << prefix << endl;
+
+    tex = tm->findTexture((char *)prefix.c_str());
+
+    // Read all subtextures (frames)
+    for(pugi::xml_node subtex = atlas.child("SubTexture"); subtex; subtex = subtex.next_sibling("SubTexture"))
+//    for (pugi::xml_node subtex: doc.children("SubTexture"))
+    {
+        int x1, y1, h, w;
+
+        cout << subtex.name() << endl;
+        x1 = subtex.attribute("x").as_int();
+        y1 = subtex.attribute("y").as_int();
+        w = subtex.attribute("width").as_int();
+        h = subtex.attribute("height").as_int();
+
+        spriteW = w;
+        spriteH = h;
+
+        //cout << "Texture: " << x1 << " " << y1 << " " << w-1 << " " << h-1 << endl;
+        sf::IntRect rect;
+        rect.left = x1;
+        rect.width = w;
+        rect.top = y1;
+        rect.height = h;
+        cout << "frame " << setw(3) << frames.size() << ": " << rect.left << "," << rect.top
+            << " - " << rect.width << "x" << rect.height << endl;
+        frames.push_back(rect);
+
+        //TODO: get spacing and margin
+    }
+//        bool ok = loadImage((char *) prefix.c_str());
+//        if(!ok)
+//        {
+//			cout << "ERROR LOADING SPRITE IMG: " << prefix.c_str() << endl;
+//        }
 
 //    xOffset = spriteW/2;
 //    yOffset = spriteH/2;
@@ -136,7 +183,7 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
     firstFrame = 0;
     lastFrame = totalFrames-1;
 
-    mirror = false;
+    setMirror(false);
     setCurrentFrame(0);
 
     return true;
@@ -296,48 +343,6 @@ bool CSprite::circleCollision(CSprite* other)
    return (dist < radius1 + radius2);
 }
 */
-
-// TiXml visitor implementation: load texture atlas in Sparrow format (http://www.sparrow-framework.org/)
-bool CSprite::VisitEnter (const TiXmlElement &elem, const TiXmlAttribute *attrib)
-{
-    //cout << "CSprite::VisitEnter " << elem.Value() << "*"<< endl;
-	if (elem.Value() == string("SubTexture")) {
-
-        int x1, y1, h, w;
-        elem.Attribute("x", &x1);
-        elem.Attribute("y", &y1);
-        elem.Attribute("height", &h);
-        elem.Attribute("width", &w);
-
-        spriteW = w;
-        spriteH = h;
-
-        //cout << "Texture: " << x1 << " " << y1 << " " << w-1 << " " << h-1 << endl;
-        sf::IntRect rect;
-        rect.left = x1;
-        rect.width = w;
-        rect.top = y1;
-        rect.height = h;
-        cout << "frame " << setw(3) << frames.size() << ": " << rect.left << "," << rect.top
-            << " - " << rect.width << "x" << rect.height << endl;
-        frames.push_back(rect);
-
-        //TODO: get spacing and margin
-    }
-	else if (elem.Value() == string("TextureAtlas")) { //string("TextureAtlas") == elem.Value()) {
-        string attrib = elem.Attribute("imagePath");
-		string prefix = "data/img/";
-        prefix.append(attrib);// = "data/img/"+attrib;
-        cout << "TextureAtlas: " << prefix << endl;
-        tex = tm->findTexture((char *)prefix.c_str());
-//        bool ok = loadImage((char *) prefix.c_str());
-//        if(!ok)
-//        {
-//			cout << "ERROR LOADING SPRITE IMG: " << prefix.c_str() << endl;
-//        }
-    }
-    return true;
-}
 
 void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
