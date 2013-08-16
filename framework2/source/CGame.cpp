@@ -2,8 +2,8 @@
  *  CGame.cpp
  *  Main game class
  *
- *  Created by Marcelo Cohen on 04/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Created by Marcelo Cohen on 08/13.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 
@@ -26,33 +26,33 @@ CGame::CGame(int minFrameRate, int maxFrameRate)
     maxCyclesPerFrame = (double) maxFrameRate / minFrameRate;
     lastFrameTime = 0;
     cyclesLeftOver = 0;
-    panX = panY = 0; // camera panning
+
+    // Load the font; exit on error.
+    if (!font.loadFromFile("data/fonts/arial.ttf"))
+    {
+        sf::err() << "Failed to load arial.ttf";
+        exit(EXIT_FAILURE);
+    }
+
+    showStats = false;
+    hud = new ClockHUD(clock, font);
+    clock.setSampleDepth(100); // Sample 100 frames for averaging.
 }
 
 void CGame::init(const char* title, int width, int height, bool fullscreen)
 {
     screen = new sf::RenderWindow(sf::VideoMode(width, height), title);
-//    screen-
-
     // Enable transparency through blending
 //    glEnable(GL_BLEND);
 //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    xmin = 0;
-    xmax = width;
-    ymin = 0;
-    ymax = height;
-    zoom = 1;
-    updateCamera();
+    originalView = screen->getView();
 
 	this->fullscreen = fullscreen;
 
 	running = true;
 
     printAttributes();
-
-    // Init audio engine: IrrKlang
-//    audioEngine = irrklang::createIrrKlangDevice();
 
 //	glewInit();
 
@@ -76,76 +76,6 @@ void CGame::printAttributes ()
 void CGame::handleEvents()
 {
     states.top()->handleEvents(this);
-}
-
-/** @brief setXpan
-  *
-  * @todo: document this function
-  */
-void CGame::setXpan(float xpan)
-{
-    panX = xpan;
-}
-
-/** @brief setYpan
-  *
-  * @todo: document this function
-  */
-void CGame::setYpan(float ypan)
-{
-    panY = ypan;
-}
-
-/** @brief setZoom
-  *
-  * @todo: document this function
-  */
-void CGame::setZoom(float z)
-{
-    zoom = z;
-}
-
-void CGame::updateCamera()
-{
-    /*
-    // Setup 2D projection
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    float xwidth = (xmax-xmin)/2;
-    float ywidth = (ymax-ymin)/2;
-    float xcentre = (xmin+xmax)/2;
-    float ycentre = (ymin+ymax)/2;
-    xcentre += panX;
-    ycentre += panY;
-    float aspect = screen->w/(float)screen->h;
-    xwidth -= zoom*aspect; //ceil(xwidth/zoom);
-    ywidth -= zoom; //ceil(ywidth/zoom);
-    glOrtho(xcentre-xwidth, xcentre+xwidth, ycentre+ywidth, ycentre-ywidth, -1.0f, 1.0f);
-
-    // Setup viewport
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    glViewport(0,0,screen->w,screen->h);
-    */
-}
-
-float CGame::getWidth()
-{
-    float xwidth = (xmax-xmin);
-    return xwidth-zoom; //ceil(xwidth/zoom);
-}
-
-float CGame::getHeight()
-{
-    float ywidth = (ymax-ymin);
-    return ywidth - zoom; //ceil(ywidth/zoom);
-}
-
-void CGame::resize(int w, int h)
-{
-    //screen = SDL_SetVideoMode(w, h, bpp, flags);
-    //assert(screen != NULL);
-    updateCamera();
 }
 
 void CGame::changeState(CGameState* state)
@@ -214,8 +144,21 @@ void CGame::draw()
 {
     // let the state draw the screen
     screen->clear();
-	states.top()->draw(this);
-	screen->display();
+    clock.beginFrame();
+    states.top()->draw(this);
+
+    if(showStats)
+    {
+        // Draw the frame statistics.
+        sf::View view = screen->getView();
+        sf::Vector2f pos = originalView.getCenter() - originalView.getSize()/2.f;
+        hud->setPosition(pos); //cout << "screen " << screen << endl;
+        screen->setView(originalView);
+        screen->draw(*hud);
+        screen->setView(view);
+    }
+    screen->display();
+    clock.endFrame();
 }
 
 void CGame::clean()
@@ -223,7 +166,8 @@ void CGame::clean()
     while ( !states.empty() ) {
 		states.top()->cleanup();
 		states.pop();
-	}
+    }
+    delete hud;
 //    SDL_Quit();
 //    audioEngine->drop();
 }

@@ -60,7 +60,7 @@ namespace tmx
 			//you need to select your own font here as SFML no longer
 			//supports a default font. If you do not plan to use this
 			//during debugging it can be ignored.
-			if(!m_debugFont.loadFromFile("assets/fonts/default.ttf"))
+            if(!m_debugFont.loadFromFile("data/fonts/arial.ttf"))
 			{
 				//feel free to supress these messages
 				std::cout << "If you wish to output text during debugging please specify a font file in the map object class" << std::endl;
@@ -111,7 +111,7 @@ namespace tmx
 		{
 			//update properties by movement amount
 			m_centrePoint += distance;
-			for(auto p : m_polypoints)
+            for(auto p : m_polypoints)
 				p += distance;
 			
 			for(auto i = 0u; i < m_debugShape.getVertexCount(); ++i)

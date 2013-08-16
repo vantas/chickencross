@@ -13,6 +13,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <stack>
+#include "ClockHUD.h"
 
 class CGameState;
 
@@ -31,40 +32,25 @@ class CGame
         void clean();
         bool isRunning() { return running; }
         void quit()    { running = false; }
-        void resize(int w, int h);
-        void updateCamera();
         sf::RenderWindow* getScreen() { return screen; }
         static void printAttributes();
         double getUpdateInterval() { return updateInterval; }
 
-        void setXpan(float xpan);
-        void setYpan(float ypan);
-
-        void setZoom(float z);
-
-        float getXpan() { return panX; }
-        float getYpan() { return panY; }
-        float getZoom() { return zoom; }
-        float getWidth();
-        float getHeight();
-
-        // Access to audio engine
-//        irrklang::ISoundEngine* getAudioEngine() {
-//            return audioEngine;
-//        }
+        void toggleStats() { showStats = !showStats; }
+        void enableStats() { showStats = true; }
+        void disabeStats() { showStats = false; }
 
     private:
 
         sf::RenderWindow* screen;
+        sf::View originalView;
         bool running;
         bool fullscreen;
+        bool showStats;
+
         int bpp; // bits per pixel (screen colour depth)
         int flags; // SDL initialization flags
         std::stack<CGameState*> states;
-        float xmin,xmax,ymin,ymax;
-        float zoom;
-        float panX;
-        float panY;
         // Fixed interval time-based animation
         sf::Clock gameClock;
         int minFrameRate;
@@ -73,6 +59,10 @@ class CGame
         double maxCyclesPerFrame;
         double lastFrameTime;
         double cyclesLeftOver;
+
+        sf::Font font;
+        sfx::FrameClock clock;
+        ClockHUD* hud;
         // Audio engine
 //        irrklang::ISoundEngine* audioEngine;
 };

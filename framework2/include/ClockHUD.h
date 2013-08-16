@@ -37,8 +37,21 @@ private:
         elem.setFont(*m_font);
         elem.setCharacterSize(16);
         sf::Vector2f pos = getPosition();
-        elem.setPosition(pos.x+5.0f, pos.y+5.0f);
 
+        elem.setPosition(pos.x+6.0f, pos.y+6.0f);
+        // Draw the drop shadow
+        elem.setColor(sf::Color::Black);
+        for (std::size_t i = 0; i < stats.size(); ++i)
+        {
+            elem.setString(stats[i].str);
+
+            rt.draw(elem, states);
+
+            // Next line.
+            elem.move(0.0f, 16.0f);
+        }
+
+        elem.setPosition(pos.x+5.0f, pos.y+5.0f);
         // Draw the available frame time statistics.
         for (std::size_t i = 0; i < stats.size(); ++i)
         {

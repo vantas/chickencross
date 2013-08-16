@@ -56,7 +56,7 @@ namespace tmx
 		//or intersecting testArea
 		std::vector<MapObject*> QueryQuadTree(const sf::FloatRect& testArea);
 		//returns a vector of map layers
-		std::vector<MapLayer>& GetLayers(void) {return m_layers;};
+        std::vector<MapLayer>& GetLayers(void) {return m_layers;}
 		//draws visible tiles to given target, optionally draw outline of objects for debugging
 		//along with any quadTree debug bounds. Uses vertex arrays for performance
 		void Draw(sf::RenderTarget& rt);
@@ -73,7 +73,7 @@ namespace tmx
 		//eg: use to find the orthogonal world coordinates currently under the mouse cursor
 		const sf::Vector2f OrthogonalToIsometric(const sf::Vector2f& worldCoords);
 		//returns the map size in pixels
-		const sf::Vector2u GetMapSize(void) const{return sf::Vector2u(m_width * m_tileWidth, m_height * m_tileHeight);};
+        const sf::Vector2u GetMapSize(void) const{return sf::Vector2u(m_width * m_tileWidth, m_height * m_tileHeight);}
 		//returns empty string if property not found
 		const std::string GetPropertyString(std::string name)
 		{
@@ -101,7 +101,7 @@ namespace tmx
 		{
 			sf::Vector2f Coords[4], Size;
 			sf::Uint16 TileSetId;
-			TileInfo() : TileSetId(0){};
+            TileInfo() : TileSetId(0){}
 			TileInfo(const sf::IntRect& rect, const sf::Vector2f& size, sf::Uint16 tilesetId) : Size(size), TileSetId(tilesetId)
 			{
 				Coords[0] = sf::Vector2f(static_cast<float>(rect.left), static_cast<float>(rect.top));
@@ -150,6 +150,6 @@ namespace tmx
 
 	//method for decoding base64 encoded strings
 	static std::string base64_decode(std::string const& string);
-};
+}
 
 #endif //MAP_LOADER_H_

@@ -37,7 +37,7 @@ MapLoader::MapLoader(const std::string mapDirectory)
 	m_tileWidth			(1u),
 	m_tileHeight		(1u),
 	m_mapLoaded			(false),
-	m_quadTreeAvailable	(false),
+    m_quadTreeAvailable	(false),
 	m_mapDirectory		(mapDirectory),
 	m_tileRatio			(1.f)
 {

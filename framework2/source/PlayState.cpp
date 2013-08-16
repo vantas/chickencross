@@ -13,7 +13,6 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "InputManager.h"
-#include "ClockHUD.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -27,7 +26,7 @@ void PlayState::init()
 //	playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
     map = new tmx::MapLoader("data/maps");
-    map->Load("desert.tmx");
+    map->Load("dungeon.tmx");
 
     playSprite1.loadImage("data/img/Char14.png");
 	playSprite1.setPosition(10,100);
@@ -62,17 +61,10 @@ void PlayState::init()
     im->addKeyInput("up", sf::Keyboard::Up);
     im->addKeyInput("down", sf::Keyboard::Down);
     im->addKeyInput("quit", sf::Keyboard::Escape);
+    im->addKeyInput("stats", sf::Keyboard::S);
+    im->addKeyInput("zoomin", sf::Keyboard::Z);
+    im->addKeyInput("zoomout", sf::Keyboard::X);
     im->addMouseInput("rightclick", sf::Mouse::Right);
-
-    // Load the font; exit on error.
-    if (!font.loadFromFile("data/fonts/arial.ttf"))
-    {
-        sf::err() << "Failed to load arial.ttf";
-        exit(EXIT_FAILURE);
-    }
-
-    hud = new ClockHUD(clock, font);
-    clock.setSampleDepth(100); // Sample 100 frames for averaging.
 
 	cout << "PlayState Init Successful" << endl;
 }
@@ -96,7 +88,7 @@ void PlayState::resume()
 void PlayState::handleEvents(CGame* game)
 {
     sf::Event event;
-    sf::RenderWindow* screen = game->getScreen();
+    sf::View view = screen->getView();
 
     while (screen->pollEvent(event))
     {
@@ -121,6 +113,20 @@ void PlayState::handleEvents(CGame* game)
     if(im->testEvent("quit") || im->testEvent("rightclick"))
         game->quit();
 
+    if(im->testEvent("stats"))
+        game->enableStats();
+
+    if(im->testEvent("zoomin"))
+    {
+        view.zoom(1.01);
+        screen->setView(view);
+    }
+    else if(im->testEvent("zoomout"))
+    {
+        view.zoom(0.99);
+        screen->setView(view);
+    }
+
     //game->changeState(PlayMap::instance());
     //game->changeState(PlayMapTop::instance());
     //game->changeState(PlayMapAI::instance());
@@ -130,6 +136,7 @@ void PlayState::handleEvents(CGame* game)
 
 void PlayState::update(CGame* game)
 {
+    screen = game->getScreen();
     float x = playSprite1.getPosition().x;
     float y = playSprite1.getPosition().y;
     x += dirx*5;
@@ -147,6 +154,9 @@ void PlayState::update(CGame* game)
     //player.setXspeed(0);
     player.update(game->getUpdateInterval());
 
+    auto layers = map->GetLayers();
+    tmx::MapLayer layer1 = layers[0];
+
     if(player.getPosition().x > 600)
     {
         player.setXspeed(-100);
@@ -162,12 +172,10 @@ void PlayState::update(CGame* game)
 
 void PlayState::draw(CGame* game)
 {
-    clock.beginFrame();
-    sf::RenderWindow* screen = game->getScreen();
-    sf::View view = screen->getView();
+    //sf::View view = screen->getView();
 
     screen->clear(sf::Color(0,0,0));
-    //map->Draw(*screen);
+    map->Draw(*screen);
 
     playSprite1.setRotation(0);
     playSprite1.setScale(1,1);
@@ -179,10 +187,4 @@ void PlayState::draw(CGame* game)
     screen->draw(playSprite3);
 
     screen->draw(player);
-
-    // Draw the frame statistics.
-    sf::Vector2f pos = view.getCenter() - view.getSize()/2.f;
-    hud->setPosition(pos);
-    screen->draw(*hud);
-    clock.endFrame();
 }

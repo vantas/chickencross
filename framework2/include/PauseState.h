@@ -10,7 +10,7 @@
 #ifndef PAUSE_STATE_H_
 #define PAUSE_STATE_H_
 
-#include <SDL.h>
+//#include <SDL.h>
 #include "CGameState.h"
 #include "CImage.h"
 
