@@ -102,9 +102,10 @@ LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
 #    QMAKE_POST_LINK += $${QMAKE_COPY} $${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/bin/* $(OBJECTS_DIR)
 #}
 
-#unix:!macx {
-#    # need implement
-#}
+unix:!macx {
+    INCLUDEPATH += /usr/local/include/SFML
+    LIBS += -lGLEW
+}
 
 OTHER_FILES += \
     resources/win32/app.rc
