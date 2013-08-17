@@ -80,19 +80,19 @@ namespace tmx
 		//returns top left corner of bounding rectangle
 		const sf::Vector2f GetPosition(void) const {return m_position;}
 		//returns precomputed centre of mass, or zero for polylines
-		const sf::Vector2f GetCentre(void) const {return m_centrePoint;};
+        const sf::Vector2f GetCentre(void) const {return m_centrePoint;}
 		//returns the type of shape of the object
-		const MapObjectShape GetShapeType(void) const {return m_shape;};
+        const MapObjectShape GetShapeType(void) const {return m_shape;}
 		//returns and object's name
-		const std::string GetName(void) const {return m_name;};
+        const std::string GetName(void) const {return m_name;}
 		//returns the object's type
-		const std::string GetType(void) const {return m_type;};
+        const std::string GetType(void) const {return m_type;}
 		//returns the name of the object's parent layer
-		const std::string GetParent(void) const {return m_parent;};
+        const std::string GetParent(void) const {return m_parent;}
 		//returns the object's rotation in degrees
-		const float GetRotation(void) const {return m_rotation;};
+        const float GetRotation(void) const {return m_rotation;}
 		//returns the objects AABB in world coordinates
-		const sf::FloatRect GetAABB(void) const {return m_AABB;};
+        const sf::FloatRect GetAABB(void) const {return m_AABB;}
 		//returns visibility
 		const bool Visible(void) const {return m_visible;}
 		//sets a property value, or adds it if property doesn't exist
@@ -124,25 +124,25 @@ namespace tmx
 			m_position += distance;			
 		}
 		//sets the width and height of the object
-		void SetSize(const sf::Vector2f& size){m_size = size;};
+        void SetSize(const sf::Vector2f& size){m_size = size;}
 		//sets the object's name
 		void SetName(const std::string name){m_name = name;}
 		//sets the object's type
-		void SetType(const std::string type){m_type = type;};
+        void SetType(const std::string type){m_type = type;}
 		//sets the name of the object's parent layer
-		void SetParent(const std::string parent){m_parent = parent;};
+        void SetParent(const std::string parent){m_parent = parent;}
 		//sets the rotation of the object in degrees
 		void SetRotation(const float angle)
 		{
 			m_rotation = angle;
 		}
 		//sets the shape type
-		void SetShapeType(MapObjectShape shape){m_shape = shape;};
-		//sets visibility
-		void SetVisible(bool visible){m_visible = visible;};
+        void SetShapeType(MapObjectShape shape){m_shape = shape;}
+        //sets visibility
+        void SetVisible(bool visible){m_visible = visible;}
 		//adds a point to the list of polygonal points. If calling this manually
 		//call CreateDebugShape() afterwards to rebuild debug output
-		void AddPoint(const sf::Vector2f point){m_polypoints.push_back(point);};
+        void AddPoint(const sf::Vector2f point){m_polypoints.push_back(point);}
 
 		//checks if an object contains given point in world coords.
 		//Always returns false for polylines.

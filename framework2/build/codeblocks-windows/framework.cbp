@@ -2,25 +2,28 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="framework-svn" />
+		<Option title="framework2" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\bin\framework-codeblocks" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\..\bin" />
-				<Option object_output="..\..\bin" />
+				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../bin" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output=".\framework" prefix_auto="1" extension_auto="1" />
-				<Option object_output=".\" />
-				<Option type="0" />
+				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../bin" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -30,87 +33,62 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
-			<Add directory="..\..\lib\SDL-mingw\include" />
-			<Add directory="..\..\lib\irrKlang-1.3.0\include" />
-			<Add directory="..\..\include\maploader" />
-			<Add directory="..\..\include\tinyxml" />
-			<Add directory="..\..\include" />
-			<Add directory="..\..\lib\Box2D-2.1.0\include" />
-			<Add directory="..\..\lib\glew-1.6.0\include" />
-			<Add directory="..\..\lib\Box2D-2.1.0\lib-Windows-CB" />
+			<Add option="`sdl-config --cflags`" />
+			<Add directory="../../include" />
+			<Add directory="../../include/tmxloader" />
+			<Add directory="../../include/tinyxml" />
+			<Add directory="../../lib/Box2D-2.1.0/include" />
+			<Add directory="../../lib/SFML-2.0/include" />
 		</Compiler>
 		<Linker>
-			<Add library="mingw32" />
-			<Add library="SDLmain" />
-			<Add library="SDL.dll" />
-			<Add library="user32" />
-			<Add library="gdi32" />
-			<Add library="winmm" />
-			<Add library="dxguid" />
-			<Add library="SDL_image" />
-			<Add library="irrklang" />
-			<Add library="opengl32" />
-			<Add library="glu32" />
-			<Add library="..\..\lib\Box2D-2.1.0\lib-Windows-CB\libBox2D.a" />
-			<Add library="..\..\lib\glew-1.6.0\bin\glew32.dll" />
-			<Add directory="..\..\lib\SDL-mingw\lib" />
-			<Add directory="..\..\lib\irrKlang-1.3.0\win32-gcc" />
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+			<Add library="libz" />
+			<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
+			<Add directory="../../lib/SFML-2.0/lib-Windows" />
 		</Linker>
-		<Unit filename="..\..\include\CFont.h" />
-		<Unit filename="..\..\include\CGame.h" />
-		<Unit filename="..\..\include\CGameState.h" />
-		<Unit filename="..\..\include\CImage.h" />
-		<Unit filename="..\..\include\CMultiImage.h" />
-		<Unit filename="..\..\include\CPhysics.h" />
-		<Unit filename="..\..\include\CSprite.h" />
-		<Unit filename="..\..\include\Graphics.h" />
-		<Unit filename="..\..\include\MenuState.h" />
-		<Unit filename="..\..\include\PauseState.h" />
-		<Unit filename="..\..\include\PlayMap.h" />
-		<Unit filename="..\..\include\PlayMapAI.h" />
-		<Unit filename="..\..\include\PlayMapPhysics.h" />
-		<Unit filename="..\..\include\PlayMapTop.h" />
-		<Unit filename="..\..\include\PlayPhysics.h" />
-		<Unit filename="..\..\include\PlayState.h" />
-		<Unit filename="..\..\include\Shader.h" />
-		<Unit filename="..\..\include\ShaderManager.h" />
-		<Unit filename="..\..\include\ShaderProgram.h" />
-		<Unit filename="..\..\include\TexRect.h" />
-		<Unit filename="..\..\include\TextureManager.h" />
-		<Unit filename="..\..\include\maploader\TMXLoader.h" />
-		<Unit filename="..\..\include\maploader\base64.h" />
-		<Unit filename="..\..\include\tinyxml\tinystr.h" />
-		<Unit filename="..\..\include\tinyxml\tinyxml.h" />
-		<Unit filename="..\..\source\CFont.cpp" />
-		<Unit filename="..\..\source\CGame.cpp" />
-		<Unit filename="..\..\source\CImage.cpp" />
-		<Unit filename="..\..\source\CMultiImage.cpp" />
-		<Unit filename="..\..\source\CPhysics.cpp" />
-		<Unit filename="..\..\source\CSprite.cpp" />
-		<Unit filename="..\..\source\MenuState.cpp" />
-		<Unit filename="..\..\source\PauseState.cpp" />
-		<Unit filename="..\..\source\PlayMap.cpp" />
-		<Unit filename="..\..\source\PlayMapAI.cpp" />
-		<Unit filename="..\..\source\PlayMapPhysics.cpp" />
-		<Unit filename="..\..\source\PlayMapTop.cpp" />
-		<Unit filename="..\..\source\PlayPhysics.cpp" />
-		<Unit filename="..\..\source\PlayState.cpp" />
-		<Unit filename="..\..\source\Shader.cpp" />
-		<Unit filename="..\..\source\ShaderManager.cpp" />
-		<Unit filename="..\..\source\ShaderProgram.cpp" />
-		<Unit filename="..\..\source\TextureManager.cpp" />
-		<Unit filename="..\..\source\main.cpp" />
-		<Unit filename="..\..\source\maploader\TMXLoader.cpp" />
-		<Unit filename="..\..\source\maploader\base64.cpp" />
-		<Unit filename="..\..\source\tinyxml\tinystr.cpp" />
-		<Unit filename="..\..\source\tinyxml\tinyxml.cpp" />
-		<Unit filename="..\..\source\tinyxml\tinyxmlerror.cpp" />
-		<Unit filename="..\..\source\tinyxml\tinyxmlparser.cpp" />
+		<Unit filename="../../include/CGame.h" />
+		<Unit filename="../../include/CGameState.h" />
+		<Unit filename="../../include/CImage.h" />
+		<Unit filename="../../include/CSprite.h" />
+		<Unit filename="../../include/ClockHUD.h" />
+		<Unit filename="../../include/FrameClock.h" />
+		<Unit filename="../../include/InputManager.h" />
+		<Unit filename="../../include/MenuState.h" />
+		<Unit filename="../../include/PlayState.h" />
+		<Unit filename="../../include/TextureManager.h" />
+		<Unit filename="../../include/pugixml/pugiconfig.hpp" />
+		<Unit filename="../../include/pugixml/pugixml.hpp" />
+		<Unit filename="../../include/tinyxml/tinystr.h" />
+		<Unit filename="../../include/tinyxml/tinyxml.h" />
+		<Unit filename="../../include/tmxloader/Helpers.h" />
+		<Unit filename="../../include/tmxloader/MapLoader.h" />
+		<Unit filename="../../include/tmxloader/MapObject.h" />
+		<Unit filename="../../include/tmxloader/QuadTreeNode.h" />
+		<Unit filename="../../include/tmxloader/zconf.h" />
+		<Unit filename="../../include/tmxloader/zlib.h" />
+		<Unit filename="../../source/CGame.cpp" />
+		<Unit filename="../../source/CImage.cpp" />
+		<Unit filename="../../source/CSprite.cpp" />
+		<Unit filename="../../source/InputManager.cpp" />
+		<Unit filename="../../source/MenuState.cpp" />
+		<Unit filename="../../source/PlayState.cpp" />
+		<Unit filename="../../source/TextureManager.cpp" />
+		<Unit filename="../../source/main.cpp" />
+		<Unit filename="../../source/pugixml/pugixml.cpp" />
+		<Unit filename="../../source/tinyxml/tinystr.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxml.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxmlerror.cpp" />
+		<Unit filename="../../source/tinyxml/tinyxmlparser.cpp" />
+		<Unit filename="../../source/tmxloader/MapLoaderPrivate.cpp" />
+		<Unit filename="../../source/tmxloader/MapLoaderPublic.cpp" />
+		<Unit filename="../../source/tmxloader/QuadTreeNode.cpp" />
 		<Extensions>
 			<code_completion />
-			<debugger />
 			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
