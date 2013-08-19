@@ -41,6 +41,7 @@ sf::Texture* TextureManager::findTexture(char* nomeArq)
             return NULL;
         cout << " (" << tex->getSize().x << " x " << tex->getSize().y << ")" << endl;
         imgs[nomeArq] = tex;
+        tex->setSmooth(true);
         return tex;
     }
     // Return texture id

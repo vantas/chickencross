@@ -49,7 +49,8 @@ HEADERS += \
     ../../include/pugixml/pugiconfig.hpp \
     ../../include/tinyxml/tinyxml.h \
     ../../include/tinyxml/tinystr.h \
-    ../../include/MenuState.h
+    ../../include/MenuState.h \
+    ../../include/CAnim.h
 
 ###############################################
 # CONFIGURATION

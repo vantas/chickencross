@@ -20,13 +20,18 @@ TextureManager* CSprite::tm = TextureManager::getInstance();
 // Construtor
 CSprite::CSprite()
 {
+    mirror = false;
+    // Init animation vars
+    xspeed = 0;
+    yspeed = 0;
+    curframe = 0;
+    curFrameD = 0;
+    framedelay = 10;
     firstFrame = 0;
     lastFrame = 0;
-    curFrameD = 0.0;
-    curframe = 0;
-    curframe = 0;
-    framedelay = 10;
-    mirror = false;
+    paused = false;
+    looping = false;
+    currentAnim = NULL;
 }
 
 bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
@@ -35,13 +40,6 @@ bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, i
     if(!loadMultiImage(nomeArq,w,h,hSpace,vSpace,xIni,yIni,column,row,total))
         return false;
 
-	// Init animation vars
-	xspeed = 0;
-	yspeed = 0;
-	curframe = 0;
-    curFrameD = 0;
-    firstFrame = 0;
-    lastFrame = total-1;
     setCurrentFrame(0);
     //setOrigin(w/2, h/2);
 	return true;
@@ -101,11 +99,10 @@ bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpac
     //cout << "CMultiImage::load: " << xOffset << " " << yOffset << endl;
     cout << "CSprite::loadMultimage total frames = " << total << endl;
 
-    mirror = false;
     return true;
 }
 
-bool CSprite::loadSpriteSparrowXML(char xmlFile[])
+bool CSprite::loadSpriteXML(char xmlFile[])
 {
     cout << "CSprite::loadSpriteSparrowXML " << xmlFile << endl;
 
@@ -133,7 +130,7 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
     tex = tm->findTexture((char *)prefix.c_str());
 
     // Read all subtextures (frames)
-    for(pugi::xml_node subtex = atlas.child("SubTexture"); subtex; subtex = subtex.next_sibling("SubTexture"))
+    for(pugi::xml_node subtex = atlas.child("sprite"); subtex; subtex = subtex.next_sibling("sprite"))
 //    for (pugi::xml_node subtex: doc.children("SubTexture"))
     {
         int x1, y1, h, w;
@@ -141,8 +138,8 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
         cout << subtex.name() << endl;
         x1 = subtex.attribute("x").as_int();
         y1 = subtex.attribute("y").as_int();
-        w = subtex.attribute("width").as_int();
-        h = subtex.attribute("height").as_int();
+        w = subtex.attribute("w").as_int();
+        h = subtex.attribute("h").as_int();
 
         spriteW = w;
         spriteH = h;
@@ -175,18 +172,52 @@ bool CSprite::loadSpriteSparrowXML(char xmlFile[])
 
     cout << "CSprite::loadSpriteSparrowXML total frames = " << totalFrames << endl;
 
-    // Init animation vars
-	xspeed = 0;
-	yspeed = 0;
-	curframe = 0;
-    curFrameD = 0;
-    firstFrame = 0;
-    lastFrame = totalFrames-1;
-
-    setMirror(false);
     setCurrentFrame(0);
-
     return true;
+}
+
+bool CSprite::loadAnimation(char filename[])
+{
+    cout << "CSprite::loadAnimation " << filename << endl;
+
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filename);
+
+    if ( !result ) {
+        return false;
+    }
+
+    // Read texture atlas file name
+
+    pugi::xml_node root = doc.child("animation");
+    pugi::xml_attribute rootname = root.attribute("name");
+
+    // Read all animation sequences
+    for(pugi::xml_node seq = root.child("sequence"); seq; seq = seq.next_sibling("sequence"))
+    {
+        CAnim anim;
+
+        string name = seq.attribute("name").as_string();
+        cout << "Animation: " << name << endl;
+        anim.frameStart = seq.attribute("start").as_int();
+        anim.frameEnd   = seq.attribute("end").as_int();
+        anim.loop       = seq.attribute("loop").as_bool();
+        anims[name] = anim;
+    }
+
+    cout << "CSprite::loadAnimation total sequences = " << anims.size() << endl;
+    return true;
+}
+
+void CSprite::setAnimation(string name)
+{
+    auto seq = anims.find(name);
+    if(seq == anims.end())
+        return;
+
+    currentAnim = &seq->second;
+    setFrameRange(currentAnim->frameStart, currentAnim->frameEnd);
+    setLooped(currentAnim->loop);
 }
 
 CSprite::~CSprite()
@@ -238,6 +269,9 @@ void CSprite::setCurrentFrame(int c)
     vertices[1].texCoords = sf::Vector2f(left, bottom);
     vertices[2].texCoords = sf::Vector2f(right, bottom);
     vertices[3].texCoords = sf::Vector2f(right, top);
+
+    spriteW = rect.width;
+    spriteH = rect.height;
 }
 
 /** @brief setFrameRange
@@ -250,6 +284,7 @@ bool CSprite::setFrameRange(int first, int last)
         return false;
     firstFrame = first;
     lastFrame = last;
+    setCurrentFrame(firstFrame);
     return true;
 }
 
@@ -273,7 +308,7 @@ void CSprite::frameBack()
 // framedelay, responsavel por diminuir ou aumentar a taxa de animacao.
 void CSprite::setAnimRate(int fdelay)
 {
-	if (fdelay >= 0)
+    if (fdelay >= 0)
 		framedelay = fdelay;
 	else
 		framedelay = 0;
@@ -288,9 +323,6 @@ void CSprite::update(double deltaTime)
 {
     // Move sprite according to its speed and the amount of time that has passed
     sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
-//    x += xspeed/1000 * deltaTime;
-//    y += yspeed/1000 * deltaTime;
-
     move(offset);
 
     int lastf = curframe;
@@ -304,52 +336,59 @@ void CSprite::update(double deltaTime)
         setCurrentFrame(curframe);
 }
 
-/*
 // Check bounding box collision between this and other sprite
-bool CSprite::bboxCollision(CSprite* other)
+bool CSprite::bboxCollision(CSprite& other)
 {
-    float width1 = this->width/2 * this->scale;
-    float width2 = other->width/2 * other->scale;
+    sf::Vector2f pos = this->getPosition();
+    sf::Vector2f scale = this->getScale();
 
-    float height1 = this->height/2 * this->scale;
-    float height2 = other->height/2 * other->scale;
+    float scalex2 = other.getScale().x;
+    float scaley2 = other.getScale().y;
 
-    float x0 = this->x - width1;
-    float y0 = this->y - height1;
-    float x1 = this->x + width1;
-    float y1 = this->y + height1;
+    float px2 = other.getPosition().x;
+    float py2 = other.getPosition().y;
 
-    float x2 = other->x - width2;
-    float y2 = other->y - height2;
-    float x3 = other->x + width2;
-    float y3 = other->y + height2;
+    float width1 = this->spriteW/2 * scale.x;
+    float width2 = other.spriteW/2 * scalex2;
+
+    float height1 = this->spriteH/2 * scale.y;
+    float height2 = other.spriteH/2 * scaley2;
+
+    float x0 = pos.x - width1;
+    float y0 = pos.y - height1;
+    float x1 = pos.x + width1;
+    float y1 = pos.y + height1;
+
+    float x2 = px2 - width2;
+    float y2 = py2 - height2;
+    float x3 = px2 + width2;
+    float y3 = py2 + height2;
 
     return !(x1<x2 || x3<x0 || y1<y2 || y3<y0);
-    //return !(x1<other->x || x3<this->x || y1<other->y || y3<this->y);
 }
-*/
 
-/*
 // Check circle collision between this and other sprite
-bool CSprite::circleCollision(CSprite* other)
+bool CSprite::circleCollision(CSprite& other)
 {
-   int radius1 = max(this->width, this->height)/2;
-   int radius2 = max(other->width, other->height)/2;
-   radius1 *= this->scale;
-   radius2 *= other->scale;
-   float dist = sqrt(pow(this->x-other->x,2)+pow(this->y-other->y,2));
+   int radius1 = max(this->spriteW, this->spriteH)/2;
+   int radius2 = max(other.spriteW, other. spriteW)/2;
+   radius1 *= this->getScale().x;
+   radius2 *= other.getScale().y;
+   float px1 = this->getPosition().x;
+   float px2 = other.getPosition().x;
+   float py1 = this->getPosition().y;
+   float py2 = other.getPosition().y;
+   float dist = sqrt(pow(px1 - px2, 2) + pow(py1 - py2, 2));
    //cout << "Radius: " << radius1 << " and " << radius2 << endl;
    //cout << "distance: " << dist << endl;
    return (dist < radius1 + radius2);
 }
-*/
 
 void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     if (tex)
     {
         states.transform *= getTransform();
-        //if(mirror) states.transform.scale(-1,1);
         states.texture = tex;
         target.draw(vertices, 4, sf::Quads, states);
     }

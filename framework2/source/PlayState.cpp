@@ -42,10 +42,15 @@ void PlayState::init()
 	playSprite3.setPosition(50,300);
 
     //player.loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
-    player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
+    //player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
+    player.loadSpriteXML("data/img/monkey.xml");
+    player.loadAnimation("data/img/monkeyanim.xml");
     player.setPosition(30,30);
     player.setAnimRate(15);
+//    player.setFrameRange(12,13);
+    player.setAnimation("walk-right");
     player.setXspeed(100);
+    player.setRotation(0);
 //    player.setScale(1);
 
 //	playSprite2->setAnimRate(10);        // quadros/segundo
@@ -114,7 +119,7 @@ void PlayState::handleEvents(CGame* game)
         game->quit();
 
     if(im->testEvent("stats"))
-        game->enableStats();
+        game->toggleStats();
 
     if(im->testEvent("zoomin"))
     {
@@ -142,18 +147,10 @@ void PlayState::update(CGame* game)
     x += dirx*5;
     y += diry*5;
     playSprite1.setPosition(x,y);
-//    playSprite1->update(game->getUpdateInterval());
-//    playSprite1->update(game->getUpdateInterval());
-//    playSprite2->update(game->getUpdateInterval());
-
-//    playSprite1->setXspeed(200*dir);
-//    playSprite1->setMirror(dir==1 ? false : true);
-
-    //player.rotate(1);
-    //player.setOrigin(64,64);
-    //player.setXspeed(0);
     player.update(game->getUpdateInterval());
 
+    //if(player.bboxCollision(&playSprite2))
+    //    cout << "Bump!" << endl;
     auto layers = map->GetLayers();
     tmx::MapLayer layer1 = layers[0];
 
@@ -167,7 +164,6 @@ void PlayState::update(CGame* game)
         player.setXspeed(100);
         player.setMirror(false);
     }
-
 }
 
 void PlayState::draw(CGame* game)
@@ -177,11 +173,11 @@ void PlayState::draw(CGame* game)
     screen->clear(sf::Color(0,0,0));
     map->Draw(*screen);
 
-    playSprite1.setRotation(0);
-    playSprite1.setScale(1,1);
+//    playSprite1.setRotation(0);
+//    playSprite1.setScale(1,1);
     screen->draw(playSprite1);
-    playSprite2.setRotation(0);
-    playSprite2.setScale(1,1);
+//    playSprite2.setRotation(0);
+//    playSprite2.setScale(1,1);
 
     screen->draw(playSprite2);
     screen->draw(playSprite3);

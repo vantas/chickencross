@@ -11,17 +11,16 @@
  */
 
 #include <vector>
+#include <map>
 #include "TextureManager.h"
-#include "TexRect.h"
+#include "CAnim.h"
+#include "CImage.h"
 #include "pugixml/pugixml.hpp"
-//#include "tinyxml.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
-
-//#include "Animation.hpp"
 
 class CSprite : public sf::Drawable, public sf::Transformable
 {
@@ -29,35 +28,44 @@ public:
     CSprite();
     virtual ~CSprite();
 
-    bool loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
+    bool loadSprite(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                 int column, int row, int total);
-    bool loadSpriteSparrowXML(char nomeArq[]);
-    void setMirror(bool mirror) { this->mirror = mirror; }
+    bool loadSpriteXML(char filename[]);
+    bool loadAnimation(char filename[]);
+
+    // Mirroring (X-axis)
+    void setMirror(bool mirror) { this->mirror = mirror; setCurrentFrame(curframe); }
     bool getMirror() { return mirror; }
+
+    // Sprite speed
     void setXspeed(double xspeed);
     void setYspeed(double yspeed);
-    void setCurrentFrame(int c);
-    bool setFrameRange(int first, int last);
-    void frameForward();
-    void frameBack();
-    void setAnimRate(int fdelay);
-    void update(double deltaTime);
     double getXspeed() { return xspeed; }
     double getYspeed() { return yspeed; }
+
+    // Animation control
+    void setAnimation(std::string name);
+    void setAnimRate(int fdelay);
+    void play();
+    void pause();
+    void stop();
+    void setLooped(bool looped) { looping = looped; }
+
+    // Fine tuning animation controls
+    bool setFrameRange(int first, int last);
+    void setCurrentFrame(int c);
+    void frameForward();
+    void frameBack();
+
     int getCurrentFrame() { return curframe; }
     int getTotalFrames() { return totalFrames; }
-    bool bboxCollision(CSprite* other);
-    bool circleCollision(CSprite* other);
 
-    // TiXmlVisitor overrides
-    //virtual bool 	VisitEnter (const TiXmlElement &, const TiXmlAttribute *);
+    void update(double deltaTime);
 
-//    void setAnimation(const Animation& animation);
-//    void setFrameTime(sf::Time time);
-//    void play();
-//    void pause();
-//    void stop();
-//    void setLooped(bool looped);
+    // Basic collision checking
+    bool bboxCollision(CSprite& other);
+    bool circleCollision(CSprite& other);
+
 //    void setColor(const sf::Color& color);
 //    sf::FloatRect getLocalBounds() const;
 //    sf::FloatRect getGlobalBounds() const;
@@ -67,28 +75,30 @@ public:
 //    void setFrame(std::size_t newFrame, bool resetTime = true);
 
 private:
-    //const Animation* m_animation;
-    //sf::Time m_frameTime;
-    //sf::Time m_currentTime;
-    //std::size_t m_currentFrame;
-    //bool m_isPaused;
-    //bool m_isLooped;
 
     static TextureManager* tm;
 
+    // Rendering
+    const sf::Texture* tex;
+    sf::Vertex vertices[4];
+    int spriteW, spriteH;       // width and height of a single sprite frame
     bool mirror;
+
+    // Motion
     double xspeed,yspeed;       // speed in pixels/s
     int updateCount;            // current count of updates
-    int firstFrame, lastFrame; // frame range
+
+    // Animation
+    std::map<std::string, CAnim> anims;
+    std::vector<sf::IntRect> frames;
+    CAnim* currentAnim;
+    int firstFrame, lastFrame;
+    bool looping;
+    bool paused;
     int totalFrames;
     int curframe;		        // current frame
     double curFrameD;           // the current frame as double
-	int framecount,framedelay;  // slow down the frame animation
-    int spriteW, spriteH;       // width and height of a single sprite frame
-
-    const sf::Texture* tex;
-    std::vector<sf::IntRect> frames;
-    sf::Vertex vertices[4];
+    int framecount,framedelay;  // slow down the frame animation
 
     bool loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total);
 
