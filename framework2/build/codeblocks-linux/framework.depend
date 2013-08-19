@@ -196,8 +196,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1367616842 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Graphics.h
-	<GL/glew.h>
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Graphics.h
 
 1343821655 /usr/include/SDL/SDL_opengl.h
 	"SDL_config.h"
@@ -379,18 +378,20 @@
 1367615483 /home/PORTOALEGRE/10049190/hg/ed/framework2/lib/Box2D-2.1.0/include/Box2D/Dynamics/Joints/b2WeldJoint.h
 	<Box2D/Dynamics/Joints/b2Joint.h>
 
-1376423757 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
+1376909524 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CSprite.cpp
 	"CSprite.h"
 	<iostream>
 	<iomanip>
 	<string>
 	<cmath>
 
-1376081199 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
+1376909524 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CSprite.h
 	<vector>
+	<map>
 	"TextureManager.h"
-	"TexRect.h"
-	"tinyxml.h"
+	"CAnim.h"
+	"CImage.h"
+	"pugixml/pugixml.hpp"
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/System/Time.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -443,10 +444,11 @@
 	"CGame.h"
 	"MenuState.h"
 
-1367960380 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CGame.h
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CGame.h
 	<SFML/Audio.hpp>
 	<SFML/Graphics.hpp>
 	<stack>
+	"ClockHUD.h"
 
 1367960657 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/MenuState.h
 	"CGameState.h"
@@ -463,12 +465,11 @@
 	"CFont.h"
 	"PauseState.h"
 
-1367615482 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PauseState.h
-	<SDL.h>
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PauseState.h
 	"CGameState.h"
 	"CImage.h"
 
-1367963039 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CGame.cpp
+1376687268 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/CGame.cpp
 	"CGame.h"
 	"CGameState.h"
 	<iostream>
@@ -498,13 +499,12 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1376517909 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"CGameState.h"
 	"CSprite.h"
 	"CImage.h"
 	"InputManager.h"
 	<MapLoader.h>
-	"ClockHUD.h"
 
 1367616104 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayMap.h
 	<SDL.h>
@@ -512,16 +512,15 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1376518097 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1376909524 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"CGame.h"
 	"PlayState.h"
 	"PauseState.h"
 	"InputManager.h"
-	"ClockHUD.h"
 
-1376080919 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
+1376909524 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/TextureManager.cpp
 	"TextureManager.h"
 	<iostream>
 
@@ -976,7 +975,7 @@
 	<zlib.h>
 	<cstring>
 
-1375801842 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapLoader.h
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapLoader.h
 	<QuadTreeNode.h>
 	<iostream>
 	<pugixml/pugixml.hpp>
@@ -985,7 +984,7 @@
 	<MapObject.h>
 	<memory>
 
-1374242416 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapObject.h
+1376909524 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapObject.h
 	<string>
 	<vector>
 	<map>
@@ -1009,13 +1008,13 @@
 	<unistd.h>
 	<unixio.h>
 
-1375801842 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/tmxloader/MapLoaderPublic.cpp
+1376687268 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/tmxloader/MapLoaderPublic.cpp
 	<MapLoader.h>
 
 1372102958 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/tmxloader/QuadTreeNode.cpp
 	<QuadTreeNode.h>
 
-1376437989 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/ClockHUD.h
+1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/ClockHUD.h
 	<vector>
 	<string>
 	<sstream>
@@ -1029,4 +1028,7 @@
 	<algorithm>
 	<SFML/System/Time.hpp>
 	<SFML/System/Clock.hpp>
+
+1376909524 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/CAnim.h
+	<string>
 
