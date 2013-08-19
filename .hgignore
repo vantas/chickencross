@@ -3,4 +3,5 @@ syntax: glob
 
 *.o
 *.lyx~
+.DS_Store
 
