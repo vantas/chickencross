@@ -6,18 +6,21 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug-Linux">
 				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../bin" />
 				<Option object_output="../../bin" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add directory="../../lib/Box2D-2.1.0/lib-Linux32" />
+					<Add directory="../../lib/SFML-2.0/lib-Linux64" />
+				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Release-Linux">
 				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../../bin" />
 				<Option object_output="../../bin" />
@@ -29,26 +32,54 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add directory="../../lib/Box2D-2.1.0/lib-Linux32" />
+					<Add directory="../../lib/SFML-2.0/lib-Linux64" />
+				</Linker>
+			</Target>
+			<Target title="Debug-Windows">
+				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../bin" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
+					<Add directory="../../lib/SFML-2.0/lib-Windows" />
+					<Add library="libz" />
+				</Linker>
+			</Target>
+			<Target title="Release-Windows">
+				<Option output="../../bin/framework2" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../bin" />
+				<Option object_output="../../bin" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
+					<Add directory="../../lib/SFML-2.0/lib-Windows" />
+					<Add library="libz" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="`sdl-config --cflags`" />
 			<Add directory="../../include" />
 			<Add directory="../../include/tmxloader" />
-			<Add directory="../../include/tinyxml" />
+			<Add directory="../../include/pugixml" />
 			<Add directory="../../lib/Box2D-2.1.0/include" />
 			<Add directory="../../lib/SFML-2.0/include" />
 		</Compiler>
 		<Linker>
-			<Add option="`sdl-config --libs`" />
-			<Add library="GL" />
-			<Add library="GLU" />
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
-			<Add directory="../../lib/Box2D-2.1.0/lib-Linux32" />
-			<Add directory="../../lib/SFML-2.0/lib-Linux64" />
 		</Linker>
 		<Unit filename="../../include/CGame.h" />
 		<Unit filename="../../include/CGameState.h" />
