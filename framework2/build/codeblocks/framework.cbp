@@ -46,9 +46,9 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
 					<Add directory="../../lib/SFML-2.0/lib-Windows" />
-					<Add library="libz" />
 				</Linker>
 			</Target>
 			<Target title="Release-Windows">
@@ -63,13 +63,14 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
 					<Add directory="../../lib/SFML-2.0/lib-Windows" />
-					<Add library="libz" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add directory="../../include" />
 			<Add directory="../../include/tmxloader" />
 			<Add directory="../../include/pugixml" />
@@ -110,10 +111,6 @@
 		<Unit filename="../../source/TextureManager.cpp" />
 		<Unit filename="../../source/main.cpp" />
 		<Unit filename="../../source/pugixml/pugixml.cpp" />
-		<Unit filename="../../source/tinyxml/tinystr.cpp" />
-		<Unit filename="../../source/tinyxml/tinyxml.cpp" />
-		<Unit filename="../../source/tinyxml/tinyxmlerror.cpp" />
-		<Unit filename="../../source/tinyxml/tinyxmlparser.cpp" />
 		<Unit filename="../../source/tmxloader/MapLoaderPrivate.cpp" />
 		<Unit filename="../../source/tmxloader/MapLoaderPublic.cpp" />
 		<Unit filename="../../source/tmxloader/QuadTreeNode.cpp" />

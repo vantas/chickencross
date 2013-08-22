@@ -371,7 +371,7 @@ bool CSprite::bboxCollision(CSprite& other)
 bool CSprite::circleCollision(CSprite& other)
 {
    int radius1 = max(this->spriteW, this->spriteH)/2;
-   int radius2 = max(other.spriteW, other. spriteW)/2;
+   int radius2 = max(other.spriteW, other.spriteW)/2;
    radius1 *= this->getScale().x;
    radius2 *= other.getScale().y;
    float px1 = this->getPosition().x;
