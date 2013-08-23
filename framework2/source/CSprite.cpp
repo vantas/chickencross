@@ -130,12 +130,11 @@ bool CSprite::loadSpriteXML(char xmlFile[])
     tex = tm->findTexture((char *)prefix.c_str());
 
     // Read all subtextures (frames)
-    for(pugi::xml_node subtex = atlas.child("sprite"); subtex; subtex = subtex.next_sibling("sprite"))
-//    for (pugi::xml_node subtex: doc.children("SubTexture"))
+    for (pugi::xml_node subtex: atlas.children("sprite"))
     {
         int x1, y1, h, w;
 
-        cout << subtex.name() << endl;
+//        out << subtex.name() << endl;
         x1 = subtex.attribute("x").as_int();
         y1 = subtex.attribute("y").as_int();
         w = subtex.attribute("w").as_int();
@@ -193,7 +192,8 @@ bool CSprite::loadAnimation(char filename[])
     pugi::xml_attribute rootname = root.attribute("name");
 
     // Read all animation sequences
-    for(pugi::xml_node seq = root.child("sequence"); seq; seq = seq.next_sibling("sequence"))
+//    for(pugi::xml_node seq = root.child("sequence"); seq; seq = seq.next_sibling("sequence"))
+    for(pugi::xml_node seq : root.children("sequence"))
     {
         CAnim anim;
 
