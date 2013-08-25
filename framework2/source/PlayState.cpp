@@ -28,22 +28,22 @@ void PlayState::init()
     map = new tmx::MapLoader("data/maps");
     map->Load("dungeon.tmx");
 
-    playSprite1.loadImage("data/img/Char14.png");
+    playSprite1.load("data/img/Char14.png");
 	playSprite1.setPosition(10,100);
 
 //	playSprite1->setAnimRate(30);        // quadros/segundo
 //	playSprite1->setXspeed(200);         // pixels/segundo
 //    playSprite2->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    playSprite2.loadImage("data/img/Char01.png");
+    playSprite2.load("data/img/Char01.png");
 	playSprite2.setPosition(10,300);
 
-	playSprite3.loadImage("data/img/Char01.png");
+    playSprite3.load("data/img/Char01.png");
 	playSprite3.setPosition(50,300);
 
-    //player.loadSprite("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
+    //player.load("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
     //player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
-    player.loadSpriteXML("data/img/monkey.xml");
+    player.loadXML("data/img/monkey.xml");
     player.loadAnimation("data/img/monkeyanim.xml");
     player.setPosition(30,30);
     player.setAnimRate(15);
@@ -59,7 +59,7 @@ void PlayState::init()
     dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
     diry = 0;
 
-    im = InputManager::instance();
+    im = cgf::InputManager::instance();
 
     im->addKeyInput("left", sf::Keyboard::Left);
     im->addKeyInput("right", sf::Keyboard::Right);
@@ -149,8 +149,9 @@ void PlayState::update(cgf::Game* game)
     playSprite1.setPosition(x,y);
     player.update(game->getUpdateInterval());
 
-    //if(player.bboxCollision(&playSprite2))
-    //    cout << "Bump!" << endl;
+    if(playSprite1.bboxCollision(playSprite2))
+        cout << "Bump!" << endl;
+
     auto layers = map->GetLayers();
     tmx::MapLayer layer1 = layers[0];
 
@@ -171,16 +172,10 @@ void PlayState::draw(cgf::Game* game)
     //sf::View view = screen->getView();
 
     screen->clear(sf::Color(0,0,0));
+
     map->Draw(*screen);
-
-//    playSprite1.setRotation(0);
-//    playSprite1.setScale(1,1);
     screen->draw(playSprite1);
-//    playSprite2.setRotation(0);
-//    playSprite2.setScale(1,1);
-
     screen->draw(playSprite2);
     screen->draw(playSprite3);
-
     screen->draw(player);
 }

@@ -1,5 +1,9 @@
 #include "InputManager.h"
 
+namespace cgf
+
+{
+
 InputManager InputManager::m_InputManager;
 
 void InputManager::addKeyInput(sf::String name, sf::Keyboard::Key keyCode)
@@ -39,3 +43,5 @@ bool InputManager::testEvent(sf::String name)
     // Binding type doesn't match
     return false;
 }
+
+} // namespace

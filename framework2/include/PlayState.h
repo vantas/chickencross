@@ -12,7 +12,6 @@
 
 #include "GameState.h"
 #include "Sprite.h"
-#include "CImage.h"
 #include "InputManager.h"
 #include <MapLoader.h>
 //#include "TMXLoader.h"
@@ -47,12 +46,12 @@ class PlayState : public cgf::GameState
 
     int x, y;
     int dirx, diry;
-    CImage playSprite1;
-    CImage playSprite2;
-    CImage playSprite3;
+    cgf::Sprite playSprite1;
+    cgf::Sprite playSprite2;
+    cgf::Sprite playSprite3;
     cgf::Sprite player;
     sf::RenderWindow* screen;
-    InputManager* im;
+    cgf::InputManager* im;
     tmx::MapLoader* map;
 };
 

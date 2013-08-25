@@ -2,24 +2,26 @@
 #define CGF_SPRITE_H
 
 /*
- *  Sprite.cpp
+ *  Sprite.h
  *  Animtated sprite class
  *
  *  Created by Marcelo Cohen on 08/13.
  *  Copyright 2013 PUCRS. All rights reserved.
  *
+ *  Base on original code at https://github.com/LaurentGomila/SFML/wiki/Source%3A-AnimatedSprite
+ *
  */
 
 #include <vector>
 #include <map>
-#include "TextureManager.h"
-#include "CAnim.h"
-#include "pugixml/pugixml.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
+#include "TextureManager.h"
+#include "Anim.h"
+#include "pugixml/pugixml.hpp"
 
 namespace cgf
 {
@@ -30,10 +32,14 @@ public:
     Sprite();
     virtual ~Sprite();
 
-    bool loadSprite(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
+    bool load(char filename[]);
+    bool load(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                 int column, int row, int total);
-    bool loadSpriteXML(char filename[]);
+    bool loadXML(char filename[]);
     bool loadAnimation(char filename[]);
+
+    void setVisible(bool vis) { visible = vis; }
+    bool isVisible() { return visible; }
 
     // Mirroring (X-axis)
     void setMirror(bool mirror) { this->mirror = mirror; setCurrentFrame(curframe); }
@@ -52,6 +58,7 @@ public:
     void pause();
     void stop();
     void setLooped(bool looped) { looping = looped; }
+    bool isLooped() { return looping; }
 
     // Fine tuning animation controls
     bool setFrameRange(int first, int last);
@@ -71,7 +78,6 @@ public:
 //    void setColor(const sf::Color& color);
 //    sf::FloatRect getLocalBounds() const;
 //    sf::FloatRect getGlobalBounds() const;
-//    bool isLooped() const;
 //    bool isPlaying() const;
 //    sf::Time getFrameTime() const;
 //    void setFrame(std::size_t newFrame, bool resetTime = true);
@@ -84,6 +90,7 @@ private:
     const sf::Texture* tex;
     sf::Vertex vertices[4];
     int spriteW, spriteH;       // width and height of a single sprite frame
+    bool visible;
     bool mirror;
 
     // Motion
@@ -91,9 +98,9 @@ private:
     int updateCount;            // current count of updates
 
     // Animation
-    std::map<std::string, CAnim> anims;
+    std::map<std::string, cgf::Anim> anims;
     std::vector<sf::IntRect> frames;
-    CAnim* currentAnim;
+    cgf::Anim* currentAnim;
     int firstFrame, lastFrame;
     bool looping;
     bool paused;

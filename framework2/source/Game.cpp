@@ -125,7 +125,6 @@ void Game::update()
     double currentTime, updateIterations;
 
     currentTime = gameClock.getElapsedTime().asMilliseconds();
-    //currentTime = SDL_GetTicks();
     updateIterations = ((currentTime - lastFrameTime) + cyclesLeftOver);
 
     if (updateIterations > maxCyclesPerFrame * updateInterval) {
@@ -171,8 +170,6 @@ void Game::clean()
 		states.pop();
     }
     delete hud;
-//    SDL_Quit();
-//    audioEngine->drop();
 }
 
 } // namespace cgf

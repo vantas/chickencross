@@ -1,9 +1,9 @@
 /*
- *  CGameState.h
+ *  GameState.h
  *  Abstract class to represent game states
  *
  *  Created by Marcelo Cohen on 04/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 

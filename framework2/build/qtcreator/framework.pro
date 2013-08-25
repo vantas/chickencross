@@ -4,27 +4,24 @@ QT       -= gui
 CONFIG   += console
 CONFIG   += opengl
 CONFIG   -= app_bundle
+CONFIG   -= warning
 
 TEMPLATE = app
 
 #DESTDIR = ../../../bin
 
 QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
 SOURCES += ../../source/PlayState.cpp \
     ../../source/main.cpp \
     ../../source/InputManager.cpp \
-    ../../source/CImage.cpp \
     ../../source/tmxloader/QuadTreeNode.cpp \
     ../../source/tmxloader/MapLoaderPublic.cpp \
     ../../source/tmxloader/MapLoaderPrivate.cpp \
     ../../source/pugixml/pugixml.cpp \
     ../../source/MenuState.cpp \
     ../../source/TextureManager.cpp \
-    ../../source/tinyxml/tinyxmlparser.cpp \
-    ../../source/tinyxml/tinyxmlerror.cpp \
-    ../../source/tinyxml/tinyxml.cpp \
-    ../../source/tinyxml/tinystr.cpp \
     ../../source/Sprite.cpp \
     ../../source/Game.cpp
 
@@ -35,7 +32,6 @@ HEADERS += \
     ../../include/Graphics.h \
     ../../include/FrameClock.h \
     ../../include/ClockHUD.h \
-    ../../include/CImage.h \
     ../../include/tmxloader/zlib.h \
     ../../include/tmxloader/zconf.h \
     ../../include/tmxloader/QuadTreeNode.h \
@@ -44,13 +40,11 @@ HEADERS += \
     ../../include/tmxloader/Helpers.h \
     ../../include/pugixml/pugixml.hpp \
     ../../include/pugixml/pugiconfig.hpp \
-    ../../include/tinyxml/tinyxml.h \
-    ../../include/tinyxml/tinystr.h \
     ../../include/MenuState.h \
-    ../../include/CAnim.h \
     ../../include/Sprite.h \
     ../../include/Game.h \
-    ../../include/GameState.h
+    ../../include/GameState.h \
+    ../../include/Anim.h
 
 ###############################################
 # CONFIGURATION

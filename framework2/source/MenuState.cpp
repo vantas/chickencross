@@ -25,14 +25,12 @@ using namespace std;
 
 void MenuState::init()
 {
-    menuSprite = new CImage();
-    menuSprite->loadImage("data/img/menu.png"); // load menu state bitmap
+    menuSprite.load("data/img/menu.png"); // load menu state bitmap
     cout << "MenuState Init Successful" << endl;
 }
 
 void MenuState::cleanup()
 {
-    delete menuSprite;
     cout << "MenuState Cleanup Successful" << endl;
 }
 
@@ -87,8 +85,8 @@ void MenuState::update(cgf::Game* game)
 
 void MenuState::draw(cgf::Game *game)
 {
-    menuSprite->setPosition(50,50);
+    menuSprite.setPosition(50,50);
 //    menuSprite->draw(game->getScreen());
-    game->getScreen()->draw(*menuSprite);
+    game->getScreen()->draw(menuSprite);
 }
 

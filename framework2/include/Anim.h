@@ -1,8 +1,8 @@
-#ifndef CANIM_H
-#define CANIM_H
+#ifndef CGF_ANIM_H
+#define CGF_ANIM_H
 
 /*
- *  CAnim.h
+ *  Anim.h
  *  Defines an animation sequence
  *
  *  Created by Marcelo Cohen on 08/13.
@@ -12,12 +12,17 @@
 
 #include <string>
 
-struct CAnim
+namespace cgf
+{
+
+struct Anim
 {
     std::string name;   // animation name
     int frameStart;     // starting frame
     int frameEnd;       // ending frame
     bool loop;          // true = animation loops at the end
 };
+
+} // namespace cgf
 
 #endif // CANIM_H

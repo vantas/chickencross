@@ -24,6 +24,7 @@ TextureManager* Sprite::tm = TextureManager::getInstance();
 Sprite::Sprite()
 {
     mirror = false;
+    visible = true;
     // Init animation vars
     xspeed = 0;
     yspeed = 0;
@@ -37,10 +38,33 @@ Sprite::Sprite()
     currentAnim = NULL;
 }
 
-bool Sprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
+bool Sprite::load(char filename[])
+{
+    tex = tm->findTexture(filename);
+    if(tex == NULL)
+        return false;
+
+    spriteW = tex->getSize().x;
+    spriteH = tex->getSize().y;
+
+    // Add a single frame as the whole image
+    sf::IntRect rect;
+    rect.left = 0;
+    rect.width = spriteW;
+    rect.top = 0;
+    rect.height = spriteH;
+    cout << "image: " << rect.left << "," << rect.top
+         << " - " << rect.width << "x" << rect.height << endl;
+    frames.push_back(rect);
+    totalFrames = frames.size();
+    setCurrentFrame(0);
+    return true;
+}
+
+bool Sprite::load(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                  int column, int row, int total)
 {
-    if(!loadMultiImage(nomeArq,w,h,hSpace,vSpace,xIni,yIni,column,row,total))
+    if(!loadMultiImage(filename,w,h,hSpace,vSpace,xIni,yIni,column,row,total))
         return false;
 
     setCurrentFrame(0);
@@ -48,73 +72,15 @@ bool Sprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, in
 	return true;
 }
 
-bool Sprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total)
+bool Sprite::loadXML(char xmlFile[])
 {
-    tex = tm->findTexture(nomeArq);
-
-    int width  = tex->getSize().x;
-    int height = tex->getSize().y;
-
-    // Check if the input parameters are valid
-	if ( (hSpace<0 || vSpace<0) || (hSpace>width || vSpace>height) )
-		return false;
-
-	if ( xIni<0 || yIni<0 )
-		return false;
-
-	if ( column<1 || row<1 )
-		return false;
-
-    totalFrames = total;
-
-	if (totalFrames < 1)
-		return false;
-
-    int x, y, tot;
-
-    tot = 0;
-    y = yIni;
-
-    for(int r=0; r<row && tot<total; row++)
-    {
-        x = xIni;
-        for(int c=0; c<column && tot<total; c++)
-        {
-            sf::IntRect rect;
-            rect.left = x;
-            rect.width = w;
-            rect.top = y;
-            rect.height = h;
-            cout << "frame " << setw(3) << tot << ": " << x << " " << y << " " << w << " " << h << endl;
-            frames.push_back(rect);
-
-            x += w + hSpace;
-            tot++;
-        }
-        y += h + vSpace;
-    }
-
-//    xOffset = w/2;
-//    yOffset = h/2;
-
-    //setOrigin(w/2, h/2);
-
-    //cout << "CMultiImage::load: " << xOffset << " " << yOffset << endl;
-    cout << "Sprite::loadMultimage total frames = " << total << endl;
-
-    return true;
-}
-
-bool Sprite::loadSpriteXML(char xmlFile[])
-{
-    cout << "Sprite::loadSpriteSparrowXML " << xmlFile << endl;
+    cout << "Sprite::loadXML " << xmlFile << endl;
 
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xmlFile);
 
-    if ( !result ) {
+    if ( !result )
 		return false;
-	}
 
     // Read texture atlas file name
 
@@ -131,13 +97,14 @@ bool Sprite::loadSpriteXML(char xmlFile[])
     cout << "TextureAtlas: " << prefix << endl;
 
     tex = tm->findTexture((char *)prefix.c_str());
+    if(tex == NULL)
+        return false;
 
     // Read all subtextures (frames)
     for (pugi::xml_node subtex: atlas.children("sprite"))
     {
         int x1, y1, h, w;
 
-//        out << subtex.name() << endl;
         x1 = subtex.attribute("x").as_int();
         y1 = subtex.attribute("y").as_int();
         w = subtex.attribute("w").as_int();
@@ -185,21 +152,17 @@ bool Sprite::loadAnimation(char filename[])
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filename);
 
-    if ( !result ) {
+    if ( !result )
         return false;
-    }
 
     // Read texture atlas file name
-
     pugi::xml_node root = doc.child("animation");
-    pugi::xml_attribute rootname = root.attribute("name");
 
     // Read all animation sequences
 //    for(pugi::xml_node seq = root.child("sequence"); seq; seq = seq.next_sibling("sequence"))
     for(pugi::xml_node seq : root.children("sequence"))
     {
-        CAnim anim;
-
+        cgf::Anim anim;
         string name = seq.attribute("name").as_string();
         cout << "Animation: " << name << endl;
         anim.frameStart = seq.attribute("start").as_int();
@@ -209,6 +172,62 @@ bool Sprite::loadAnimation(char filename[])
     }
 
     cout << "Sprite::loadAnimation total sequences = " << anims.size() << endl;
+    return true;
+}
+
+bool Sprite::loadMultiImage(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int columns, int rows, int total)
+{
+    tex = tm->findTexture(filename);
+
+    int width  = tex->getSize().x;
+    int height = tex->getSize().y;
+
+    // Check if the input parameters are valid
+    if ( (hSpace<0 || vSpace<0) || (hSpace>width || vSpace>height) )
+        return false;
+
+    if ( xIni<0 || yIni<0 )
+        return false;
+
+    if ( columns<1 || rows<1 )
+        return false;
+
+    totalFrames = total;
+
+    if (totalFrames < 1)
+        return false;
+
+    int x, y, tot;
+
+    tot = 0;
+    y = yIni;
+
+    for(int r=0; r<rows && tot<total; rows++)
+    {
+        x = xIni;
+        for(int c=0; c<columns && tot<total; c++)
+        {
+            sf::IntRect rect;
+            rect.left = x;
+            rect.width = w;
+            rect.top = y;
+            rect.height = h;
+            cout << "frame " << setw(3) << tot << ": " << x << " " << y << " " << w << " " << h << endl;
+            frames.push_back(rect);
+
+            x += w + hSpace;
+            tot++;
+        }
+        y += h + vSpace;
+    }
+
+//    xOffset = w/2;
+//    yOffset = h/2;
+
+    //setOrigin(w/2, h/2);
+
+    cout << "Sprite::loadMultimage total frames = " << total << endl;
+
     return true;
 }
 

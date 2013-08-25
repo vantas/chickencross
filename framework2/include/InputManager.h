@@ -1,8 +1,16 @@
-#ifndef INPUT_MANAGER_H
-#define INPUT_MANAGER_H
+#ifndef CGF_INPUT_MANAGER_H
+#define CGF_INPUT_MANAGER_H
+
+// Input Manager for keyboard, mouse and joystick global inputs
+//
+// Based on original code at https://github.com/LaurentGomila/SFML/wiki/Tutorial%3A-Manage-dynamic-key-binding
+//
 
 #include <map>
 #include <SFML/Graphics.hpp>
+
+namespace cgf
+{
 
 class InputManager
 {
@@ -12,7 +20,7 @@ public:
     {
         KeyboardInput,
         MouseInput,
-        JoystickInput
+        JoystickInput // TODO
     };
 
     // Implement Singleton Pattern
@@ -43,5 +51,7 @@ private:
 
     static InputManager m_InputManager;
 };
+
+} // namespace
 
 #endif // INPUT_MANAGER_H

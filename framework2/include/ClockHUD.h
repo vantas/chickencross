@@ -9,6 +9,8 @@
 #include <SFML/Graphics.hpp>
 #include "FrameClock.h"
 
+// https://github.com/LaurentGomila/SFML/wiki/Source%3A-FrameClock
+
 class ClockHUD : public sf::Drawable, public sf::Transformable
 {
     struct Stat

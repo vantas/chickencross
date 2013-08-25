@@ -11,7 +11,7 @@
 #define _MENU_STATE_H_
 
 #include "GameState.h"
-#include "CImage.h"
+#include "Sprite.h"
 
 class MenuState : public cgf::GameState
 {
@@ -41,7 +41,7 @@ class MenuState : public cgf::GameState
 
     static MenuState m_MenuState;
 
-    CImage* menuSprite;
+    cgf::Sprite menuSprite;
 
 };
 
