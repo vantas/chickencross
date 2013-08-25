@@ -1,9 +1,9 @@
-#ifndef CSPRITE_H
-#define CSPRITE_H
+#ifndef CGF_SPRITE_H
+#define CGF_SPRITE_H
 
 /*
- *  CSprite.cpp
- *  Sprite class
+ *  Sprite.cpp
+ *  Animtated sprite class
  *
  *  Created by Marcelo Cohen on 08/13.
  *  Copyright 2013 PUCRS. All rights reserved.
@@ -14,7 +14,6 @@
 #include <map>
 #include "TextureManager.h"
 #include "CAnim.h"
-#include "CImage.h"
 #include "pugixml/pugixml.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
@@ -22,11 +21,14 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
 
-class CSprite : public sf::Drawable, public sf::Transformable
+namespace cgf
+{
+
+class Sprite : public sf::Drawable, public sf::Transformable
 {
 public:
-    CSprite();
-    virtual ~CSprite();
+    Sprite();
+    virtual ~Sprite();
 
     bool loadSprite(char filename[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                 int column, int row, int total);
@@ -63,8 +65,8 @@ public:
     void update(double deltaTime);
 
     // Basic collision checking
-    bool bboxCollision(CSprite& other);
-    bool circleCollision(CSprite& other);
+    bool bboxCollision(Sprite& other);
+    bool circleCollision(Sprite& other);
 
 //    void setColor(const sf::Color& color);
 //    sf::FloatRect getLocalBounds() const;
@@ -105,4 +107,6 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
-#endif // CSPRITE_H
+} // namespace cgf
+
+#endif // CGF_SPRITE_H

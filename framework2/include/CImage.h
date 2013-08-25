@@ -10,7 +10,7 @@ class CImage : public sf::Sprite
 {
 	protected:
         bool visible;
-        static TextureManager* tm;
+        static cgf::TextureManager* tm;
 
     //private:
     //    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-TextureManager* CImage::tm = TextureManager::getInstance();
+cgf::TextureManager* CImage::tm = cgf::TextureManager::getInstance();
 
 CImage::CImage()
 {

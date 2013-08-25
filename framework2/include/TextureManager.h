@@ -7,13 +7,16 @@
  *
  */
 
-#ifndef TEXTUREMANAGER_H
-#define TEXTUREMANAGER_H
+#ifndef CGF_TEXTUREMANAGER_H
+#define CGF_TEXTUREMANAGER_H
 
 #include "Graphics.h"
 #include <map>
 #include <string>
 #include <SFML/Graphics.hpp>
+
+namespace cgf
+{
 
 class TextureManager
 {
@@ -39,4 +42,6 @@ class TextureManager
         TextureManager ();
 };
 
-#endif
+} // namespace cgf
+
+#endif // CGF_TEXTUREMANAGER_H

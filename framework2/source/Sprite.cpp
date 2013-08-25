@@ -1,5 +1,5 @@
 /*
- *  CSprite.cpp
+ *  Sprite.cpp
  *  Sprite class
  *
  *  Created by Marcelo Cohen on 04/11.
@@ -7,7 +7,7 @@
  *
  */
 
-#include "CSprite.h"
+#include "Sprite.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -15,10 +15,13 @@
 
 using namespace std;
 
-TextureManager* CSprite::tm = TextureManager::getInstance();
+namespace cgf
+{
+
+TextureManager* Sprite::tm = TextureManager::getInstance();
 
 // Construtor
-CSprite::CSprite()
+Sprite::Sprite()
 {
     mirror = false;
     // Init animation vars
@@ -34,7 +37,7 @@ CSprite::CSprite()
     currentAnim = NULL;
 }
 
-bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
+bool Sprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni,
                  int column, int row, int total)
 {
     if(!loadMultiImage(nomeArq,w,h,hSpace,vSpace,xIni,yIni,column,row,total))
@@ -45,7 +48,7 @@ bool CSprite::loadSprite(char nomeArq[], int w, int h, int hSpace, int vSpace, i
 	return true;
 }
 
-bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total)
+bool Sprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total)
 {
     tex = tm->findTexture(nomeArq);
 
@@ -97,14 +100,14 @@ bool CSprite::loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpac
     //setOrigin(w/2, h/2);
 
     //cout << "CMultiImage::load: " << xOffset << " " << yOffset << endl;
-    cout << "CSprite::loadMultimage total frames = " << total << endl;
+    cout << "Sprite::loadMultimage total frames = " << total << endl;
 
     return true;
 }
 
-bool CSprite::loadSpriteXML(char xmlFile[])
+bool Sprite::loadSpriteXML(char xmlFile[])
 {
-    cout << "CSprite::loadSpriteSparrowXML " << xmlFile << endl;
+    cout << "Sprite::loadSpriteSparrowXML " << xmlFile << endl;
 
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(xmlFile);
@@ -121,7 +124,7 @@ bool CSprite::loadSpriteXML(char xmlFile[])
     string attrib = imagepath.as_string();
     string prefix = "data/img/";
 
-    cout << "CSprite::loadSpriteSparrowXML: " << attrib << endl;
+    cout << "Sprite::loadSpriteSparrowXML: " << attrib << endl;
 
     prefix.append(attrib);// = "data/img/"+attrib;
 
@@ -169,15 +172,15 @@ bool CSprite::loadSpriteXML(char xmlFile[])
 
     totalFrames = frames.size();
 
-    cout << "CSprite::loadSpriteSparrowXML total frames = " << totalFrames << endl;
+    cout << "Sprite::loadSpriteSparrowXML total frames = " << totalFrames << endl;
 
     setCurrentFrame(0);
     return true;
 }
 
-bool CSprite::loadAnimation(char filename[])
+bool Sprite::loadAnimation(char filename[])
 {
-    cout << "CSprite::loadAnimation " << filename << endl;
+    cout << "Sprite::loadAnimation " << filename << endl;
 
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(filename);
@@ -205,11 +208,11 @@ bool CSprite::loadAnimation(char filename[])
         anims[name] = anim;
     }
 
-    cout << "CSprite::loadAnimation total sequences = " << anims.size() << endl;
+    cout << "Sprite::loadAnimation total sequences = " << anims.size() << endl;
     return true;
 }
 
-void CSprite::setAnimation(string name)
+void Sprite::setAnimation(string name)
 {
     auto seq = anims.find(name);
     if(seq == anims.end())
@@ -220,25 +223,25 @@ void CSprite::setAnimation(string name)
     setLooped(currentAnim->loop);
 }
 
-CSprite::~CSprite()
+Sprite::~Sprite()
 {
     //dtor
 }
 
 // Especifica quantos pixels o sprite ira se mover em x.
-void CSprite::setXspeed(double xspeed)
+void Sprite::setXspeed(double xspeed)
 {
 	this->xspeed = xspeed;
 }
 
 // Especifica quantos pixels a sprite ira se mover em y.
-void CSprite::setYspeed(double yspeed)
+void Sprite::setYspeed(double yspeed)
 {
 	this->yspeed = yspeed;
 }
 
 // Sets the current frame
-void CSprite::setCurrentFrame(int c)
+void Sprite::setCurrentFrame(int c)
 {
 	if ( c>=0 && c<totalFrames )
 		curframe = c;
@@ -278,7 +281,7 @@ void CSprite::setCurrentFrame(int c)
   *
   * @todo: document this function
   */
-bool CSprite::setFrameRange(int first, int last)
+bool Sprite::setFrameRange(int first, int last)
 {
     if(first > last || first < 0 || last >= totalFrames)
         return false;
@@ -289,7 +292,7 @@ bool CSprite::setFrameRange(int first, int last)
 }
 
 // Advance to next frame
-void CSprite::frameForward()
+void Sprite::frameForward()
 {
 	curframe++;
 	if (curframe > lastFrame)
@@ -297,7 +300,7 @@ void CSprite::frameForward()
 }
 
 // Go back to previous frame
-void CSprite::frameBack()
+void Sprite::frameBack()
 {
 	curframe--;
 	if (curframe < firstFrame)
@@ -306,7 +309,7 @@ void CSprite::frameBack()
 
 // Recebe por parametro o valor que sera usado para especificar o atributo
 // framedelay, responsavel por diminuir ou aumentar a taxa de animacao.
-void CSprite::setAnimRate(int fdelay)
+void Sprite::setAnimRate(int fdelay)
 {
     if (fdelay >= 0)
 		framedelay = fdelay;
@@ -319,7 +322,7 @@ void CSprite::setAnimRate(int fdelay)
 
 // Metodo responsavel por fazer as atualizacoes necessarias para a correta
 // animacao do sprite.
-void CSprite::update(double deltaTime)
+void Sprite::update(double deltaTime)
 {
     // Move sprite according to its speed and the amount of time that has passed
     sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
@@ -337,7 +340,7 @@ void CSprite::update(double deltaTime)
 }
 
 // Check bounding box collision between this and other sprite
-bool CSprite::bboxCollision(CSprite& other)
+bool Sprite::bboxCollision(Sprite& other)
 {
     sf::Vector2f pos = this->getPosition();
     sf::Vector2f scale = this->getScale();
@@ -368,7 +371,7 @@ bool CSprite::bboxCollision(CSprite& other)
 }
 
 // Check circle collision between this and other sprite
-bool CSprite::circleCollision(CSprite& other)
+bool Sprite::circleCollision(Sprite& other)
 {
    int radius1 = max(this->spriteW, this->spriteH)/2;
    int radius2 = max(other.spriteW, other.spriteW)/2;
@@ -384,7 +387,7 @@ bool CSprite::circleCollision(CSprite& other)
    return (dist < radius1 + radius2);
 }
 
-void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     if (tex)
     {
@@ -393,3 +396,5 @@ void CSprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(vertices, 4, sf::Quads, states);
     }
 }
+
+} // namespace cgf

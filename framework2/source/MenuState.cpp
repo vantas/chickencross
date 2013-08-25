@@ -9,7 +9,7 @@
 
 
 #include <iostream>
-#include "CGame.h"
+#include "Game.h"
 #include "InputManager.h"
 #include "MenuState.h"
 #include "PlayState.h"
@@ -46,7 +46,7 @@ void MenuState::resume()
     cout << "MenuState Resumed" << endl;
 }
 
-void MenuState::handleEvents(CGame* game)
+void MenuState::handleEvents(cgf::Game* game)
 {
     sf::Event event;
     sf::RenderWindow* screen = game->getScreen();
@@ -81,11 +81,11 @@ void MenuState::handleEvents(CGame* game)
     }
 }
 
-void MenuState::update(CGame* game)
+void MenuState::update(cgf::Game* game)
 {
 }
 
-void MenuState::draw(CGame* game)
+void MenuState::draw(cgf::Game *game)
 {
     menuSprite->setPosition(50,50);
 //    menuSprite->draw(game->getScreen());

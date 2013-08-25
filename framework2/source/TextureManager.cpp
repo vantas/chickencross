@@ -10,6 +10,9 @@
 #include "TextureManager.h"
 #include <iostream>
 
+namespace cgf
+{
+
 using namespace std;
 
 TextureManager TextureManager::m_TextureManager;
@@ -64,3 +67,5 @@ void TextureManager::releaseTexture(char* nomeArq)
         //glDeleteTextures(1, &tex);
     }
 }
+
+} // namespace cgf

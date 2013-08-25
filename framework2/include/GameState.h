@@ -7,12 +7,15 @@
  *
  */
 
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef CGF_GAMESTATE_H
+#define CGF_GAMESTATE_H
 
-#include "CGame.h"
+#include "Game.h"
 
-class CGameState
+namespace cgf
+{
+
+class GameState
 {
     public:
 
@@ -22,18 +25,19 @@ class CGameState
     virtual void pause() = 0;
     virtual void resume() = 0;
 
-    virtual void handleEvents(CGame* game) = 0;
-    virtual void update(CGame* game) = 0;
-    virtual void draw(CGame* game) = 0;
+    virtual void handleEvents(Game* game) = 0;
+    virtual void update(Game* game) = 0;
+    virtual void draw(Game* game) = 0;
 
-    void changeState(CGame* game, CGameState* state) {
+    void changeState(Game* game, GameState* state) {
         game->changeState(state);
     }
 
     protected:
 
-    CGameState() { }
+    GameState() { }
 };
 
-#endif
+} // namespace cgf
 
+#endif // CGF_GAMESTATE_H

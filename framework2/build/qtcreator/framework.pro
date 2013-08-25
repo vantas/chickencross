@@ -14,9 +14,7 @@ QMAKE_CXXFLAGS += -std=c++11
 SOURCES += ../../source/PlayState.cpp \
     ../../source/main.cpp \
     ../../source/InputManager.cpp \
-    ../../source/CSprite.cpp \
     ../../source/CImage.cpp \
-    ../../source/CGame.cpp \
     ../../source/tmxloader/QuadTreeNode.cpp \
     ../../source/tmxloader/MapLoaderPublic.cpp \
     ../../source/tmxloader/MapLoaderPrivate.cpp \
@@ -26,7 +24,9 @@ SOURCES += ../../source/PlayState.cpp \
     ../../source/tinyxml/tinyxmlparser.cpp \
     ../../source/tinyxml/tinyxmlerror.cpp \
     ../../source/tinyxml/tinyxml.cpp \
-    ../../source/tinyxml/tinystr.cpp
+    ../../source/tinyxml/tinystr.cpp \
+    ../../source/Sprite.cpp \
+    ../../source/Game.cpp
 
 HEADERS += \
     ../../include/TextureManager.h \
@@ -34,11 +34,8 @@ HEADERS += \
     ../../include/InputManager.h \
     ../../include/Graphics.h \
     ../../include/FrameClock.h \
-    ../../include/CSprite.h \
     ../../include/ClockHUD.h \
     ../../include/CImage.h \
-    ../../include/CGameState.h \
-    ../../include/CGame.h \
     ../../include/tmxloader/zlib.h \
     ../../include/tmxloader/zconf.h \
     ../../include/tmxloader/QuadTreeNode.h \
@@ -50,7 +47,10 @@ HEADERS += \
     ../../include/tinyxml/tinyxml.h \
     ../../include/tinyxml/tinystr.h \
     ../../include/MenuState.h \
-    ../../include/CAnim.h
+    ../../include/CAnim.h \
+    ../../include/Sprite.h \
+    ../../include/Game.h \
+    ../../include/GameState.h
 
 ###############################################
 # CONFIGURATION

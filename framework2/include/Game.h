@@ -7,25 +7,28 @@
  *
  */
 
-#ifndef CGAME_H
-#define CGAME_H
+#ifndef CGF_GAME_H
+#define CGF_GAME_H
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <stack>
 #include "ClockHUD.h"
 
-class CGameState;
+namespace cgf
+{
 
-class CGame
+class GameState;
+
+class Game
 {
     public:
 
-        CGame(int minFrameRate=15, int maxFrameRate=20);
+        Game(int minFrameRate=15, int maxFrameRate=20);
         void init(const char* title, int width, int height, bool fullscreen);
         void handleEvents();
-        void changeState(CGameState* state);
-        void pushState(CGameState* state);
+        void changeState(GameState* state);
+        void pushState(GameState* state);
         void popState();
         void update();
         void draw();
@@ -50,7 +53,7 @@ class CGame
 
         int bpp; // bits per pixel (screen colour depth)
         int flags; // SDL initialization flags
-        std::stack<CGameState*> states;
+        std::stack<GameState*> states;
         // Fixed interval time-based animation
         sf::Clock gameClock;
         int minFrameRate;
@@ -67,5 +70,6 @@ class CGame
 //        irrklang::ISoundEngine* audioEngine;
 };
 
-#endif
+} // namespace cgf
 
+#endif // CGF_GAME

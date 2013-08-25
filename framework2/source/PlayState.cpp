@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "CGame.h"
+#include "Game.h"
 #include "PlayState.h"
 #include "PauseState.h"
 #include "InputManager.h"
@@ -90,7 +90,7 @@ void PlayState::resume()
 	cout << "PlayState Resumed" << endl;
 }
 
-void PlayState::handleEvents(CGame* game)
+void PlayState::handleEvents(cgf::Game* game)
 {
     sf::Event event;
     sf::View view = screen->getView();
@@ -139,7 +139,7 @@ void PlayState::handleEvents(CGame* game)
     //game->changeState(PlayMapPhysics::instance());
 }
 
-void PlayState::update(CGame* game)
+void PlayState::update(cgf::Game* game)
 {
     screen = game->getScreen();
     float x = playSprite1.getPosition().x;
@@ -166,7 +166,7 @@ void PlayState::update(CGame* game)
     }
 }
 
-void PlayState::draw(CGame* game)
+void PlayState::draw(cgf::Game* game)
 {
     //sf::View view = screen->getView();
 

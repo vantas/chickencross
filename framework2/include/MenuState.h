@@ -10,10 +10,10 @@
 #ifndef _MENU_STATE_H_
 #define _MENU_STATE_H_
 
-#include "CGameState.h"
+#include "GameState.h"
 #include "CImage.h"
 
-class MenuState : public CGameState
+class MenuState : public cgf::GameState
 {
     public:
 
@@ -23,9 +23,9 @@ class MenuState : public CGameState
     void pause();
     void resume();
 
-    void handleEvents(CGame* game);
-    void update(CGame* game);
-    void draw(CGame* game);
+    void handleEvents(cgf::Game* game);
+    void update(cgf::Game* game);
+    void draw(cgf::Game* game);
 
     // Implement Singleton Pattern
     static MenuState* instance()

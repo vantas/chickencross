@@ -1,5 +1,5 @@
 /*
- *  CGame.cpp
+ *  Game.cpp
  *  Main game class
  *
  *  Created by Marcelo Cohen on 08/13.
@@ -7,17 +7,20 @@
  *
  */
 
-#include "CGame.h"
-#include "CGameState.h"
+#include "Game.h"
+#include "GameState.h"
 
 #include <iostream>
 #include <assert.h>
 #include <cmath>
 
+namespace cgf
+{
+
 using namespace std;
 
 // Construtor
-CGame::CGame(int minFrameRate, int maxFrameRate)
+Game::Game(int minFrameRate, int maxFrameRate)
 {
     this->minFrameRate = minFrameRate;
     this->maxFrameRate = maxFrameRate;
@@ -39,7 +42,7 @@ CGame::CGame(int minFrameRate, int maxFrameRate)
     clock.setSampleDepth(100); // Sample 100 frames for averaging.
 }
 
-void CGame::init(const char* title, int width, int height, bool fullscreen)
+void Game::init(const char* title, int width, int height, bool fullscreen)
 {
     screen = new sf::RenderWindow(sf::VideoMode(width, height), title);
     // Enable transparency through blending
@@ -60,7 +63,7 @@ void CGame::init(const char* title, int width, int height, bool fullscreen)
 }
 
 
-void CGame::printAttributes ()
+void Game::printAttributes ()
 {
     return;
     std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
@@ -73,12 +76,12 @@ void CGame::printAttributes ()
     }
 }
 
-void CGame::handleEvents()
+void Game::handleEvents()
 {
     states.top()->handleEvents(this);
 }
 
-void CGame::changeState(CGameState* state)
+void Game::changeState(GameState* state)
 {
     // cleanup the current state
     if ( !states.empty() ) {
@@ -91,7 +94,7 @@ void CGame::changeState(CGameState* state)
     states.top()->init();
 }
 
-void CGame::pushState(CGameState* state)
+void Game::pushState(GameState* state)
 {
 	// pause current state
 	if ( !states.empty() ) {
@@ -103,7 +106,7 @@ void CGame::pushState(CGameState* state)
 	states.top()->init();
 }
 
-void CGame::popState()
+void Game::popState()
 {
 	// cleanup the current state
 	if ( !states.empty() ) {
@@ -117,7 +120,7 @@ void CGame::popState()
 	}
 }
 
-void CGame::update()
+void Game::update()
 {
     double currentTime, updateIterations;
 
@@ -140,7 +143,7 @@ void CGame::update()
     lastFrameTime = currentTime;
 }
 
-void CGame::draw()
+void Game::draw()
 {
     // let the state draw the screen
     screen->clear();
@@ -161,7 +164,7 @@ void CGame::draw()
     clock.endFrame();
 }
 
-void CGame::clean()
+void Game::clean()
 {
     while ( !states.empty() ) {
 		states.top()->cleanup();
@@ -171,3 +174,5 @@ void CGame::clean()
 //    SDL_Quit();
 //    audioEngine->drop();
 }
+
+} // namespace cgf

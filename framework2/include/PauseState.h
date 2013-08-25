@@ -11,13 +11,13 @@
 #define PAUSE_STATE_H_
 
 //#include <SDL.h>
-#include "CGameState.h"
+#include "GameState.h"
 #include "CImage.h"
 
 
 class CFont;
 
-class PauseState : public CGameState
+class PauseState : public cgf::GameState
 {
     public:
 
@@ -27,9 +27,9 @@ class PauseState : public CGameState
     void pause();
     void resume();
 
-    void handleEvents(CGame* game);
-    void update(CGame* game);
-    void draw(CGame* game);
+    void handleEvents(cgf::Game* game);
+    void update(cgf::Game* game);
+    void draw(cgf::Game* game);
 
     // Implement Singleton Pattern
     static PauseState* instance()
