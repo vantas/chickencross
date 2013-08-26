@@ -82,10 +82,9 @@
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 		</Linker>
-		<Unit filename="../../include/CGame.h" />
-		<Unit filename="../../include/CGameState.h" />
-		<Unit filename="../../include/CImage.h" />
-		<Unit filename="../../include/CSprite.h" />
+		<Unit filename="../../include/Game.h" />
+		<Unit filename="../../include/GameState.h" />
+		<Unit filename="../../include/Sprite.h" />
 		<Unit filename="../../include/ClockHUD.h" />
 		<Unit filename="../../include/FrameClock.h" />
 		<Unit filename="../../include/InputManager.h" />
@@ -94,17 +93,14 @@
 		<Unit filename="../../include/TextureManager.h" />
 		<Unit filename="../../include/pugixml/pugiconfig.hpp" />
 		<Unit filename="../../include/pugixml/pugixml.hpp" />
-		<Unit filename="../../include/tinyxml/tinystr.h" />
-		<Unit filename="../../include/tinyxml/tinyxml.h" />
 		<Unit filename="../../include/tmxloader/Helpers.h" />
 		<Unit filename="../../include/tmxloader/MapLoader.h" />
 		<Unit filename="../../include/tmxloader/MapObject.h" />
 		<Unit filename="../../include/tmxloader/QuadTreeNode.h" />
 		<Unit filename="../../include/tmxloader/zconf.h" />
 		<Unit filename="../../include/tmxloader/zlib.h" />
-		<Unit filename="../../source/CGame.cpp" />
-		<Unit filename="../../source/CImage.cpp" />
-		<Unit filename="../../source/CSprite.cpp" />
+		<Unit filename="../../source/Game.cpp" />
+		<Unit filename="../../source/Sprite.cpp" />
 		<Unit filename="../../source/InputManager.cpp" />
 		<Unit filename="../../source/MenuState.cpp" />
 		<Unit filename="../../source/PlayState.cpp" />
