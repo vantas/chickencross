@@ -3,7 +3,7 @@
 
 /*
  *  Sprite.h
- *  Animtated sprite class
+ *  Animated sprite class
  *
  *  Created by Marcelo Cohen on 08/13.
  *  Copyright 2013 PUCRS. All rights reserved.
@@ -59,6 +59,7 @@ public:
     void stop();
     void setLooped(bool looped) { looping = looped; }
     bool isLooped() { return looping; }
+    enum AnimState { STOPPED, PLAYING, PAUSED };
 
     // Fine tuning animation controls
     bool setFrameRange(int first, int last);
@@ -103,7 +104,8 @@ private:
     cgf::Anim* currentAnim;
     int firstFrame, lastFrame;
     bool looping;
-    bool paused;
+    AnimState animState;
+//    bool paused;
     int totalFrames;
     int curframe;		        // current frame
     double curFrameD;           // the current frame as double

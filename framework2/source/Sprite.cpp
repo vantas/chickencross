@@ -33,7 +33,7 @@ Sprite::Sprite()
     framedelay = 10;
     firstFrame = 0;
     lastFrame = 0;
-    paused = false;
+    animState = STOPPED;
     looping = false;
     currentAnim = NULL;
 }
@@ -240,7 +240,27 @@ void Sprite::setAnimation(string name)
     currentAnim = &seq->second;
     setFrameRange(currentAnim->frameStart, currentAnim->frameEnd);
     setLooped(currentAnim->loop);
+
+    animState = AnimState::STOPPED;
 }
+
+void Sprite::play()
+{
+    if(animState == AnimState::STOPPED)
+        setCurrentFrame(firstFrame);
+    animState = AnimState::PLAYING;
+}
+
+void Sprite::pause()
+{
+    animState = AnimState::PAUSED;
+}
+
+void Sprite::stop()
+{
+    animState = AnimState::STOPPED;
+}
+
 
 Sprite::~Sprite()
 {
@@ -347,15 +367,17 @@ void Sprite::update(double deltaTime)
     sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
     move(offset);
 
-    int lastf = curframe;
-    curFrameD += (double)framedelay/1000*deltaTime;
-    curframe = (int) curFrameD;
-    if(curframe > lastFrame) {
-        curFrameD = firstFrame;
-        curframe = firstFrame;
+    if(animState == AnimState::PLAYING) {
+        int lastf = curframe;
+        curFrameD += (double)framedelay/1000*deltaTime;
+        curframe = (int) curFrameD;
+        if(curframe > lastFrame && looping) {
+            curFrameD = firstFrame;
+            curframe = firstFrame;
+        }
+        if(curframe != lastf)
+            setCurrentFrame(curframe);
     }
-    if(curframe != lastf)
-        setCurrentFrame(curframe);
 }
 
 // Check bounding box collision between this and other sprite

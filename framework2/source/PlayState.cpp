@@ -51,6 +51,7 @@ void PlayState::init()
     player.setAnimation("walk-right");
     player.setXspeed(100);
     player.setRotation(0);
+    player.play();
 //    player.setScale(1);
 
 //	playSprite2->setAnimRate(10);        // quadros/segundo
