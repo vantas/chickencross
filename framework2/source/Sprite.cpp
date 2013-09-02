@@ -371,7 +371,7 @@ void Sprite::update(double deltaTime)
         int lastf = curframe;
         curFrameD += (double)framedelay/1000*deltaTime;
         curframe = (int) curFrameD;
-        if(curframe > lastFrame && looping) {
+        if(curframe > lastFrame && looping || firstFrame == lastFrame) {
             curFrameD = firstFrame;
             curframe = firstFrame;
         }
