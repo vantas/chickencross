@@ -511,7 +511,7 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1377523481 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1378501969 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"Game.h"
@@ -1062,7 +1062,7 @@
 1377523481 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Anim.h
 	<string>
 
-1377900320 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/Sprite.cpp
+1378149697 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/Sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<iomanip>

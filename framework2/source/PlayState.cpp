@@ -67,7 +67,6 @@ void PlayState::init()
     im->addKeyInput("up", sf::Keyboard::Up);
     im->addKeyInput("down", sf::Keyboard::Down);
     im->addKeyInput("quit", sf::Keyboard::Escape);
-    im->addKeyInput("stats", sf::Keyboard::S);
     im->addKeyInput("zoomin", sf::Keyboard::Z);
     im->addKeyInput("zoomout", sf::Keyboard::X);
     im->addMouseInput("rightclick", sf::Mouse::Right);
@@ -100,6 +99,9 @@ void PlayState::handleEvents(cgf::Game* game)
     {
         if(event.type == sf::Event::Closed)
             game->quit();
+        if(event.type == sf::Event::KeyPressed)
+            if(event.key.code == sf::Keyboard::S)
+                game->toggleStats();
     }
 
     dirx = diry = 0;
@@ -118,9 +120,6 @@ void PlayState::handleEvents(cgf::Game* game)
 
     if(im->testEvent("quit") || im->testEvent("rightclick"))
         game->quit();
-
-    if(im->testEvent("stats"))
-        game->toggleStats();
 
     if(im->testEvent("zoomin"))
     {
@@ -154,7 +153,12 @@ void PlayState::update(cgf::Game* game)
         cout << "Bump!" << endl;
 
     auto layers = map->GetLayers();
-    tmx::MapLayer layer1 = layers[0];
+    tmx::MapLayer& layer = layers[1];
+    //cout << layer.name << endl;
+    for(auto object = layer.objects.begin(); object != layer.objects.end(); ++object)
+    {
+        cout << object->GetShapeType() << endl;
+    }
 
     if(player.getPosition().x > 600)
     {
