@@ -74,6 +74,8 @@ namespace tmx
 		const sf::Vector2f OrthogonalToIsometric(const sf::Vector2f& worldCoords);
 		//returns the map size in pixels
         const sf::Vector2u GetMapSize(void) const{return sf::Vector2u(m_width * m_tileWidth, m_height * m_tileHeight);}
+        // MC 09/13: returns the size of tiles
+        const sf::Vector2u GetMapTileSize(void) const{return sf::Vector2u(m_tileWidth, m_tileHeight); }
 		//returns empty string if property not found
 		const std::string GetPropertyString(std::string name)
 		{

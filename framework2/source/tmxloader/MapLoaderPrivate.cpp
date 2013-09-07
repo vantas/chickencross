@@ -210,8 +210,8 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 	//TODO parse any tile properties and store with offset above
 
 	//slice into tiles
-	int columns = sourceImage->getSize().x / tileWidth;
-	int rows = sourceImage->getSize().y / tileHeight;
+    int columns = (sourceImage->getSize().x-margin) / (tileWidth+spacing);
+    int rows = (sourceImage->getSize().y-margin) / (tileHeight+spacing);
 
 	for (int y = 0; y < rows; y++)
 	{
@@ -400,6 +400,7 @@ void MapLoader::m_AddTileToLayer(MapLayer& layer, sf::Uint16 x, sf::Uint16 y, sf
 	tile.gridCoord = sf::Vector2i(x, y);
 	tile.sprite.setTexture(m_tileTextures[gid]);
 	tile.sprite.setColor(colour);
+    tile.gid = gid;
 	//update origin of isometric tiles
 	if(m_orientation == Isometric) tile.sprite.setOrigin(static_cast<float>(m_tileWidth / 2), static_cast<float>(m_tileHeight / 2));
 	tile.sprite.setPosition(static_cast<float>(m_tileWidth * x), static_cast<float>(m_tileHeight * y));

@@ -356,6 +356,7 @@ private:
 		}
 		sf::Sprite sprite;
 		sf::Vector2i gridCoord;
+        sf::Uint16 gid; // MC 09/13: need gid to check contents
 		sf::RenderStates renderStates; //used to perform any rendering with custom shaders or blend mode
 	};
 
@@ -369,7 +370,7 @@ private:
 	//represents a layer of tiles, corresponding to a tmx layer, object group or image layer
 	struct MapLayer
 	{
-		MapLayer(MapLayerType layerType) : opacity(1.f), visible(true), dynamic(false), type(layerType){};
+        MapLayer(MapLayerType layerType) : opacity(1.f), visible(true), dynamic(false), type(layerType){}
 		std::string name;
 		float opacity; //range 0 - 1
 		bool visible, dynamic; //dynamic layers contain sprites which need their order sorting, such as players / NPCs

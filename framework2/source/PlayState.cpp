@@ -26,7 +26,7 @@ void PlayState::init()
 //	playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
     map = new tmx::MapLoader("data/maps");
-    map->Load("dungeon.tmx");
+    map->Load("dungeon-tilesets2.tmx");
 
     playSprite1.load("data/img/Char14.png");
 	playSprite1.setPosition(10,100);
@@ -70,6 +70,12 @@ void PlayState::init()
     im->addKeyInput("zoomin", sf::Keyboard::Z);
     im->addKeyInput("zoomout", sf::Keyboard::X);
     im->addMouseInput("rightclick", sf::Mouse::Right);
+
+    if (!font.loadFromFile("data/fonts/arial.ttf"))
+    {
+        cout << "Cannot load arial.ttf font!" << endl;
+        exit(1);
+    }
 
 	cout << "PlayState Init Successful" << endl;
 }
@@ -152,13 +158,23 @@ void PlayState::update(cgf::Game* game)
     if(playSprite1.bboxCollision(playSprite2))
         cout << "Bump!" << endl;
 
-    auto layers = map->GetLayers();
-    tmx::MapLayer& layer = layers[1];
-    //cout << layer.name << endl;
-    for(auto object = layer.objects.begin(); object != layer.objects.end(); ++object)
-    {
-        cout << object->GetShapeType() << endl;
-    }
+//    cout << "x: " << x << " y: " << y << endl;
+    cout << getCellFromMap(2, x,y) << endl;
+
+//    auto layers = map->GetLayers();
+//    tmx::MapLayer& layer = layers[2];
+//    int moo = 0;
+//    for(auto tile: layer.tiles)
+//    {
+//        cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ") ";
+//        if(++moo>3) break;
+//    }
+//    cout << endl;
+//    cout << layer.name << endl;
+//    for(auto object = layer.objects.begin(); object != layer.objects.end(); ++object)
+//    {
+//        cout << object->GetShapeType() << endl;
+//    }
 
     if(player.getPosition().x > 600)
     {
@@ -170,6 +186,57 @@ void PlayState::update(cgf::Game* game)
         player.setXspeed(100);
         player.setMirror(false);
     }
+
+    centerMapOnPlayer();
+}
+
+sf::Uint16 PlayState::getCellFromMap(uint8_t layernum, float x, float y)
+{
+    auto layers = map->GetLayers();
+    tmx::MapLayer& layer = layers[layernum];
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2u tilesize = map->GetMapTileSize();
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+//    cout << "tile.x: " << tilesize.x << ", y: "<< tilesize.y << endl;
+    int col = floor(x / tilesize.x);
+    int row = floor(y / tilesize.y);
+//    cout << "col: "<< col << " row: " << row << " ";
+    return layer.tiles[row*mapsize.x + col].gid;
+//    cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ")" << endl;
+//    return tile.gid;
+}
+
+void PlayState::centerMapOnPlayer()
+{
+    sf::View view = screen->getView();
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2f viewsize = view.getSize();
+    viewsize.x /= 2;
+    viewsize.y /= 2;
+    sf::Vector2f pos = playSprite1.getPosition();
+
+//    cout << "vw: " << view.getSize().x << " " << view.getSize().y << endl;
+
+    float panX = viewsize.x; // minimum pan
+    if(pos.x >= viewsize.x)
+        panX = pos.x;
+
+    if(panX >= mapsize.x - viewsize.x)
+        panX = mapsize.x - viewsize.x;
+
+    float panY = viewsize.y; // minimum pan
+    if(pos.y >= viewsize.y)
+        panY = pos.y;
+
+    if(panY >= mapsize.y - viewsize.y)
+        panY = mapsize.y - viewsize.y;
+
+//    cout << "pos: " << pos.x << " " << pos.y << endl;
+//    cout << "pan: " << panX << " " << panY << endl;
+
+    view.setCenter(sf::Vector2f(panX,panY));
+    screen->setView(view);
 }
 
 void PlayState::draw(cgf::Game* game)
@@ -178,9 +245,19 @@ void PlayState::draw(cgf::Game* game)
 
     screen->clear(sf::Color(0,0,0));
 
-    map->Draw(*screen);
+    map->Draw(*screen, 0);
+    map->Draw(*screen, 1);
     screen->draw(playSprite1);
     screen->draw(playSprite2);
     screen->draw(playSprite3);
     screen->draw(player);
+
+    sf::Text text;
+    // select the font
+    text.setFont(font);
+    text.setString(L"Arrá!");
+    text.setCharacterSize(24); // in pixels, not points!
+    text.setColor(sf::Color::Red);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    screen->draw(text);
 }

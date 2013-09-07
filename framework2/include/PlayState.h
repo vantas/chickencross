@@ -44,6 +44,12 @@ class PlayState : public cgf::GameState
 
     static PlayState m_PlayState;
 
+    // Get a cell GID from the map (x and y are view coords)
+    sf::Uint16 getCellFromMap(u_int8_t layernum, float x, float y);
+
+    // Centers the camera on the player position (if player is too close to the borders, stop)
+    void centerMapOnPlayer();
+
     int x, y;
     int dirx, diry;
     cgf::Sprite playSprite1;
@@ -53,6 +59,7 @@ class PlayState : public cgf::GameState
     sf::RenderWindow* screen;
     cgf::InputManager* im;
     tmx::MapLoader* map;
+    sf::Font font;
 };
 
 #endif
