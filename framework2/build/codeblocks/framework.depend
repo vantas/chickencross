@@ -499,7 +499,7 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1377523481 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1378730556 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"GameState.h"
 	"Sprite.h"
 	"InputManager.h"
@@ -974,7 +974,7 @@
 	<zlib.h>
 	<cstring>
 
-1376687268 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapLoader.h
+1378730556 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapLoader.h
 	<QuadTreeNode.h>
 	<iostream>
 	<pugixml/pugixml.hpp>
@@ -983,7 +983,7 @@
 	<MapObject.h>
 	<memory>
 
-1376909524 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapObject.h
+1378730556 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/tmxloader/MapObject.h
 	<string>
 	<vector>
 	<map>
