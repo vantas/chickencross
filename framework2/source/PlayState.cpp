@@ -29,7 +29,7 @@ void PlayState::init()
     map->Load("dungeon-tilesets2.tmx");
 
     playSprite1.load("data/img/Char14.png");
-	playSprite1.setPosition(10,100);
+    playSprite1.setPosition(40,100);
 
 //	playSprite1->setAnimRate(30);        // quadros/segundo
 //	playSprite1->setXspeed(200);         // pixels/segundo
@@ -138,6 +138,9 @@ void PlayState::handleEvents(cgf::Game* game)
         screen->setView(view);
     }
 
+    playSprite1.setXspeed(dirx * 5);
+    playSprite1.setYspeed(diry * 5);
+
     //game->changeState(PlayMap::instance());
     //game->changeState(PlayMapTop::instance());
     //game->changeState(PlayMapAI::instance());
@@ -148,18 +151,15 @@ void PlayState::handleEvents(cgf::Game* game)
 void PlayState::update(cgf::Game* game)
 {
     screen = game->getScreen();
-    float x = playSprite1.getPosition().x;
-    float y = playSprite1.getPosition().y;
-    x += dirx*5;
-    y += diry*5;
-    playSprite1.setPosition(x,y);
-    player.update(game->getUpdateInterval());
 
+    player.update(game->getUpdateInterval());
     if(playSprite1.bboxCollision(playSprite2))
         cout << "Bump!" << endl;
 
+    checkCollision(game, &playSprite1);
+    playSprite1.update(game->getUpdateInterval());
 //    cout << "x: " << x << " y: " << y << endl;
-    cout << getCellFromMap(2, x,y) << endl;
+//    cout << getCellFromMap(2, x,y) << endl;
 
 //    auto layers = map->GetLayers();
 //    tmx::MapLayer& layer = layers[2];
@@ -212,6 +212,9 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
 
     float vx = obj->getXspeed();
     float vy = obj->getYspeed();
+
+    cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
+    cout << "mapsize" << mapsize.x << " " << mapsize.y << endl;
 
     // Test the horizontal movement first
     i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
@@ -331,19 +334,19 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
     obj->setPosition(px+vx,py+vy);
     obj->setXspeed(0);
     obj->setYspeed(0);
-    px = obj->getX();
-    py = obj->getY();
+    px = obj->getPosition().x;
+    py = obj->getPosition().y;
 
     // Check collision with edges of map
     if (px < 0)
-        obj->setX(0);
-    else if (px + objsize.x >= maxMapX * tilesize.x)
-        obj->setX(maxMapX*tilesize.x - objsize.x - 1);
+        obj->setPosition(px,py);
+    else if (px + objsize.x >= mapsize.x * tilesize.x)
+        obj->setPosition(mapsize.x*tilesize.x - objsize.x - 1,py);
 
     if(py < 0)
-        obj->setY(0);
-    else if(py + objsize.y >= maxMapY * tilesize.y)
-        obj->setY(maxMapY*tilesize.y - objsize.y - 1);
+        obj->setPosition(px,0);
+    else if(py + objsize.y >= mapsize.y * tilesize.y)
+        obj->setPosition(px, mapsize.y*tilesize.y - objsize.y - 1);
 }
 
 sf::Uint16 PlayState::getCellFromMap(uint8_t layernum, float x, float y)
