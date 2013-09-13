@@ -70,6 +70,8 @@ public:
     int getCurrentFrame() { return curframe; }
     int getTotalFrames() { return totalFrames; }
 
+    sf::Vector2u getSize() { return sf::Vector2u(spriteW, spriteH); }
+
     void update(double deltaTime);
 
     // Basic collision checking

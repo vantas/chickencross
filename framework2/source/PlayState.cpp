@@ -190,6 +190,162 @@ void PlayState::update(cgf::Game* game)
     centerMapOnPlayer();
 }
 
+void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
+{
+    int i, x1, x2, y1, y2;
+
+    // Get the limits of the map
+    sf::Vector2u mapsize = map->GetMapSize();
+    // Get the width and height of a single tile
+    sf::Vector2u tilesize = map->GetMapTileSize();
+
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+    mapsize.x--;
+    mapsize.y--;
+
+    // Get the height and width of the object (in this case, 100% of a tile)
+    sf::Vector2u objsize = obj->getSize();
+
+    float px = obj->getPosition().x;
+    float py = obj->getPosition().y;
+
+    float vx = obj->getXspeed();
+    float vy = obj->getYspeed();
+
+    // Test the horizontal movement first
+    i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
+
+    for (;;)
+    {
+        x1 = (px + vx) / tilesize.x;
+        x2 = (px + vx + objsize.x - 1) / tilesize.x;
+
+        y1 = (py) / tilesize.y;
+        y2 = (py + i - 1) / tilesize.y;
+
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
+        {
+            if (vx > 0)
+            {
+                // Trying to move right
+
+                int upRight   = getCellFromMap(2, x2, y1);
+                int downRight = getCellFromMap(2, x2, y2);
+                if (upRight || downRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    px = x2 * tilesize.x;
+                    px -= objsize.x;// + 1;
+                    vx = 0;
+                }
+            }
+
+            else if (vx < 0)
+            {
+                // Trying to move left
+
+                int upLeft   = getCellFromMap(2, x1, y1);
+                int downLeft = getCellFromMap(2, x1, y2);
+                if (upLeft || downLeft)
+                {
+                    // Place the player as close to the solid tile as possible
+                    px = (x1+1) * tilesize.x;
+                    vx = 0;
+                }
+            }
+        }
+
+        if (i == objsize.y) // Checked player height with all tiles ?
+        {
+            break;
+        }
+
+        i += tilesize.y; // done, check next tile upwards
+
+        if (i > objsize.y)
+        {
+            i = objsize.y;
+        }
+    }
+
+    // Now test the vertical movement
+
+    i = objsize.x > tilesize.x ? tilesize.x : objsize.x;
+
+    for (;;)
+    {
+        x1 = (px / tilesize.x);
+        x2 = ((px + i-1) / tilesize.x);
+
+        y1 = ((py + vy) / tilesize.y);
+        y2 = ((py + vy + objsize.y-1) / tilesize.y);
+
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
+        {
+            if (vy > 0)
+            {
+                // Trying to move down
+                int downLeft  = getCellFromMap(2, x1, y2);
+                int downRight = getCellFromMap(2, x2, y2);
+                cout << "downleft, downright: " << downLeft << " " << downRight << endl;
+                if (downLeft || downRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    py = y2 * tilesize.y;
+                    py -= objsize.y;
+                    vy = 0;
+                }
+            }
+
+            else if (vy < 0)
+            {
+                // Trying to move up
+
+                int upLeft  = getCellFromMap(2, x1, y1);
+                int upRight = getCellFromMap(2, x2, y1);
+                if (upLeft || upRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    py = (y1 + 1) * tilesize.y;
+                    vy = 0;
+                }
+            }
+        }
+
+        if (i == objsize.x)
+        {
+            break;
+        }
+
+        i += tilesize.x; // done, check next tile to the right
+
+        if (i > objsize.x)
+        {
+            i = objsize.x;
+        }
+    }
+
+    // Now apply the movement
+
+    obj->setPosition(px+vx,py+vy);
+    obj->setXspeed(0);
+    obj->setYspeed(0);
+    px = obj->getX();
+    py = obj->getY();
+
+    // Check collision with edges of map
+    if (px < 0)
+        obj->setX(0);
+    else if (px + objsize.x >= maxMapX * tilesize.x)
+        obj->setX(maxMapX*tilesize.x - objsize.x - 1);
+
+    if(py < 0)
+        obj->setY(0);
+    else if(py + objsize.y >= maxMapY * tilesize.y)
+        obj->setY(maxMapY*tilesize.y - objsize.y - 1);
+}
+
 sf::Uint16 PlayState::getCellFromMap(uint8_t layernum, float x, float y)
 {
     auto layers = map->GetLayers();
