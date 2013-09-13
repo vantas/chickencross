@@ -499,7 +499,7 @@
 	"MenuState.h"
 	"PlayState.h"
 
-1378730556 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
+1379108888 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayState.h
 	"GameState.h"
 	"Sprite.h"
 	"InputManager.h"
@@ -511,7 +511,7 @@
 	"CSprite.h"
 	"TMXLoader.h"
 
-1378501969 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
+1379110367 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayState.cpp
 	<iostream>
 	<cmath>
 	"Game.h"
@@ -968,7 +968,7 @@
 
 1335741748 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/pugixml/pugiconfig.hpp
 
-1375801842 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/tmxloader/MapLoaderPrivate.cpp
+1378730556 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/tmxloader/MapLoaderPrivate.cpp
 	<MapLoader.h>
 	<sstream>
 	<zlib.h>
@@ -1047,7 +1047,7 @@
 1377523481 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/GameState.h
 	"Game.h"
 
-1377900335 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Sprite.h
+1379108888 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Sprite.h
 	<vector>
 	<map>
 	<SFML/Graphics/RenderTarget.hpp>

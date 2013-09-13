@@ -29,7 +29,7 @@ void PlayState::init()
     map->Load("dungeon-tilesets2.tmx");
 
     playSprite1.load("data/img/Char14.png");
-    playSprite1.setPosition(40,100);
+    playSprite1.setPosition(80,100);
 
 //	playSprite1->setAnimRate(30);        // quadros/segundo
 //	playSprite1->setXspeed(200);         // pixels/segundo
@@ -138,8 +138,8 @@ void PlayState::handleEvents(cgf::Game* game)
         screen->setView(view);
     }
 
-    playSprite1.setXspeed(dirx * 5);
-    playSprite1.setYspeed(diry * 5);
+    playSprite1.setXspeed(dirx * 50);
+    playSprite1.setYspeed(diry * 50);
 
     //game->changeState(PlayMap::instance());
     //game->changeState(PlayMapTop::instance());
@@ -158,8 +158,10 @@ void PlayState::update(cgf::Game* game)
 
     checkCollision(game, &playSprite1);
     playSprite1.update(game->getUpdateInterval());
-//    cout << "x: " << x << " y: " << y << endl;
-//    cout << getCellFromMap(2, x,y) << endl;
+
+    //sf::Vector2f pos = playSprite1.getPosition();
+    //cout << "x: " << pos.x << " y: " << pos.y << endl;
+    //cout << getCellFromMap(2, pos.x, pos.y) << endl;
 
 //    auto layers = map->GetLayers();
 //    tmx::MapLayer& layer = layers[2];
@@ -210,11 +212,13 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
     float px = obj->getPosition().x;
     float py = obj->getPosition().y;
 
-    float vx = obj->getXspeed();
-    float vy = obj->getYspeed();
+    float vx = obj->getXspeed()/10;
+    float vy = obj->getYspeed()/10;
 
-    cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
-    cout << "mapsize" << mapsize.x << " " << mapsize.y << endl;
+    //cout << "px,py: " << px << " " << py << endl;
+
+    //cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
+    //cout << "mapsize " << mapsize.x << " " << mapsize.y << endl;
 
     // Test the horizontal movement first
     i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
@@ -233,8 +237,8 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move right
 
-                int upRight   = getCellFromMap(2, x2, y1);
-                int downRight = getCellFromMap(2, x2, y2);
+                int upRight   = getCellFromMap(2, x2*tilesize.x, y1*tilesize.y);
+                int downRight = getCellFromMap(2, x2*tilesize.x, y2*tilesize.y);
                 if (upRight || downRight)
                 {
                     // Place the player as close to the solid tile as possible
@@ -248,8 +252,8 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move left
 
-                int upLeft   = getCellFromMap(2, x1, y1);
-                int downLeft = getCellFromMap(2, x1, y2);
+                int upLeft   = getCellFromMap(2, x1*tilesize.x, y1*tilesize.y);
+                int downLeft = getCellFromMap(2, x1*tilesize.x, y2*tilesize.y);
                 if (upLeft || downLeft)
                 {
                     // Place the player as close to the solid tile as possible
@@ -289,9 +293,8 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             if (vy > 0)
             {
                 // Trying to move down
-                int downLeft  = getCellFromMap(2, x1, y2);
-                int downRight = getCellFromMap(2, x2, y2);
-                cout << "downleft, downright: " << downLeft << " " << downRight << endl;
+                int downLeft  = getCellFromMap(2, x1*tilesize.x, y2*tilesize.y);
+                int downRight = getCellFromMap(2, x2*tilesize.x, y2*tilesize.y);
                 if (downLeft || downRight)
                 {
                     // Place the player as close to the solid tile as possible
@@ -305,8 +308,8 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move up
 
-                int upLeft  = getCellFromMap(2, x1, y1);
-                int upRight = getCellFromMap(2, x2, y1);
+                int upLeft  = getCellFromMap(2, x1*tilesize.x, y1*tilesize.y);
+                int upRight = getCellFromMap(2, x2*tilesize.x, y1*tilesize.y);
                 if (upLeft || upRight)
                 {
                     // Place the player as close to the solid tile as possible
