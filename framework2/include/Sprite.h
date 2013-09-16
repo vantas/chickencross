@@ -72,7 +72,7 @@ public:
 
     sf::Vector2u getSize() { return sf::Vector2u(spriteW, spriteH); }
 
-    void update(double deltaTime);
+    void update(double deltaTime, bool updatePos=true);
 
     // Basic collision checking
     bool bboxCollision(Sprite& other);

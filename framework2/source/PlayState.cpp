@@ -20,43 +20,50 @@ using namespace std;
 
 void PlayState::init()
 {
+    player.loadXML("data/img/hunter.xml");
+    player.setPosition(50,100);
+    player.loadAnimation("data/img/hunteranim.xml");
+    player.setAnimRate(15);
 	//playSprite->loadSprite("player.png", 36, 44, 0, 0, 0, 0, 7, 1, 7);
 	//playSprite->loadSprite("char2.png", 128,128,0,0,0,53,4,2,7);
 	//playSprite->loadSprite("char4.png",128,128,0,0,0,21,4,3,10);
-//	playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
+    //playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
     map = new tmx::MapLoader("data/maps");
     map->Load("dungeon-tilesets2.tmx");
 
-    playSprite1.load("data/img/Char14.png");
-    playSprite1.setPosition(80,100);
-    playSprite1.setScale(sf::Vector2f(6,6));
+    ghost.load("data/img/Char14.png");
+    ghost.setPosition(100,300);
+    ghost.setScale(sf::Vector2f(2,2));
+    ghost.setXspeed(100);
+//    playSprite1.load("data/img/Char14.png");
+//    playSprite1.setPosition(80,100);
+//    playSprite1.setScale(sf::Vector2f(6,6));
 
-//	playSprite1->setAnimRate(30);        // quadros/segundo
-//	playSprite1->setXspeed(200);         // pixels/segundo
+//    playSprite1->setAnimRate(30);        // quadros/segundo
+//    playSprite1->setXspeed(200);         // pixels/segundo
 //    playSprite2->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    playSprite2.load("data/img/Char01.png");
-	playSprite2.setPosition(10,300);
+//  playSprite2.load("data/img/Char01.png");
+//	playSprite2.setPosition(10,300);
 
-    playSprite3.load("data/img/Char01.png");
-	playSprite3.setPosition(50,300);
+//    playSprite3.load("data/img/Char01.png");
+//	playSprite3.setPosition(50,300);
 
     //player.load("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
     //player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
-    player.loadXML("data/img/monkey.xml");
-    player.loadAnimation("data/img/monkeyanim.xml");
-    player.setPosition(30,30);
-    player.setAnimRate(15);
-//    player.setFrameRange(12,13);
-    player.setAnimation("walk-right");
-    player.setXspeed(100);
-    player.setRotation(0);
-    player.play();
-//    player.setScale(1);
 
-//	playSprite2->setAnimRate(10);        // quadros/segundo
-//	playSprite2->setXspeed(30);         // pixels/segundo
+    /*
+    monkey.loadXML("data/img/monkey.xml");
+    monkey.loadAnimation("data/img/monkeyanim.xml");
+    monkey.setPosition(30,30);
+    monkey.setAnimRate(15);
+//    monkey.setFrameRange(12,13);
+    monkey.setAnimation("walk-right");
+    monkey.setXspeed(100);
+    monkey.setRotation(0);
+    monkey.play();
+    */
 
     dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
     diry = 0;
@@ -113,17 +120,43 @@ void PlayState::handleEvents(cgf::Game* game)
 
     dirx = diry = 0;
 
-    if(im->testEvent("left"))
+    if(im->testEvent("left")) {
+        if(player.getXspeed() >= 0) {
+            player.setAnimation("walk-left");
+            player.play();
+        }
         dirx = -1;
-
-    if(im->testEvent("right"))
+    }
+    else
+    if(im->testEvent("right")) {
+        if(player.getXspeed() <= 0) {
+            player.setAnimation("walk-right");
+            player.play();
+        }
         dirx = 1;
+    }
 
-    if(im->testEvent("up"))
+    if(im->testEvent("up")) {
+        if(player.getYspeed() >= 0) {
+            player.setAnimation("walk-up");
+            player.play();
+        }
         diry = -1;
+    }
 
-    if(im->testEvent("down"))
+    if(im->testEvent("down")) {
+        if(player.getYspeed() <= 0) {
+            player.setAnimation("walk-down");
+            player.play();
+        }
         diry = 1;
+    }
+
+    if(!dirx && !diry) // parado?
+    {
+        player.setCurrentFrame(0);
+        player.pause();
+    }
 
     if(im->testEvent("quit") || im->testEvent("rightclick"))
         game->quit();
@@ -139,8 +172,11 @@ void PlayState::handleEvents(cgf::Game* game)
         screen->setView(view);
     }
 
-    playSprite1.setXspeed(dirx * 100);
-    playSprite1.setYspeed(diry * 100);
+    player.setXspeed(dirx*100);
+    player.setYspeed(diry*100);
+
+//    playSprite1.setXspeed(dirx * 100);
+//    playSprite1.setYspeed(diry * 100);
 
     //game->changeState(PlayMap::instance());
     //game->changeState(PlayMapTop::instance());
@@ -153,16 +189,17 @@ void PlayState::update(cgf::Game* game)
 {
     screen = game->getScreen();
 
-    player.update(game->getUpdateInterval());
-    if(playSprite1.bboxCollision(playSprite2))
-        cout << "Bump!" << endl;
+//    if(playSprite1.bboxCollision(playSprite2))
+//        cout << "Bump!" << endl;
 
-    checkCollision(game, &playSprite1);
-    playSprite1.update(game->getUpdateInterval());
+    checkCollision(2, game, &player);
 
-    //sf::Vector2f pos = playSprite1.getPosition();
-    //cout << "x: " << pos.x << " y: " << pos.y << endl;
-    //cout << getCellFromMap(2, pos.x, pos.y) << endl;
+    if(checkCollision(2, game, &ghost)) {
+        cout << "BUMP!" << endl;
+        ghost.setXspeed(-ghost.getXspeed());
+    }
+
+//    playSprite1.update(game->getUpdateInterval());
 
 //    auto layers = map->GetLayers();
 //    tmx::MapLayer& layer = layers[2];
@@ -179,23 +216,25 @@ void PlayState::update(cgf::Game* game)
 //        cout << object->GetShapeType() << endl;
 //    }
 
-    if(player.getPosition().x > 600)
+    /*
+    if(monkey.getPosition().x > 600)
     {
-        player.setXspeed(-100);
-        player.setMirror(true);
+        monkey.setXspeed(-100);
+        monkey.setMirror(true);
     }
-    if(player.getPosition().x < 50)
+    if(monkey.getPosition().x < 50)
     {
-        player.setXspeed(100);
-        player.setMirror(false);
-    }
+        monkey.setXspeed(100);
+        monkey.setMirror(false);
+    }*/
 
     centerMapOnPlayer();
 }
 
-void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
+bool PlayState::checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj)
 {
     int i, x1, x2, y1, y2;
+    bool bump = false;
 
     // Get the limits of the map
     sf::Vector2u mapsize = map->GetMapSize();
@@ -244,14 +283,15 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move right
 
-                int upRight   = getCellFromMap(2, x2*tilesize.x, y1*tilesize.y);
-                int downRight = getCellFromMap(2, x2*tilesize.x, y2*tilesize.y);
+                int upRight   = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
                 if (upRight || downRight)
                 {
                     // Place the player as close to the solid tile as possible
                     px = x2 * tilesize.x;
                     px -= objsize.x;// + 1;
                     vx = 0;
+                    bump = true;
                 }
             }
 
@@ -259,13 +299,14 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move left
 
-                int upLeft   = getCellFromMap(2, x1*tilesize.x, y1*tilesize.y);
-                int downLeft = getCellFromMap(2, x1*tilesize.x, y2*tilesize.y);
+                int upLeft   = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int downLeft = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
                 if (upLeft || downLeft)
                 {
                     // Place the player as close to the solid tile as possible
                     px = (x1+1) * tilesize.x;
                     vx = 0;
+                    bump = true;
                 }
             }
         }
@@ -300,14 +341,15 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             if (vy > 0)
             {
                 // Trying to move down
-                int downLeft  = getCellFromMap(2, x1*tilesize.x, y2*tilesize.y);
-                int downRight = getCellFromMap(2, x2*tilesize.x, y2*tilesize.y);
+                int downLeft  = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
                 if (downLeft || downRight)
                 {
                     // Place the player as close to the solid tile as possible
                     py = y2 * tilesize.y;
                     py -= objsize.y;
                     vy = 0;
+                    bump = true;
                 }
             }
 
@@ -315,13 +357,14 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
             {
                 // Trying to move up
 
-                int upLeft  = getCellFromMap(2, x1*tilesize.x, y1*tilesize.y);
-                int upRight = getCellFromMap(2, x2*tilesize.x, y1*tilesize.y);
+                int upLeft  = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int upRight = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
                 if (upLeft || upRight)
                 {
                     // Place the player as close to the solid tile as possible
                     py = (y1 + 1) * tilesize.y;
                     vy = 0;
+                    bump = true;
                 }
             }
         }
@@ -339,13 +382,13 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
         }
     }
 
-    // Now apply the movement
+    // Now apply the movement and animation
 
     obj->setPosition(px+vx,py+vy);
-    obj->setXspeed(0);
-    obj->setYspeed(0);
     px = obj->getPosition().x;
     py = obj->getPosition().y;
+
+    obj->update(deltaTime, false); // only update animation
 
     // Check collision with edges of map
     if (px < 0)
@@ -357,6 +400,8 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
         obj->setPosition(px,0);
     else if(py + objsize.y >= mapsize.y * tilesize.y)
         obj->setPosition(px, mapsize.y*tilesize.y - objsize.y - 1);
+
+    return bump;
 }
 
 sf::Uint16 PlayState::getCellFromMap(uint8_t layernum, float x, float y)
@@ -367,13 +412,9 @@ sf::Uint16 PlayState::getCellFromMap(uint8_t layernum, float x, float y)
     sf::Vector2u tilesize = map->GetMapTileSize();
     mapsize.x /= tilesize.x;
     mapsize.y /= tilesize.y;
-//    cout << "tile.x: " << tilesize.x << ", y: "<< tilesize.y << endl;
     int col = floor(x / tilesize.x);
     int row = floor(y / tilesize.y);
-//    cout << "col: "<< col << " row: " << row << " ";
     return layer.tiles[row*mapsize.x + col].gid;
-//    cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ")" << endl;
-//    return tile.gid;
 }
 
 void PlayState::centerMapOnPlayer()
@@ -383,7 +424,7 @@ void PlayState::centerMapOnPlayer()
     sf::Vector2f viewsize = view.getSize();
     viewsize.x /= 2;
     viewsize.y /= 2;
-    sf::Vector2f pos = playSprite1.getPosition();
+    sf::Vector2f pos = player.getPosition();
 
 //    cout << "vw: " << view.getSize().x << " " << view.getSize().y << endl;
 
@@ -416,10 +457,12 @@ void PlayState::draw(cgf::Game* game)
 
     map->Draw(*screen, 0);
     map->Draw(*screen, 1);
-    screen->draw(playSprite1);
-    screen->draw(playSprite2);
-    screen->draw(playSprite3);
+//    screen->draw(playSprite1);
+//    screen->draw(playSprite2);
+//    screen->draw(playSprite3);
+    screen->draw(ghost);
     screen->draw(player);
+
 
     sf::Text text;
     // select the font

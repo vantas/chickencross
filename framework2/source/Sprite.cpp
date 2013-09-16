@@ -361,11 +361,13 @@ void Sprite::setAnimRate(int fdelay)
 
 // Metodo responsavel por fazer as atualizacoes necessarias para a correta
 // animacao do sprite.
-void Sprite::update(double deltaTime)
+void Sprite::update(double deltaTime, bool updatePos)
 {
-    // Move sprite according to its speed and the amount of time that has passed
-    sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
-    move(offset);
+    if(updatePos) {
+        // Move sprite according to its speed and the amount of time that has passed
+        sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
+        move(offset);
+    }
 
     if(animState == AnimState::PLAYING) {
         int lastf = curframe;
