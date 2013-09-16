@@ -30,6 +30,7 @@ void PlayState::init()
 
     playSprite1.load("data/img/Char14.png");
     playSprite1.setPosition(80,100);
+    playSprite1.setScale(sf::Vector2f(6,6));
 
 //	playSprite1->setAnimRate(30);        // quadros/segundo
 //	playSprite1->setXspeed(200);         // pixels/segundo
@@ -138,8 +139,8 @@ void PlayState::handleEvents(cgf::Game* game)
         screen->setView(view);
     }
 
-    playSprite1.setXspeed(dirx * 50);
-    playSprite1.setYspeed(diry * 50);
+    playSprite1.setXspeed(dirx * 100);
+    playSprite1.setYspeed(diry * 100);
 
     //game->changeState(PlayMap::instance());
     //game->changeState(PlayMapTop::instance());
@@ -208,12 +209,18 @@ void PlayState::checkCollision(cgf::Game* game, cgf::Sprite* obj)
 
     // Get the height and width of the object (in this case, 100% of a tile)
     sf::Vector2u objsize = obj->getSize();
+    objsize.x *= obj->getScale().x;
+    objsize.y *= obj->getScale().y;
 
     float px = obj->getPosition().x;
     float py = obj->getPosition().y;
 
-    float vx = obj->getXspeed()/10;
-    float vy = obj->getYspeed()/10;
+    double deltaTime = game->getUpdateInterval();
+
+    sf::Vector2f offset(obj->getXspeed()/1000 * deltaTime, obj->getYspeed()/1000 * deltaTime);
+
+    float vx = offset.x;
+    float vy = offset.y;
 
     //cout << "px,py: " << px << " " << py << endl;
 
