@@ -2,18 +2,17 @@
  *  PlayPhysics.cpp
  *  Testbed for Box2D (physics) experiments
  *
- *  Created by Marcelo Cohen on 05/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Created by Marcelo Cohen on 09/13.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 
 #include <iostream>
-#include <SDL.h>
-#include "Graphics.h"
 #include <cmath>
-#include "CGame.h"
-#include "PauseState.h"
+#include "Game.h"
 #include "PlayPhysics.h"
+#include "PauseState.h"
+#include "InputManager.h"
 
 PlayPhysics PlayPhysics::m_PlayPhysics;
 
@@ -21,492 +20,466 @@ using namespace std;
 
 void PlayPhysics::init()
 {
-    map.loadMap("data/maps/dungeon.tmx");
-	cout << "Collision objects: " << map.totalObjects() << endl;
-    playerK.vel.X = playerK.vel.Y = 0;   // current player speed
-    cameraSpeed = 8;   // speed to use
-    zvel = 0;
+    player.loadXML("data/img/hunter.xml");
+    player.setPosition(50,100);
+    player.loadAnimation("data/img/hunteranim.xml");
+    player.setAnimRate(15);
+    //playSprite->loadSprite("player.png", 36, 44, 0, 0, 0, 0, 7, 1, 7);
+    //playSprite->loadSprite("char2.png", 128,128,0,0,0,53,4,2,7);
+    //playSprite->loadSprite("char4.png",128,128,0,0,0,21,4,3,10);
+    //playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    keystate = SDL_GetKeyState(NULL);
+    map = new tmx::MapLoader("data/maps");
+    map->Load("dungeon-tilesets2.tmx");
 
-    player = new CSprite();
-    player->loadSprite("data/img/Char19s.png", 32, 32, 0, 0, 0, 0, 1, 1, 1);
-//    map.getCenter(2,2,playerK.pos.X,playerK.pos.Y);
-    map.getCenter(35,5,playerK.pos.X,playerK.pos.Y);
+    ghost.load("data/img/Char14.png");
+    ghost.setPosition(100,300);
+    ghost.setScale(sf::Vector2f(2,2));
+    ghost.setXspeed(100);
+//    playSprite1.load("data/img/Char14.png");
+//    playSprite1.setPosition(80,100);
+//    playSprite1.setScale(sf::Vector2f(6,6));
 
-    enemy = new CSprite();
-    enemy->loadSprite("data/img/Char14s.png", 32, 32, 0, 0, 0, 0, 1, 1, 1);
-    float ex, ey;
-//    map.getCenter(12,15,ex,ey);
-    map.getCenter(45,4,ex,ey);
-    enemyK.pos.X = ex;
-    enemyK.pos.Y = ey;
-    enemyK.maxSpeed = 4;
+//    playSprite1->setAnimRate(30);        // quadros/segundo
+//    playSprite1->setXspeed(200);         // pixels/segundo
+//    playSprite2->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
-    steerMode = CHASE_BEHAVIOR; // default: chase player
+//  playSprite2.load("data/img/Char01.png");
+//	playSprite2.setPosition(10,300);
 
-    firstTime = true; // to set map position at first update
+//    playSprite3.load("data/img/Char01.png");
+//	playSprite3.setPosition(50,300);
 
-    // Init array of blocking ids
-    for(int i=0; i<256; i++)
-        blocks[i] = 0; // default: not blocking
+    //player.load("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
+    //player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
 
-    // Set indices of blocking ids
-    blocks[0] = blocks[1] = blocks[2] = 1;
-    blocks[4] = 1;
-    for(int i=8; i<=14; i++)
-        blocks[i] = 1;
+    /*
+    monkey.loadXML("data/img/monkey.xml");
+    monkey.loadAnimation("data/img/monkeyanim.xml");
+    monkey.setPosition(30,30);
+    monkey.setAnimRate(15);
+//    monkey.setFrameRange(12,13);
+    monkey.setAnimation("walk-right");
+    monkey.setXspeed(100);
+    monkey.setRotation(0);
+    monkey.play();
+    */
 
-    phys = CPhysics::instance();
+    dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
+    diry = 0;
+
+    im = cgf::InputManager::instance();
+
+    im->addKeyInput("left", sf::Keyboard::Left);
+    im->addKeyInput("right", sf::Keyboard::Right);
+    im->addKeyInput("up", sf::Keyboard::Up);
+    im->addKeyInput("down", sf::Keyboard::Down);
+    im->addKeyInput("quit", sf::Keyboard::Escape);
+    im->addKeyInput("zoomin", sf::Keyboard::Z);
+    im->addKeyInput("zoomout", sf::Keyboard::X);
+    im->addMouseInput("rightclick", sf::Mouse::Right);
+
+    if (!font.loadFromFile("data/fonts/arial.ttf"))
+    {
+        cout << "Cannot load arial.ttf font!" << endl;
+        exit(1);
+    }
+
+    phys = cgf::Physics::instance();
     phys->setGravity(0);
-    phys->setConvFactor(10);
-    float bx, by;
-    map.getCenter(33,17,bx,by);
-    b2Body* ground2= phys->newBox(bx  ,by ,48,16,1000,0.5,0.5,true);
-    b2Body* ground = phys->newBox(1200,500,200,10,1000,0.5,0.5,true); // ground
-    phys->setAngle(ground, 10); //15);
-    player->setPosition(playerK.pos.X, playerK.pos.Y);
-    playerPhys = phys->newBoxImage(PLAYER_ID, player,1,0.5,0);
+    phys->setConvFactor(30);
 
-    enemy->setPosition(enemyK.pos.X, enemyK.pos.Y);
-    //enemyPhys = phys->newBoxImage(enemy,1,0.5,0.1);
+    bplayer = phys->newBoxImage(0, &player, 50, 0.1, 0.1);
 
-    playerPhys->SetFixedRotation(true);
-    //enemyPhys ->SetFixedRotation(true);
-	for(int o=0; o<map.totalObjects(); o++)
-	{
-		Object& obj = map.getObject(o);
-		phys->newBox(WALL_ID, obj.x,obj.y,obj.width,obj.height,1000,0.5,0.1,true);
-	}
-
-    // Set offset to add to translation when drawing debug shapes
-    // in physics
-    phys->setDrawOffset(map.getTileWidth()/2, map.getTileHeight()/2);
     cout << "PlayPhysics Init Successful" << endl;
 }
 
 void PlayPhysics::cleanup()
 {
-    delete player;
-    //  delete playSprite2;
-	cout << "PlayPhysics Clean Successful" << endl;
+    cout << "PlayPhysics Clean Successful" << endl;
+    delete map;
 }
 
 void PlayPhysics::pause()
 {
-	cout << "PlayPhysics Paused" << endl;
+    cout << "PlayPhysics Paused" << endl;
 }
 
 void PlayPhysics::resume()
 {
-	cout << "PlayPhysics Resumed" << endl;
+    cout << "PlayPhysics Resumed" << endl;
 }
 
-void PlayPhysics::handleEvents(CGame* game)
+void PlayPhysics::handleEvents(cgf::Game* game)
 {
-	SDL_Event event;
+    sf::Event event;
+    sf::View view = screen->getView();
 
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				game->quit();
-				break;
-
-            case SDL_KEYDOWN:
-				switch(event.key.keysym.sym){
-                    case SDLK_p:
-                        game->pushState(PauseState::instance());
-                        break;
-                    case SDLK_a:
-                        steerMode++;
-                        if(steerMode > EVADE_BEHAVIOR)
-                            steerMode = CHASE_BEHAVIOR;
-                        break;
-                    case SDLK_ESCAPE:
-                        game->quit();
-                        break;
-                    case SDLK_t:
-                        //playerPhys->ApplyTorque(-100);
-                        playerPhys->ApplyAngularImpulse(-100);
-                        break;
-                    case SDLK_f:
-                        playerPhys->ApplyLinearImpulse(b2Vec2(0,-300), playerPhys->GetWorldCenter());
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case SDL_VIDEORESIZE:
-                game->resize(event.resize.w, event.resize.h);
-                //map.cleanup();
-                //map.loadMap("data/maps/desert.tmx");
-		}
-	}
-    playerK.vel.X = -keystate[SDLK_LEFT]*cameraSpeed + keystate[SDLK_RIGHT]*cameraSpeed;
-    playerK.vel.Y = -keystate[SDLK_UP]*cameraSpeed + keystate[SDLK_DOWN]*cameraSpeed;
-
-    playerPhys->ApplyLinearImpulse(b2Vec2(playerK.vel.X,playerK.vel.Y), playerPhys->GetWorldCenter());
-    zvel = -5*keystate[SDLK_LSHIFT] + 5*keystate[SDLK_RSHIFT];
-//    playerK.heading = playerK.vel / playerK.vel.getLength();
-}
-
-// Steering Behavior: chase target
-irrklang::vec3df PlayPhysics::chase(Kinematic& vehicle, irrklang::vec3df& target)
-{
-    irrklang::vec3df desiredVel = target - vehicle.pos;
-    desiredVel.normalize();
-    desiredVel *= vehicle.maxSpeed;
-    return desiredVel - vehicle.vel;
-}
-
-// Steering Behavior: arrive at target
-irrklang::vec3df PlayPhysics::arrive(Kinematic& vehicle, irrklang::vec3df& target, float decel)
-{
-    irrklang::vec3df toTarget = target - vehicle.pos;
-    float d = toTarget.getLength();
-    if(d > 0)
+    while (screen->pollEvent(event))
     {
-        // Calculate the speed required to reach the target given the desired
-        // deceleration
-        float speed = d / decel;
-
-        // Make sure the velocity does not exceed the max
-        speed = min(speed, vehicle.maxSpeed);
-
-        // From here proceed just like chase, except we don't need to normalize
-        // the toTarget vector because we have already gone to the trouble
-        // of calculating its length: d
-        irrklang::vec3df desiredVel = toTarget * speed / d;
-        return desiredVel - vehicle.vel;
-    }
-    return irrklang::vec3df(0,0,0);
-}
-
-// Steering Behavior: flee from target
-irrklang::vec3df PlayPhysics::flee(Kinematic& vehicle, irrklang::vec3df& target, float panicDistance)
-{
-    float panicDistance2 = panicDistance * panicDistance;
-    if(enemyK.pos.getDistanceFromSQ(target) > panicDistance2)
-        return irrklang::vec3df(0,0,0);
-    irrklang::vec3df desiredVel = vehicle.pos - target;
-    desiredVel.normalize();
-    desiredVel *= vehicle.maxSpeed;
-    return desiredVel - vehicle.vel;
-}
-
-// Steering Behavior: pursuit target
-irrklang::vec3df PlayPhysics::pursuit(Kinematic& vehicle, Kinematic& target)
-{
-    irrklang::vec3df toEvader = target.pos - vehicle.pos;
-    double relativeHeading = vehicle.heading.dotProduct(target.heading);
-    // If target is facing us, go chase it
-    if(toEvader.dotProduct(vehicle.heading) > 0 && relativeHeading < -0.95) // acos(0.95) = 18 graus
-        return chase(vehicle, target.pos);
-
-    // Not facing, so let's predict where the target will be
-
-    // The look-ahead time is proportional to the distance between the target
-    // and the enemy, and is inversely proportional to the sum of the
-    // agents' velocities
-
-    float vel = target.vel.getLength();
-    double lookAheadTime = toEvader.getLength() / (vehicle.maxSpeed + vel);
-
-    // Now chase to the predicted future position of the target
-
-    irrklang::vec3df predicted(target.pos + target.vel * lookAheadTime);
-    return arrive(vehicle, predicted, 1);
-}
-
-// Steering Behavior: evade target
-irrklang::vec3df PlayPhysics::evade(Kinematic& vehicle, Kinematic& target)
-{
-    irrklang::vec3df toPursuer = target.pos - vehicle.pos;
-
-    // The look-ahead time is proportional to the distance between the pursuer
-    // and the vehicle, and is inversely proportional to the sum of the
-    // agents' velocities
-
-    float vel = target.vel.getLength();
-    double lookAheadTime = toPursuer.getLength() / (vehicle.maxSpeed + vel);
-
-    // Now chase to the predicted future position of the target
-
-    irrklang::vec3df predicted(target.pos + target.vel * lookAheadTime);
-    return flee(vehicle, predicted);
-}
-
-void PlayPhysics::update(CGame* game)
-{
-    // First time in update, set initial camera pos
-    if(firstTime) {
-        game->setYpan(6*32);
-        game->setXpan(-10*32);
-        game->updateCamera();
-        firstTime = false;
+        if(event.type == sf::Event::Closed)
+            game->quit();
+        if(event.type == sf::Event::KeyPressed)
+            if(event.key.code == sf::Keyboard::S)
+                game->toggleStats();
     }
 
-    // Player motion ?
-    if(zvel != 0) {
-        game->setZoom(game->getZoom()+zvel);
-        game->updateCamera();
+    dirx = diry = 0;
+
+    if(im->testEvent("left")) {
+        if(player.getXspeed() >= 0) {
+            player.setAnimation("walk-left");
+            player.play();
+        }
+        dirx = -1;
+    }
+    else
+    if(im->testEvent("right")) {
+        if(player.getXspeed() <= 0) {
+            player.setAnimation("walk-right");
+            player.play();
+        }
+        dirx = 1;
     }
 
-    //checkCollision(game, playerK);
+    if(im->testEvent("up")) {
+        if(player.getYspeed() >= 0) {
+            player.setAnimation("walk-up");
+            player.play();
+        }
+        diry = -1;
+    }
+
+    if(im->testEvent("down")) {
+        if(player.getYspeed() <= 0) {
+            player.setAnimation("walk-down");
+            player.play();
+        }
+        diry = 1;
+    }
+
+    if(!dirx && !diry) // parado?
+    {
+        player.setCurrentFrame(0);
+        player.pause();
+    }
+
+    if(im->testEvent("quit") || im->testEvent("rightclick"))
+        game->quit();
+
+    if(im->testEvent("zoomin"))
+    {
+        view.zoom(1.01);
+        screen->setView(view);
+    }
+    else if(im->testEvent("zoomout"))
+    {
+        view.zoom(0.99);
+        screen->setView(view);
+    }
+
+    //player.setXspeed(dirx*100);
+    //player.setYspeed(diry*100);
+
+    bplayer->ApplyLinearImpulse(b2Vec2(dirx*10,diry*10), bplayer->GetWorldCenter());
+
+//    playSprite1.setXspeed(dirx * 100);
+//    playSprite1.setYspeed(diry * 100);
+
+    //game->changeState(PlayMap::instance());
+    //game->changeState(PlayMapTop::instance());
+    //game->changeState(PlayMapAI::instance());
+    //game->changeState(PlayPhysics::instance());
+    //game->changeState(PlayMapPhysics::instance());
+}
+
+void PlayPhysics::update(cgf::Game* game)
+{
+    screen = game->getScreen();
+
+//    if(playSprite1.bboxCollision(playSprite2))
+//        cout << "Bump!" << endl;
+
+    checkCollision(2, game, &player);
+
+    if(checkCollision(2, game, &ghost)) {
+        cout << "BUMP!" << endl;
+        ghost.setXspeed(-ghost.getXspeed());
+    }
+
+//    playSprite1.update(game->getUpdateInterval());
+
+//    auto layers = map->GetLayers();
+//    tmx::MapLayer& layer = layers[2];
+//    int moo = 0;
+//    for(auto tile: layer.tiles)
+//    {
+//        cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ") ";
+//        if(++moo>3) break;
+//    }
+//    cout << endl;
+//    cout << layer.name << endl;
+//    for(auto object = layer.objects.begin(); object != layer.objects.end(); ++object)
+//    {
+//        cout << object->GetShapeType() << endl;
+//    }
+
+    /*
+    if(monkey.getPosition().x > 600)
+    {
+        monkey.setXspeed(-100);
+        monkey.setMirror(true);
+    }
+    if(monkey.getPosition().x < 50)
+    {
+        monkey.setXspeed(100);
+        monkey.setMirror(false);
+    }*/
+
     phys->step();
-    playerK.pos.X = player->getX();
-    playerK.pos.Y = player->getY();
-//    enemyK.pos.X = enemy->getX();
-//    enemyK.pos.Y = enemy->getY();
-    centerPlayerOnMap(game);
 
-#define STEERING
-#ifdef STEERING
-    // Apply steering behavior(s)
-
-    //irrklang::vec3df steeringForce = flee(enemyK, playerK,100);
-    //irrklang::vec3df steeringForce = pursuit(enemyK, playerK);
-    irrklang::vec3df steeringForce;
-
-    switch(steerMode) {
-        case CHASE_BEHAVIOR:
-            steeringForce = chase(enemyK, playerK.pos);
-            break;
-        case ARRIVE_BEHAVIOR:
-            steeringForce = arrive(enemyK, playerK.pos, 1); // 0.3 - lento ... 1 - rápido
-            break;
-        case PURSUIT_BEHAVIOR:
-            steeringForce = pursuit(enemyK, playerK);
-            break;
-        case FLEE_BEHAVIOR:
-            steeringForce = flee(enemyK, playerK.pos, 100);
-            break;
-        case EVADE_BEHAVIOR:
-            steeringForce = evade(enemyK, playerK);
-    }
-    irrklang::vec3df accel = steeringForce/1; // mass;
-
-    b2Vec2 thrust = b2Vec2(accel.X*50,accel.Y*50);
-
-    //cout << "Thrust: " << thrust.x << " " << thrust.y << endl;
-    //enemyPhys->ApplyLinearImpulse(thrust,enemyPhys->GetWorldCenter());
-    enemyK.vel += accel; // * deltaTime
-
-    // Can't exceed max speed
-    if(enemyK.vel.getLengthSQ() > enemyK.maxSpeed*enemyK.maxSpeed)
-        enemyK.vel = enemyK.vel.normalize() * enemyK.maxSpeed;
-
-    // Only update heading if speed is above minimum threshold
-    if(enemyK.vel.getLengthSQ() > 0.00000001) {
-        enemyK.heading = enemyK.vel / enemyK.vel.getLength();
-    }
-#else
-    // Basic chase
-
-    enemyK.vel.set(0,0,0);
-    if(enemyK.pos.X < playerK.pos.X)
-        enemyK.vel.X = 2;
-    else if(enemyK.pos.X > playerK.pos.X)
-        enemyK.vel.X = -2;
-    if(enemyK.pos.Y < playerK.pos.Y)
-        enemyK.vel.Y = 2;
-    else if(enemyK.pos.Y > playerK.pos.Y)
-        enemyK.vel.Y = -2;
-#endif
-    checkCollision(game, enemyK);
+    centerMapOnPlayer();
 }
 
-// Collision detection and centering based on code from
-// http://www.parallelrealities.co.uk/tutorials/intermediate/tutorial14.php
-
-void PlayPhysics::centerPlayerOnMap(CGame* game)
-{
-    float maxMapX = map.getNumMapColumns() * map.getTileWidth();
-    float maxMapY = map.getNumMapRows() * map.getTileHeight();
-
-    float gameWidth  = game->getWidth();
-    float gameHeight = game->getHeight();
-
-    float panX = playerK.pos.X - (gameWidth/2);
-
-    if(panX < 0)
-        panX = 0;
-
-    else if(panX + gameWidth >= maxMapX)
-        panX = maxMapX - gameWidth;
-
-    float panY = playerK.pos.Y - (gameHeight/2);
-
-    if(panY < 0)
-        panY = 0;
-
-    else if(panY + gameHeight >= maxMapY)
-        panY = maxMapY - gameHeight;
-
-    game->setXpan(panX);
-    game->setYpan(panY);
-    game->updateCamera();
-}
-
-void PlayPhysics::checkCollision(CGame* game, Kinematic& obj)
+bool PlayPhysics::checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj)
 {
     int i, x1, x2, y1, y2;
+    bool bump = false;
 
     // Get the limits of the map
-    int maxMapX = map.getNumMapColumns();
-    int maxMapY = map.getNumMapRows();
-
+    sf::Vector2u mapsize = map->GetMapSize();
     // Get the width and height of a single tile
-    int tileW = map.getTileWidth();
-    int tileH = map.getTileHeight();
+    sf::Vector2u tilesize = map->GetMapTileSize();
+
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+    mapsize.x--;
+    mapsize.y--;
 
     // Get the height and width of the object (in this case, 100% of a tile)
-    int playerH = tileH;
-    int playerW = tileW;
+    sf::Vector2u objsize = obj->getSize();
+    objsize.x *= obj->getScale().x;
+    objsize.y *= obj->getScale().y;
+
+    float px = obj->getPosition().x;
+    float py = obj->getPosition().y;
+
+    double deltaTime = game->getUpdateInterval();
+
+    sf::Vector2f offset(obj->getXspeed()/1000 * deltaTime, obj->getYspeed()/1000 * deltaTime);
+
+    float vx = offset.x;
+    float vy = offset.y;
+
+    //cout << "px,py: " << px << " " << py << endl;
+
+    //cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
+    //cout << "mapsize " << mapsize.x << " " << mapsize.y << endl;
 
     // Test the horizontal movement first
-    i = playerH > tileH ? tileH : playerH;
+    i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
 
     for (;;)
     {
-        x1 = (obj.pos.X + obj.vel.X) / tileW;
-        x2 = (obj.pos.X + obj.vel.X + playerW - 1) / tileW;
+        x1 = (px + vx) / tilesize.x;
+        x2 = (px + vx + objsize.x - 1) / tilesize.x;
 
-        y1 = (obj.pos.Y) / tileH;
-        y2 = (obj.pos.Y + i - 1) / tileH;
+        y1 = (py) / tilesize.y;
+        y2 = (py + i - 1) / tilesize.y;
 
-        if (x1 >= 0 && x2 < maxMapX && y1 >= 0 && y2 < maxMapY)
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
         {
-            if (obj.vel.X > 0)
+            if (vx > 0)
             {
                 // Trying to move right
 
-                int upRight   = map.getCell(x2,y1);
-                int downRight = map.getCell(x2,y2);
-                if (blocks[upRight] == 1 || blocks[downRight] == 1)
+                int upRight   = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
+                if (upRight || downRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.X = x2 * tileW;
-                    obj.pos.X -= playerW + 1;
-                    obj.vel.X = 0;
+                    px = x2 * tilesize.x;
+                    px -= objsize.x;// + 1;
+                    vx = 0;
+                    bump = true;
                 }
             }
 
-            else if (obj.vel.X < 0)
+            else if (vx < 0)
             {
                 // Trying to move left
 
-                int upLeft   = map.getCell(x1,y1);
-                int downLeft = map.getCell(x1,y2);
-                if (blocks[upLeft] == 1 || blocks[downLeft] == 1)
+                int upLeft   = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int downLeft = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
+                if (upLeft || downLeft)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.X = (x1+1) * tileW;
-                    obj.vel.X = 0;
+                    px = (x1+1) * tilesize.x;
+                    vx = 0;
+                    bump = true;
                 }
             }
         }
 
-        if (i == playerH) // Checked player height with all tiles ?
+        if (i == objsize.y) // Checked player height with all tiles ?
         {
             break;
         }
 
-        i += tileH; // done, check next tile upwards
+        i += tilesize.y; // done, check next tile upwards
 
-        if (i > playerH)
+        if (i > objsize.y)
         {
-            i = playerH;
+            i = objsize.y;
         }
     }
 
     // Now test the vertical movement
 
-    i = playerW > tileW ? tileW : playerW;
+    i = objsize.x > tilesize.x ? tilesize.x : objsize.x;
 
     for (;;)
     {
-        x1 = (obj.pos.X / tileW);
-        x2 = ((obj.pos.X + i) / tileW);
+        x1 = (px / tilesize.x);
+        x2 = ((px + i-1) / tilesize.x);
 
-        y1 = ((obj.pos.Y + obj.vel.Y) / tileH);
-        y2 = ((obj.pos.Y + obj.vel.Y + playerH) / tileH);
+        y1 = ((py + vy) / tilesize.y);
+        y2 = ((py + vy + objsize.y-1) / tilesize.y);
 
-        if (x1 >= 0 && x2 < maxMapX && y1 >= 0 && y2 < maxMapY)
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
         {
-            if (obj.vel.Y > 0)
+            if (vy > 0)
             {
                 // Trying to move down
-                int downLeft  = map.getCell(x1,y2);
-                int downRight = map.getCell(x2,y2);
-                if (blocks[downLeft] == 1 || blocks[downRight] == 1)
+                int downLeft  = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
+                if (downLeft || downRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.Y = y2 * tileH;
-                    obj.pos.Y -= playerH;
-                    obj.vel.Y = 0;
+                    py = y2 * tilesize.y;
+                    py -= objsize.y;
+                    vy = 0;
+                    bump = true;
                 }
             }
 
-            else if (obj.vel.Y < 0)
+            else if (vy < 0)
             {
                 // Trying to move up
 
-                int upLeft  = map.getCell(x1,y1);
-                int upRight = map.getCell(x2,y1);
-                if (blocks[upLeft] == 1 || blocks[upRight] == 1)
+                int upLeft  = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int upRight = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
+                if (upLeft || upRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.Y = (y1 + 1) * tileH;
-                    obj.vel.Y = 0;
+                    py = (y1 + 1) * tilesize.y;
+                    vy = 0;
+                    bump = true;
                 }
             }
         }
 
-        if (i == playerW)
+        if (i == objsize.x)
         {
             break;
         }
 
-        i += tileW; // done, check next tile to the right
+        i += tilesize.x; // done, check next tile to the right
 
-        if (i > playerW)
+        if (i > objsize.x)
         {
-            i = playerW;
+            i = objsize.x;
         }
     }
 
-    // Now apply the movement
+    // Now apply the movement and animation
 
-    obj.pos += obj.vel;
+    obj->setPosition(px+vx,py+vy);
+    px = obj->getPosition().x;
+    py = obj->getPosition().y;
 
-    if (obj.pos.X < 0)
-        obj.pos.X = 0;
-    else if (obj.pos.X + playerW >= maxMapX * tileW)
-        obj.pos.X = maxMapX*tileW - playerW - 1;
+    obj->update(deltaTime, false); // only update animation
 
-    if(obj.pos.Y < 0)
-        obj.pos.Y = 0;
-    else if(obj.pos.Y + playerH >= maxMapY * tileH)
-        obj.pos.Y = maxMapY*tileH - playerH - 1;
+    // Check collision with edges of map
+    if (px < 0)
+        obj->setPosition(px,py);
+    else if (px + objsize.x >= mapsize.x * tilesize.x)
+        obj->setPosition(mapsize.x*tilesize.x - objsize.x - 1,py);
+
+    if(py < 0)
+        obj->setPosition(px,0);
+    else if(py + objsize.y >= mapsize.y * tilesize.y)
+        obj->setPosition(px, mapsize.y*tilesize.y - objsize.y - 1);
+
+    return bump;
 }
 
-
-void PlayPhysics::draw(CGame* game)
+sf::Uint16 PlayPhysics::getCellFromMap(uint8_t layernum, float x, float y)
 {
-    glClearColor(0.8,0.8,0.8,1); // light gray
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
+    auto layers = map->GetLayers();
+    tmx::MapLayer& layer = layers[layernum];
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2u tilesize = map->GetMapTileSize();
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+    int col = floor(x / tilesize.x);
+    int row = floor(y / tilesize.y);
+    return layer.tiles[row*mapsize.x + col].gid;
+}
 
-    map.draw();
+void PlayPhysics::centerMapOnPlayer()
+{
+    sf::View view = screen->getView();
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2f viewsize = view.getSize();
+    viewsize.x /= 2;
+    viewsize.y /= 2;
+    sf::Vector2f pos = player.getPosition();
 
-    //player->setPosition(playerK.pos.X,playerK.pos.Y);
-    player->draw();
+//    cout << "vw: " << view.getSize().x << " " << view.getSize().y << endl;
 
-    enemy->setPosition(enemyK.pos.X, enemyK.pos.Y);
-    enemy->draw();
+    float panX = viewsize.x; // minimum pan
+    if(pos.x >= viewsize.x)
+        panX = pos.x;
 
-    phys->debugDraw();
+    if(panX >= mapsize.x - viewsize.x)
+        panX = mapsize.x - viewsize.x;
 
-    SDL_GL_SwapBuffers();
+    float panY = viewsize.y; // minimum pan
+    if(pos.y >= viewsize.y)
+        panY = pos.y;
+
+    if(panY >= mapsize.y - viewsize.y)
+        panY = mapsize.y - viewsize.y;
+
+//    cout << "pos: " << pos.x << " " << pos.y << endl;
+//    cout << "pan: " << panX << " " << panY << endl;
+
+    view.setCenter(sf::Vector2f(panX,panY));
+    screen->setView(view);
+}
+
+void PlayPhysics::draw(cgf::Game* game)
+{
+    //sf::View view = screen->getView();
+
+    screen->clear(sf::Color(0,0,0));
+
+    map->Draw(*screen, 0);
+    map->Draw(*screen, 1);
+//    screen->draw(playSprite1);
+//    screen->draw(playSprite2);
+//    screen->draw(playSprite3);
+    screen->draw(ghost);
+    screen->draw(player);
+
+
+    sf::Text text;
+    // select the font
+    text.setFont(font);
+    text.setString(L"Arrá!");
+    text.setCharacterSize(24); // in pixels, not points!
+    text.setColor(sf::Color::Red);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    screen->draw(text);
 }

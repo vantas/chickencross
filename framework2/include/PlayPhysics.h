@@ -2,35 +2,23 @@
  *  PlayPhysics.h
  *  Testbed for Box2D (physics) experiments
  *
- *  Created by Marcelo Cohen on 05/11.
- *  Copyright 2011 PUCRS. All rights reserved.
+ *  Created by Marcelo Cohen on 09/13.
+ *  Copyright 2013 PUCRS. All rights reserved.
  *
  */
 
 #ifndef PLAY_PHYSICS_H_
 #define PLAY_PHYSICS_H_
 
-#include <SDL.h>
-#include <Box2D/Box2D.h>
-//#include <irrKlang.h>
-#include "CGameState.h"
-#include "CSprite.h"
-#include "TMXLoader.h"
-#include "CPhysics.h"
+#include "GameState.h"
+#include "Sprite.h"
+#include "InputManager.h"
+#include <MapLoader.h>
+#include "Physics.h"
 
-struct Kinematic
+class PlayPhysics : public cgf::GameState
 {
-//    irrklang::vec3df pos;
-//    irrklang::vec3df vel;
-//    irrklang::vec3df heading;
-    float maxForce;
-    float maxSpeed;
-    float maxTurnRate;
-};
-
-class PlayPhysics : public CGameState
-{
-public:
+    public:
 
     void init();
     void cleanup();
@@ -38,9 +26,9 @@ public:
     void pause();
     void resume();
 
-    void handleEvents(CGame* game);
-    void update(CGame* game);
-    void draw(CGame* game);
+    void handleEvents(cgf::Game* game);
+    void update(cgf::Game* game);
+    void draw(cgf::Game* game);
 
     // Implement Singleton Pattern
     static PlayPhysics* instance()
@@ -48,44 +36,36 @@ public:
         return &m_PlayPhysics;
     }
 
-protected:
+    protected:
 
     PlayPhysics() {}
 
-private:
+    private:
 
     static PlayPhysics m_PlayPhysics;
 
-    enum {
-        PLAYER_ID, ENEMY_ID, WALL_ID
-    };
-    CPhysics* phys;
-    b2Body* playerPhys, * enemyPhys;
+    // Get a cell GID from the map (x and y are view coords)
+    sf::Uint16 getCellFromMap(u_int8_t layernum, float x, float y);
+
+    // Centers the camera on the player position (if player is too close to the borders, stop)
+    void centerMapOnPlayer();
+
+    bool checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj);
 
     int x, y;
-    float cameraSpeed;
-    float zvel;
-    CSprite* player;
-    CSprite* enemy;
-    Kinematic playerK, enemyK;
-    TMXLoader map;
-    Uint8* keystate; // state of all keys (1 means key is pressed)
-    bool firstTime;
-    int blocks[256]; // indicate collision status of each block id
+    int dirx, diry;
+    cgf::Sprite player;
+    cgf::Sprite ghost;
+//    cgf::Sprite playSprite2;
+//    cgf::Sprite playSprite3;
+    sf::RenderWindow* screen;
+    cgf::InputManager* im;
+    tmx::MapLoader* map;
+    sf::Font font;
 
-    void checkCollision(CGame* game);
-    void checkCollision(CGame* game, Kinematic& obj);
-    void centerPlayerOnMap(CGame* game);
+    cgf::Physics* phys;
+    b2Body* bplayer;
 
-    enum {
-         CHASE_BEHAVIOR, ARRIVE_BEHAVIOR, PURSUIT_BEHAVIOR, FLEE_BEHAVIOR, EVADE_BEHAVIOR
-    };
-    int steerMode;
-//    irrklang::vec3df chase(Kinematic& vehicle, irrklang::vec3df& target); // ir diretamente ao jogador
-//    irrklang::vec3df arrive(Kinematic& vehicle, irrklang::vec3df& target, float decel); // ir diretamente ao jogador
-//    irrklang::vec3df pursuit(Kinematic& vehicle, Kinematic& target); // perseguir o jogador, prevendo a posição futura
-//	irrklang::vec3df flee(Kinematic& vehicle, irrklang::vec3df& target, float panicDistance=100);  // fugir do jogador
-//    irrklang::vec3df evade(Kinematic& vehicle, Kinematic& target);
 };
 
 #endif

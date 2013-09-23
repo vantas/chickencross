@@ -14,6 +14,7 @@ QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
 SOURCES += ../../source/PlayState.cpp \
+    ../../source/PlayPhysics.cpp \
     ../../source/main.cpp \
     ../../source/InputManager.cpp \
     ../../source/tmxloader/QuadTreeNode.cpp \
@@ -23,11 +24,13 @@ SOURCES += ../../source/PlayState.cpp \
     ../../source/MenuState.cpp \
     ../../source/TextureManager.cpp \
     ../../source/Sprite.cpp \
-    ../../source/Game.cpp
+    ../../source/Game.cpp \
+    ../../source/Physics.cpp
 
 HEADERS += \
     ../../include/TextureManager.h \
     ../../include/PlayState.h \
+    ../../include/PlayPhysics.h \
     ../../include/InputManager.h \
     ../../include/Graphics.h \
     ../../include/FrameClock.h \
@@ -44,7 +47,8 @@ HEADERS += \
     ../../include/Sprite.h \
     ../../include/Game.h \
     ../../include/GameState.h \
-    ../../include/Anim.h
+    ../../include/Anim.h \
+    ../../include/Physics.h
 
 ###############################################
 # CONFIGURATION
@@ -86,6 +90,7 @@ LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
     -lsfml-graphics \
     -lsfml-audio \
     -lsfml-network \
+    -lBox2D \
     -lz
 
 #macx {
@@ -98,8 +103,8 @@ LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
 #}
 
 unix:!macx {
-    INCLUDEPATH += /usr/local/include/SFML
-    LIBS += -lGLEW
+    INCLUDEPATH += /usr/local/include/SFML ../../lib/Box2D-2.2.1/include
+    LIBS += -lGLEW -L../../lib/Box2D-2.2.1/lib-Linux64
 }
 
 OTHER_FILES += \

@@ -12,8 +12,6 @@
 
 //#include <SDL.h>
 #include "GameState.h"
-#include "CImage.h"
-
 
 class CFont;
 
@@ -45,7 +43,7 @@ class PauseState : public cgf::GameState
 
     static PauseState m_PauseState;
 
-    CImage* pauseSprite;
+    cgf::Sprite* pauseSprite;
     CFont*  pauseFont;
 
 };

@@ -1,5 +1,5 @@
 /*
- *  CGame.h
+ *  Game.h
  *  Main game class
  *
  *  Created by Marcelo Cohen on 05/13.
