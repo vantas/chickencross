@@ -30,7 +30,7 @@ void PlayPhysics::init()
     //playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
 
     map = new tmx::MapLoader("data/maps");
-    map->Load("dungeon-tilesets2.tmx");
+    map->Load("dungeon.tmx");
 
     ghost.load("data/img/Char14.png");
     ghost.setPosition(100,300);
@@ -90,6 +90,26 @@ void PlayPhysics::init()
     phys->setConvFactor(30);
 
     bplayer = phys->newBoxImage(0, &player, 50, 0.1, 0.1);
+
+    auto layers = map->GetLayers();
+    tmx::MapLayer& layer = layers[1];
+//    int moo = 0;
+//    for(auto tile: layer.tiles)
+//    {
+//        cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ") ";
+//        if(++moo>3) break;
+//    }
+//    cout << endl;
+//    cout << layer.name << endl;
+    for(auto object: layer.objects) //.begin(); object != layer.objects.end(); ++object)
+    {
+    //    cout << "object" << endl;
+//        cout << object.GetShapeType() << endl;
+        sf::FloatRect rect = object.GetAABB();
+        cout << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
+        phys->newBox(-3, rect.left, rect.top, rect.width, rect.height, 1, 1, 1, true);
+    }
+
 
     cout << "PlayPhysics Init Successful" << endl;
 }
@@ -200,29 +220,15 @@ void PlayPhysics::update(cgf::Game* game)
 //    if(playSprite1.bboxCollision(playSprite2))
 //        cout << "Bump!" << endl;
 
-    checkCollision(2, game, &player);
+    //checkCollision(2, game, &player);
 
-    if(checkCollision(2, game, &ghost)) {
-        cout << "BUMP!" << endl;
-        ghost.setXspeed(-ghost.getXspeed());
-    }
+    //if(checkCollision(2, game, &ghost)) {
+    //    cout << "BUMP!" << endl;
+    //    ghost.setXspeed(-ghost.getXspeed());
+    //}
 
 //    playSprite1.update(game->getUpdateInterval());
 
-//    auto layers = map->GetLayers();
-//    tmx::MapLayer& layer = layers[2];
-//    int moo = 0;
-//    for(auto tile: layer.tiles)
-//    {
-//        cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ") ";
-//        if(++moo>3) break;
-//    }
-//    cout << endl;
-//    cout << layer.name << endl;
-//    for(auto object = layer.objects.begin(); object != layer.objects.end(); ++object)
-//    {
-//        cout << object->GetShapeType() << endl;
-//    }
 
     /*
     if(monkey.getPosition().x > 600)
