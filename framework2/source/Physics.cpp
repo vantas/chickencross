@@ -302,10 +302,9 @@ b2Body* Physics::haveContact(int id1, int id2)
 // Draw all physics objects with transparency
 void Physics::debugDraw()
 {
-}
+    sf::CircleShape circle;
+    sf::RectangleShape rectangle;
 
-/*
-    glDisable(GL_TEXTURE_2D);
     for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
     {
         BodyData* ptr = (BodyData*) b->GetUserData();
@@ -314,7 +313,7 @@ void Physics::debugDraw()
             float rot = b->GetAngle();
             rot = rot * 180/M_PI;
             //cout << "Box: " << pos.x << " " << pos.y << " - " << rot;
-            glColor4f(ptr->color.r, ptr->color.g, ptr->color.b, 0.2);
+            //glColor4f(ptr->color.r, ptr->color.g, ptr->color.b, 0.2);
             // Iterate through all fixtures
             b2Fixture* f = b->GetFixtureList();
             float tx = pos.x * CONV;
@@ -337,10 +336,10 @@ void Physics::debugDraw()
                 ty += offsetY;
             }
             */
-            /*glPushMatrix();
-            glColor4f(1,1,1,0.4);
-            glTranslatef(tx, ty, 0);
-            glRotatef(rot, 0, 0, 1);
+            //glPushMatrix();
+            //glColor4f(1,1,1,0.4);
+            //glTranslatef(tx, ty, 0);
+            //glRotatef(rot, 0, 0, 1);
 //#define NEWAPPROACH
 #ifdef NEWAPPROACH
             glBegin(GL_LINE_LOOP);
@@ -352,14 +351,17 @@ void Physics::debugDraw()
             glPopMatrix();
 #else
             b2PolygonShape* pol;
-            b2CircleShape* circ;
+            b2CircleShape* circ;            
             while(f != NULL)
             {
                 switch(f->GetType())
                 {
                     case b2Shape::e_polygon:
                         pol = (b2PolygonShape*) f->GetShape();
-                        glBegin(GL_POLYGON);
+
+                        cout << "b2Shape::poly" << endl;
+
+                        /*glBegin(GL_POLYGON);
                           for(int i=0; i<pol->GetVertexCount(); i++)
                           {
                               const b2Vec2& v = pol->GetVertex(i);
@@ -367,13 +369,14 @@ void Physics::debugDraw()
                               glVertex2f(v.x*CONV,v.y*CONV);
                           }
                         //cout << endl;
-                        glEnd();
+                        glEnd();*/
                         break;
                     case b2Shape::e_circle:
                         circ = (b2CircleShape*) f->GetShape();
                         float radius = circ->m_radius;
+                        cout << "b2Shape::circle" << endl;
                         //cout << "drawing circle " << radius << endl;
-                        glBegin(GL_TRIANGLE_FAN);
+                        /*glBegin(GL_TRIANGLE_FAN);
                           glVertex2f(0,0);
                           for(float a=0; a<=2*M_PI; a+=0.6)
                           {
@@ -383,17 +386,16 @@ void Physics::debugDraw()
                               glVertex2f(px*CONV,py*CONV);
                           }
                         //cout << endl;
-                        glEnd();
+                        glEnd();*/
                 }
                 f = f->GetNext();
-                glPopMatrix();
+                //glPopMatrix();
             }
 #endif
         }
     }
-    glColor3f(1,1,1);
+    //glColor3f(1,1,1);
 }
-*/
 
 void Physics::setGravity(float grav)
 {

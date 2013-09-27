@@ -479,6 +479,7 @@ void PlayPhysics::draw(cgf::Game* game)
     screen->draw(ghost);
     screen->draw(player);
 
+    phys->debugDraw();
 
     sf::Text text;
     // select the font
