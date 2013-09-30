@@ -12,6 +12,7 @@
 
 #include <Box2D/Box2D.h>
 #include "Sprite.h"
+#include "EEDebugDraw3.h"
 
 namespace cgf
 {
@@ -48,12 +49,16 @@ class Physics
         float getGravity();
     
         void step();
-        void debugDraw();
+        void drawDebugData();
+
+        //void debugDraw(sf::RenderWindow &win);
         b2Body* haveContact(int id1, int id2);
 
         void setDrawOffset(float ox, float oy);
 
         static void setConvFactor(float conv);
+
+        void setRenderTarget(sf::RenderTarget &win);
 
         // Implement Singleton Pattern
         static Physics* instance()
@@ -75,6 +80,7 @@ class Physics
         float offsetX, offsetY; // offset to apply to translation when drawing
 
         b2World* world;
+        EEDebugDraw3 debugDraw;
 };
 
 } // namespace cgf

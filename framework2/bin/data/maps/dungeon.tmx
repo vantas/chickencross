@@ -14,8 +14,8 @@
   <object x="1058" y="995" width="796" height="29"/>
   <object x="1860" y="3" width="58" height="990"/>
   <object x="1060" y="2" width="797" height="29"/>
-  <object x="2" y="5" width="1022" height="25"/>
-  <object x="2" y="33" width="30" height="988"/>
+  <object name="topwall" x="2" y="5" width="1022" height="25"/>
+  <object name="leftwall" x="2" y="33" width="30" height="988"/>
   <object x="34" y="993" width="1022" height="33"/>
   <object x="225" y="34" width="30" height="509"/>
   <object x="258" y="515" width="284" height="27"/>

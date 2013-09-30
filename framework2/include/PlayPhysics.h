@@ -52,6 +52,8 @@ class PlayPhysics : public cgf::GameState
 
     bool checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj);
 
+    bool firstTime;
+
     int x, y;
     int dirx, diry;
     cgf::Sprite player;
@@ -64,7 +66,7 @@ class PlayPhysics : public cgf::GameState
     sf::Font font;
 
     cgf::Physics* phys;
-    b2Body* bplayer;
+    b2Body* bplayer, *bghost;
 
 };
 

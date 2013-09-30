@@ -35,6 +35,13 @@ Physics::Physics()
     offsetX = offsetY = 0;
 }
 
+void Physics::setRenderTarget(sf::RenderTarget& win)
+{
+    debugDraw.LinkTarget(win);
+    world->SetDebugDraw(&debugDraw);
+    debugDraw.SetFlags( b2Draw::e_shapeBit );
+}
+
 Physics::~Physics()
 {
     cout << "CPhisics: cleanup" << endl;
@@ -52,13 +59,14 @@ b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float frictio
     sf::Vector2u size = image->getSize();
     float width = size.x*scale.x/CONV;
     float height = size.y*scale.y/CONV;
+    image->setOrigin(sf::Vector2f(size.x/2,size.y/2));
 
     cout << "Physics::newBoxImage " << pos.x << "," << pos.y << " - " << size.x << " x " << size.y << endl;
 
 	b2PolygonShape box;
     //width /= 2;
     //height/= 2;
-	box.SetAsBox(width/2,height/2);
+    box.SetAsBox(width/2,height/2);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &box;
@@ -70,6 +78,7 @@ b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float frictio
     b2Vec2 pos2;
     pos2.x = pos.x + width*CONV/2;
     pos2.y = pos.y + height*CONV/2;
+//    cout << "MOO " << pos2.x - pos.x << endl;
     bd.position.Set(pos2.x/CONV, pos2.y/CONV);
     // End pinho
     //bd.position.Set(image->getX()/CONV,image->getY()/CONV);
@@ -98,9 +107,9 @@ b2Body* Physics::newBox(int id, float x, float y, float width, float height, flo
     cout << "Physics::newBox " << x << "," << y << " - " << width << " x " << height << endl;
 
 	b2PolygonShape box;
-    width = width/CONV;
-    height = height/CONV;
-	box.SetAsBox(width,height);
+    width = width/2;
+    height = height/2;
+    box.SetAsBox(width/CONV,height/CONV);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &box;
@@ -108,6 +117,8 @@ b2Body* Physics::newBox(int id, float x, float y, float width, float height, flo
     fixtureDef.friction = friction;
     fixtureDef.restitution = restitution;
 
+    x += width;
+    y += height;
     bd.position.Set(x/CONV,y/CONV);
 	b2Body* body = world->CreateBody(&bd);
 
@@ -136,6 +147,7 @@ b2Body* Physics::newCircleImage(int id, Sprite* image, float density, float fric
     sf::Vector2u size = image->getSize();
     float width = size.x*scale.x/CONV;
     float height = size.y*scale.y/CONV;
+    image->setOrigin(sf::Vector2f(size.x/2,size.y/2));
     
     // Assume radius as the longest dimension
     float radius = max(width,height);
@@ -248,8 +260,8 @@ void Physics::step()
             if(ptr->offset.x != offsetX)
             {
 //                cout << ptr->offset.x << " -> " << offsetX << endl;
-                dx = offsetX - ptr->offset.x;
-                dy = offsetY - ptr->offset.y;
+//                dx = offsetX - ptr->offset.x;
+//                dy = offsetY - ptr->offset.y;
             }
             ptr->image->setPosition(pos.x*CONV+dx, pos.y*CONV+dy);
             ptr->image->setRotation(rot);
@@ -272,6 +284,11 @@ void Physics::step()
              << posb.x << "," << posb.y << endl;
     }
     */
+}
+
+void Physics::drawDebugData()
+{
+    world->DrawDebugData();
 }
 
 // Process contact list for this time step, and return ptr of body
@@ -300,7 +317,8 @@ b2Body* Physics::haveContact(int id1, int id2)
 }
 
 // Draw all physics objects with transparency
-void Physics::debugDraw()
+#ifdef DEBUG_DRAW_INLINE
+void Physics::debugDraw(sf::RenderWindow& win)
 {
     sf::CircleShape circle;
     sf::RectangleShape rectangle;
@@ -318,7 +336,7 @@ void Physics::debugDraw()
             b2Fixture* f = b->GetFixtureList();
             float tx = pos.x * CONV;
             float ty = pos.y * CONV;
-            //cout << " " << ptr->offset.x << " " << ptr->offset.y << endl;
+//            cout << " " << ptr->offset.x << " " << ptr->offset.y << endl;
             //tx += 64;//ptr->offset.x;
             //ty += 64;//ptr->offset.y;
             //tx += ptr->offset.x;
@@ -351,7 +369,8 @@ void Physics::debugDraw()
             glPopMatrix();
 #else
             b2PolygonShape* pol;
-            b2CircleShape* circ;            
+            b2CircleShape* circ;
+            b2Vec2 min, max, sizes;
             while(f != NULL)
             {
                 switch(f->GetType())
@@ -360,16 +379,30 @@ void Physics::debugDraw()
                         pol = (b2PolygonShape*) f->GetShape();
 
                         cout << "b2Shape::poly" << endl;
+                        min.x = min.y = 1E5;
+                        max.x = max.y = -1E5;
 
-                        /*glBegin(GL_POLYGON);
+                        /*glBegin(GL_POLYGON);*/
                           for(int i=0; i<pol->GetVertexCount(); i++)
                           {
                               const b2Vec2& v = pol->GetVertex(i);
-                              //cout << v.x << "," << v.y << " ";
-                              glVertex2f(v.x*CONV,v.y*CONV);
+//                              cout << v.x << "," << v.y << " ";
+                              if(v.x < min.x) min.x = v.x;
+                              if(v.x > max.x) max.x = v.x;
+                              if(v.y < min.y) min.y = v.y;
+                              if(v.y > max.y) max.y = v.y;
+                              //glVertex2f(v.x*CONV,v.y*CONV);
                           }
-                        //cout << endl;
-                        glEnd();*/
+                        cout << endl;
+                        sizes = max - min;
+//                        cout << "Min: " << min.x << ", " << min.y << endl;
+//                        cout << "Max: " << max.x << ", " << max.y << endl;
+//                        cout << "Size: " << sizes.x << " x " << sizes.y << endl;
+                        //glEnd();*/
+                        rectangle.setSize(sf::Vector2f(sizes.x*CONV,sizes.y*CONV));
+                        rectangle.setPosition(tx,ty);
+                        rectangle.setFillColor(sf::Color(255,0,0,100));
+                        win.draw(rectangle);
                         break;
                     case b2Shape::e_circle:
                         circ = (b2CircleShape*) f->GetShape();
@@ -388,6 +421,7 @@ void Physics::debugDraw()
                         //cout << endl;
                         glEnd();*/
                 }
+//                cout << "******" << endl;
                 f = f->GetNext();
                 //glPopMatrix();
             }
@@ -396,6 +430,7 @@ void Physics::debugDraw()
     }
     //glColor3f(1,1,1);
 }
+#endif
 
 void Physics::setGravity(float grav)
 {

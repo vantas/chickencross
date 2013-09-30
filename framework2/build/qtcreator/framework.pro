@@ -25,7 +25,8 @@ SOURCES += ../../source/PlayState.cpp \
     ../../source/TextureManager.cpp \
     ../../source/Sprite.cpp \
     ../../source/Game.cpp \
-    ../../source/Physics.cpp
+    ../../source/Physics.cpp \
+    ../../source/EEDebugDraw3.cpp
 
 HEADERS += \
     ../../include/TextureManager.h \
@@ -48,7 +49,8 @@ HEADERS += \
     ../../include/Game.h \
     ../../include/GameState.h \
     ../../include/Anim.h \
-    ../../include/Physics.h
+    ../../include/Physics.h \
+    ../../include/EEDebugDraw3.h
 
 ###############################################
 # CONFIGURATION

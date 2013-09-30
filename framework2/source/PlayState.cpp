@@ -463,7 +463,6 @@ void PlayState::draw(cgf::Game* game)
     screen->draw(ghost);
     screen->draw(player);
 
-
     sf::Text text;
     // select the font
     text.setFont(font);

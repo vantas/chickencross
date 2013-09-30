@@ -90,6 +90,7 @@ void PlayPhysics::init()
     phys->setConvFactor(30);
 
     bplayer = phys->newBoxImage(0, &player, 50, 0.1, 0.1);
+    bghost  = phys->newCircleImage(1, &ghost, 50, 0.1, 0.1);
 
     auto layers = map->GetLayers();
     tmx::MapLayer& layer = layers[1];
@@ -106,11 +107,11 @@ void PlayPhysics::init()
     //    cout << "object" << endl;
 //        cout << object.GetShapeType() << endl;
         sf::FloatRect rect = object.GetAABB();
-        cout << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
-        phys->newBox(-3, rect.left, rect.top, rect.width, rect.height, 1, 1, 1, true);
+//        cout << "box: " << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
+        phys->newBox(-3, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
     }
 
-
+    firstTime = true;
     cout << "PlayPhysics Init Successful" << endl;
 }
 
@@ -201,7 +202,7 @@ void PlayPhysics::handleEvents(cgf::Game* game)
     //player.setXspeed(dirx*100);
     //player.setYspeed(diry*100);
 
-    bplayer->ApplyLinearImpulse(b2Vec2(dirx*10,diry*10), bplayer->GetWorldCenter());
+    bplayer->ApplyLinearImpulse(b2Vec2(dirx*5,diry*5), bplayer->GetWorldCenter());
 
 //    playSprite1.setXspeed(dirx * 100);
 //    playSprite1.setYspeed(diry * 100);
@@ -216,6 +217,11 @@ void PlayPhysics::handleEvents(cgf::Game* game)
 void PlayPhysics::update(cgf::Game* game)
 {
     screen = game->getScreen();
+    if(firstTime)
+    {
+        phys->setRenderTarget(*screen);
+        firstTime = false;
+    }
 
 //    if(playSprite1.bboxCollision(playSprite2))
 //        cout << "Bump!" << endl;
@@ -479,7 +485,8 @@ void PlayPhysics::draw(cgf::Game* game)
     screen->draw(ghost);
     screen->draw(player);
 
-    phys->debugDraw();
+    phys->drawDebugData();
+    //phys->debugDraw(*screen);
 
     sf::Text text;
     // select the font
