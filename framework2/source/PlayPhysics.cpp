@@ -89,26 +89,17 @@ void PlayPhysics::init()
     phys->setGravity(0);
     phys->setConvFactor(30);
 
-    bplayer = phys->newBoxImage(0, &player, 50, 0.1, 0.1);
-    bghost  = phys->newCircleImage(1, &ghost, 50, 0.1, 0.1);
+    bplayer = phys->newRect(0, &player, 50, 0.1, 0.1);
+    bghost  = phys->newCircle(1, &ghost, 50, 0.1, 0.1);
 
     auto layers = map->GetLayers();
     tmx::MapLayer& layer = layers[1];
-//    int moo = 0;
-//    for(auto tile: layer.tiles)
-//    {
-//        cout << tile.gridCoord.x << "," << tile.gridCoord.y << " (" << tile.gid << ") ";
-//        if(++moo>3) break;
-//    }
-//    cout << endl;
-//    cout << layer.name << endl;
     for(auto object: layer.objects) //.begin(); object != layer.objects.end(); ++object)
     {
-    //    cout << "object" << endl;
 //        cout << object.GetShapeType() << endl;
         sf::FloatRect rect = object.GetAABB();
 //        cout << "box: " << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
-        phys->newBox(-3, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
+        phys->newRect(-3, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
     }
 
     firstTime = true;

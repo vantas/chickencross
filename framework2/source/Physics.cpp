@@ -11,6 +11,7 @@
 #include <iostream>
 #define _USE_MATH_DEFINES 1
 #include <math.h>
+#define RAD2DEG 57.2957795
 
 namespace cgf
 {
@@ -44,12 +45,12 @@ void Physics::setRenderTarget(sf::RenderTarget& win)
 
 Physics::~Physics()
 {
-    cout << "CPhisics: cleanup" << endl;
+    cout << "Physics: cleanup" << endl;
     delete world;
 }
 
-// Add a new box and associate a Image to it
-b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float friction, float restitution, bool staticObj)
+// Add a new rect and associate a sprite to it
+b2Body* Physics::newRect(int id, Sprite* image, float density, float friction, float restitution, bool staticObj)
 {
     b2BodyDef bd;
     if(!staticObj)
@@ -64,8 +65,6 @@ b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float frictio
     cout << "Physics::newBoxImage " << pos.x << "," << pos.y << " - " << size.x << " x " << size.y << endl;
 
 	b2PolygonShape box;
-    //width /= 2;
-    //height/= 2;
     box.SetAsBox(width/2,height/2);
 
     b2FixtureDef fixtureDef;
@@ -74,14 +73,10 @@ b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float frictio
     fixtureDef.friction = friction;
     fixtureDef.restitution = restitution;
 
-    // Pinho
     b2Vec2 pos2;
     pos2.x = pos.x + width*CONV/2;
     pos2.y = pos.y + height*CONV/2;
-//    cout << "MOO " << pos2.x - pos.x << endl;
     bd.position.Set(pos2.x/CONV, pos2.y/CONV);
-    // End pinho
-    //bd.position.Set(image->getX()/CONV,image->getY()/CONV);
 	b2Body* body = world->CreateBody(&bd);
 
 	body->CreateFixture(&fixtureDef);
@@ -90,15 +85,13 @@ b2Body* Physics::newBoxImage(int id, Sprite* image, float density, float frictio
     bodyData->id = id;
 	bodyData->image = image;
 	bodyData->color = b2Color(0,0,0);
-    bodyData->size = b2Vec2(width*CONV,height*CONV);
-    bodyData->offset = b2Vec2(width*CONV/2/scale.x,height*CONV/2/scale.y); //b2Vec2(35,60);//width*CONV,height*CONV);
 	body->SetUserData(bodyData);
 
 	return body;
 }
 
-// Add new box to world
-b2Body* Physics::newBox(int id, float x, float y, float width, float height, float density, float friction, float restitution, bool staticObj)
+// Add new rect to world
+b2Body* Physics::newRect(int id, float x, float y, float width, float height, float density, float friction, float restitution, bool staticObj)
 {
     b2BodyDef bd;
     if(!staticObj)
@@ -128,16 +121,13 @@ b2Body* Physics::newBox(int id, float x, float y, float width, float height, flo
     bodyData->id = id;
 	bodyData->image = NULL;
 	bodyData->color = b2Color(0,0,0);
-    bodyData->size = b2Vec2(width*2*CONV, height*2*CONV);
-    bodyData->offset = b2Vec2(64,64); //b2Vec2(width*CONV/2, height*CONV/2);
-    bodyData->offset = b2Vec2(width*CONV/2, height*CONV/2);
 	body->SetUserData(bodyData);
 
 	return body;
 }
 
-// Add a new circle and associate a Image to it
-b2Body* Physics::newCircleImage(int id, Sprite* image, float density, float friction, float restitution, bool staticObj)
+// Add a new circle and associate a sprite to it
+b2Body* Physics::newCircle(int id, Sprite* image, float density, float friction, float restitution, bool staticObj)
 {
     b2BodyDef bd;
     if(!staticObj)
@@ -164,13 +154,10 @@ b2Body* Physics::newCircleImage(int id, Sprite* image, float density, float fric
     fixtureDef.friction = friction;
     fixtureDef.restitution = restitution;
   
-    // Pinho 
     b2Vec2 pos2;
     pos2.x = pos.x + radius*CONV/2;
     pos2.y = pos.y + radius*CONV/2;
     bd.position.Set(pos2.x/CONV, pos2.y/CONV);
-    // End pinho
-    //bd.position.Set(image->getX()/CONV,image->getY()/CONV);
 	b2Body* body = world->CreateBody(&bd);
     
 	body->CreateFixture(&fixtureDef);
@@ -179,8 +166,6 @@ b2Body* Physics::newCircleImage(int id, Sprite* image, float density, float fric
     bodyData->id = id;
 	bodyData->image = image;
 	bodyData->color = b2Color(0,0,0);
-    bodyData->size = b2Vec2(radius,radius);
-    bodyData->offset = b2Vec2(radius*CONV/scale.x,radius*CONV/scale.y);
 	body->SetUserData(bodyData);
     
 	return body;
@@ -195,7 +180,6 @@ b2Body* Physics::newCircle(int id, float x, float y, float radius, float density
     b2CircleShape cs;
     cs.m_radius = radius/CONV;
     bd.position.Set(x/CONV,y/CONV);
-	//cs.m_p.Set(0,0);
 
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &cs;
@@ -210,8 +194,6 @@ b2Body* Physics::newCircle(int id, float x, float y, float radius, float density
     bodyData->id = id;
 	bodyData->image = NULL;
 	bodyData->color = b2Color(0,0,0);
-    //bodyData->size = b2Vec2(width*2*CONV, height*2*CONV);
-    //bodyData->offset = b2Vec2(width*CONV/2, height*CONV/2);
 	body->SetUserData(bodyData);
 
     return body;
@@ -254,16 +236,8 @@ void Physics::step()
         if(ptr->image != NULL) {
             const b2Vec2& pos = b->GetPosition();
             float rot = b->GetAngle();
-            rot = rot * 180/M_PI;
-            float dx = 0;
-            float dy = 0;
-            if(ptr->offset.x != offsetX)
-            {
-//                cout << ptr->offset.x << " -> " << offsetX << endl;
-//                dx = offsetX - ptr->offset.x;
-//                dy = offsetY - ptr->offset.y;
-            }
-            ptr->image->setPosition(pos.x*CONV+dx, pos.y*CONV+dy);
+            rot = rot * RAD2DEG;
+            ptr->image->setPosition(pos.x*CONV, pos.y*CONV);
             ptr->image->setRotation(rot);
         }
     }

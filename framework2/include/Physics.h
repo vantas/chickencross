@@ -21,17 +21,15 @@ struct BodyData
 {
     int id;         // id for the body (used in contacts)
     Sprite* image;  // image associated to the body (can be NULL)
-    b2Vec2 size;    // size of the collision object (not used)
-    b2Vec2 offset;  // offset for drawing
     b2Color color;  // color for drawing collision object (when image == NULL)
 };
 
 class Physics
 {
     public:
-        b2Body* newBoxImage(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
-        b2Body* newBox(int id, float x, float y, float width, float height, float density, float friction, float restitution, bool staticObj=false);
-        b2Body* newCircleImage(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
+        b2Body* newRect(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
+        b2Body* newRect(int id, float x, float y, float width, float height, float density, float friction, float restitution, bool staticObj=false);
+        b2Body* newCircle(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
         b2Body* newCircle(int id, float x, float y, float radius, float density, float friction, float restitution, bool staticObj=false);
         void destroy(b2Body* bptr);
 
