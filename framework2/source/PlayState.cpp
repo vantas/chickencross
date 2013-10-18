@@ -231,7 +231,7 @@ void PlayState::update(cgf::Game* game)
     centerMapOnPlayer();
 }
 
-bool PlayState::checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj)
+bool PlayState::checkCollision(uint8_t layer, cgf::Game* game, cgf::Sprite* obj)
 {
     int i, x1, x2, y1, y2;
     bool bump = false;

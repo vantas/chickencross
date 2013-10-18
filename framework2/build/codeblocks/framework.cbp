@@ -47,7 +47,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="libz" />
-					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
+					<Add library="Box2D" />
+					<Add directory="../../lib/Box2D-2.2.1/lib-Windows-CB" />
 					<Add directory="../../lib/SFML-2.0/lib-Windows" />
 				</Linker>
 			</Target>
@@ -64,7 +65,8 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="libz" />
-					<Add directory="../../lib/Box2D-2.1.0/lib-Windows-CB" />
+					<Add library="Box2D" />
+					<Add directory="../../lib/Box2D-2.2.1/lib-Windows-CB" />
 					<Add directory="../../lib/SFML-2.0/lib-Windows" />
 				</Linker>
 			</Target>
@@ -74,7 +76,7 @@
 			<Add directory="../../include" />
 			<Add directory="../../include/tmxloader" />
 			<Add directory="../../include/pugixml" />
-			<Add directory="../../lib/Box2D-2.1.0/include" />
+			<Add directory="../../lib/Box2D-2.2.1/include" />
 			<Add directory="../../lib/SFML-2.0/include" />
 		</Compiler>
 		<Linker>
@@ -82,14 +84,16 @@
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 		</Linker>
-		<Unit filename="../../include/Game.h" />
-		<Unit filename="../../include/GameState.h" />
-		<Unit filename="../../include/Sprite.h" />
 		<Unit filename="../../include/ClockHUD.h" />
 		<Unit filename="../../include/FrameClock.h" />
+		<Unit filename="../../include/Game.h" />
+		<Unit filename="../../include/GameState.h" />
 		<Unit filename="../../include/InputManager.h" />
 		<Unit filename="../../include/MenuState.h" />
+		<Unit filename="../../include/Physics.h" />
+		<Unit filename="../../include/PlayPhysics.h" />
 		<Unit filename="../../include/PlayState.h" />
+		<Unit filename="../../include/Sprite.h" />
 		<Unit filename="../../include/TextureManager.h" />
 		<Unit filename="../../include/pugixml/pugiconfig.hpp" />
 		<Unit filename="../../include/pugixml/pugixml.hpp" />
@@ -99,11 +103,60 @@
 		<Unit filename="../../include/tmxloader/QuadTreeNode.h" />
 		<Unit filename="../../include/tmxloader/zconf.h" />
 		<Unit filename="../../include/tmxloader/zlib.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Box2D.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/Shapes/b2ChainShape.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/Shapes/b2CircleShape.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/Shapes/b2EdgeShape.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/Shapes/b2PolygonShape.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/Shapes/b2Shape.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/b2BroadPhase.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/b2Collision.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/b2Distance.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/b2DynamicTree.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Collision/b2TimeOfImpact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2BlockAllocator.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2Draw.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2GrowableStack.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2Math.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2Settings.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2StackAllocator.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Common/b2Timer.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2ChainAndCircleContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2ChainAndPolygonContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2CircleContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2Contact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2ContactSolver.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2EdgeAndCircleContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2EdgeAndPolygonContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Contacts/b2PolygonContact.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2DistanceJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2FrictionJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2GearJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2Joint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2MouseJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2PrismaticJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2PulleyJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2RevoluteJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2RopeJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2WeldJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/Joints/b2WheelJoint.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2Body.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2ContactManager.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2Fixture.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2Island.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2TimeStep.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2World.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2WorldCallbacks.h" />
+		<Unit filename="../../lib/Box2D-2.2.1/include/Box2D/Rope/b2Rope.h" />
+		<Unit filename="../../source/EEDebugDraw3.cpp" />
 		<Unit filename="../../source/Game.cpp" />
-		<Unit filename="../../source/Sprite.cpp" />
 		<Unit filename="../../source/InputManager.cpp" />
 		<Unit filename="../../source/MenuState.cpp" />
+		<Unit filename="../../source/Physics.cpp" />
+		<Unit filename="../../source/PlayPhysics.cpp" />
 		<Unit filename="../../source/PlayState.cpp" />
+		<Unit filename="../../source/Sprite.cpp" />
 		<Unit filename="../../source/TextureManager.cpp" />
 		<Unit filename="../../source/main.cpp" />
 		<Unit filename="../../source/pugixml/pugixml.cpp" />

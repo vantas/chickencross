@@ -244,7 +244,7 @@ void PlayPhysics::update(cgf::Game* game)
     centerMapOnPlayer();
 }
 
-bool PlayPhysics::checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj)
+bool PlayPhysics::checkCollision(uint8_t layer, cgf::Game* game, cgf::Sprite* obj)
 {
     int i, x1, x2, y1, y2;
     bool bump = false;

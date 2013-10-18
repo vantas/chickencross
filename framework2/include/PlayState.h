@@ -45,12 +45,12 @@ class PlayState : public cgf::GameState
     static PlayState m_PlayState;
 
     // Get a cell GID from the map (x and y are view coords)
-    sf::Uint16 getCellFromMap(u_int8_t layernum, float x, float y);
+    sf::Uint16 getCellFromMap(uint8_t layernum, float x, float y);
 
     // Centers the camera on the player position (if player is too close to the borders, stop)
     void centerMapOnPlayer();
 
-    bool checkCollision(u_int8_t layer, cgf::Game* game, cgf::Sprite* obj);
+    bool checkCollision(uint8_t layer, cgf::Game* game, cgf::Sprite* obj);
 
     int x, y;
     int dirx, diry;

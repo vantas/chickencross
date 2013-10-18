@@ -10,7 +10,7 @@
 #include "Physics.h"
 #include <iostream>
 #define _USE_MATH_DEFINES 1
-#include <math.h>
+#include <cmath>
 #define RAD2DEG 57.2957795
 
 namespace cgf
@@ -21,6 +21,8 @@ using namespace std;
 float Physics::CONV = 10;
 const float Physics::timeStep = 1.0f / 30.f;
 Physics Physics::m_Physics;
+
+const double PI = std::atan(1.0)*4;
 
 void Physics::setConvFactor(float conv)
 {
@@ -138,36 +140,36 @@ b2Body* Physics::newCircle(int id, Sprite* image, float density, float friction,
     float width = size.x*scale.x/CONV;
     float height = size.y*scale.y/CONV;
     image->setOrigin(sf::Vector2f(size.x/2,size.y/2));
-    
+
     // Assume radius as the longest dimension
     float radius = max(width,height);
     radius/=2;
-    
+
     cout << "Physics::newCircleImage " << pos.x << "," << pos.y << " - " << radius << endl;
-    
+
     b2CircleShape cs;
     cs.m_radius = radius;
-    
+
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &cs;
     fixtureDef.density = density;
     fixtureDef.friction = friction;
     fixtureDef.restitution = restitution;
-  
+
     b2Vec2 pos2;
     pos2.x = pos.x + radius*CONV/2;
     pos2.y = pos.y + radius*CONV/2;
     bd.position.Set(pos2.x/CONV, pos2.y/CONV);
 	b2Body* body = world->CreateBody(&bd);
-    
+
 	body->CreateFixture(&fixtureDef);
-    
+
 	BodyData* bodyData = new BodyData;
     bodyData->id = id;
 	bodyData->image = image;
 	bodyData->color = b2Color(0,0,0);
 	body->SetUserData(bodyData);
-    
+
 	return body;
 }
 
@@ -437,7 +439,7 @@ b2Vec2 Physics::getPosition(b2Body* body)
 void Physics::setAngle(b2Body* body, float angle)
 {
     const b2Vec2& pos = body->GetPosition();
-    body->SetTransform(pos, angle*M_PI/180.0);
+    body->SetTransform(pos, angle*PI/180.0);
 }
 
 void Physics::setDrawOffset(float ox, float oy)
