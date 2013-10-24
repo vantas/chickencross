@@ -64,6 +64,7 @@ class PlayPhysics : public cgf::GameState
     cgf::InputManager* im;
     tmx::MapLoader* map;
     sf::Font font;
+    sf::Text text;
 
     cgf::Physics* phys;
     b2Body* bplayer, *bghost;

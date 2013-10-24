@@ -20,50 +20,18 @@ using namespace std;
 
 void PlayPhysics::init()
 {
+    map = new tmx::MapLoader("data/maps");
+    map->Load("dungeon.tmx");
+
     player.loadXML("data/img/hunter.xml");
     player.setPosition(50,100);
     player.loadAnimation("data/img/hunteranim.xml");
     player.setAnimRate(15);
-    //playSprite->loadSprite("player.png", 36, 44, 0, 0, 0, 0, 7, 1, 7);
-    //playSprite->loadSprite("char2.png", 128,128,0,0,0,53,4,2,7);
-    //playSprite->loadSprite("char4.png",128,128,0,0,0,21,4,3,10);
-    //playSprite1->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
-
-    map = new tmx::MapLoader("data/maps");
-    map->Load("dungeon.tmx");
 
     ghost.load("data/img/Char14.png");
     ghost.setPosition(100,300);
     ghost.setScale(sf::Vector2f(2,2));
     ghost.setXspeed(100);
-//    playSprite1.load("data/img/Char14.png");
-//    playSprite1.setPosition(80,100);
-//    playSprite1.setScale(sf::Vector2f(6,6));
-
-//    playSprite1->setAnimRate(30);        // quadros/segundo
-//    playSprite1->setXspeed(200);         // pixels/segundo
-//    playSprite2->loadSprite("data/img/char9.png",128,128,0,0,0,40,4,2,6);
-
-//  playSprite2.load("data/img/Char01.png");
-//	playSprite2.setPosition(10,300);
-
-//    playSprite3.load("data/img/Char01.png");
-//	playSprite3.setPosition(50,300);
-
-    //player.load("data/img/smurf_sprite.png", 128, 128, 0, 0, 0, 0, 7, 3, 16);
-    //player.loadSpriteSparrowXML("data/img/smurf_sprite.xml");
-
-    /*
-    monkey.loadXML("data/img/monkey.xml");
-    monkey.loadAnimation("data/img/monkeyanim.xml");
-    monkey.setPosition(30,30);
-    monkey.setAnimRate(15);
-//    monkey.setFrameRange(12,13);
-    monkey.setAnimation("walk-right");
-    monkey.setXspeed(100);
-    monkey.setRotation(0);
-    monkey.play();
-    */
 
     dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
     diry = 0;
@@ -90,19 +58,28 @@ void PlayPhysics::init()
     phys->setConvFactor(30);
 
     bplayer = phys->newRect(0, &player, 50, 0.1, 0.1);
+    bplayer->SetFixedRotation(true);
+
     bghost  = phys->newCircle(1, &ghost, 50, 0.1, 0.1);
 
     auto layers = map->GetLayers();
     tmx::MapLayer& layer = layers[1];
     for(auto object: layer.objects) //.begin(); object != layer.objects.end(); ++object)
     {
-//        cout << object.GetShapeType() << endl;
         sf::FloatRect rect = object.GetAABB();
 //        cout << "box: " << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
         phys->newRect(-3, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
     }
 
     firstTime = true;
+
+    // select the font
+    text.setFont(font);
+    text.setString(L"Test!");
+    text.setCharacterSize(24); // in pixels, not points!
+    text.setColor(sf::Color::Red);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+
     cout << "PlayPhysics Init Successful" << endl;
 }
 
@@ -134,6 +111,16 @@ void PlayPhysics::handleEvents(cgf::Game* game)
         if(event.type == sf::Event::KeyPressed)
             if(event.key.code == sf::Keyboard::S)
                 game->toggleStats();
+            else if(event.key.code == sf::Keyboard::G)
+            {
+                cout << phys->getGravity() << endl;
+                if(phys->getGravity() == 0)
+                    phys->setGravity(30);
+                else
+                    phys->setGravity(0);
+            }
+            else if(event.key.code == sf::Keyboard::Space)
+                bplayer->ApplyLinearImpulse(b2Vec2(0,-700), bplayer->GetWorldCenter());
     }
 
     dirx = diry = 0;
@@ -193,16 +180,7 @@ void PlayPhysics::handleEvents(cgf::Game* game)
     //player.setXspeed(dirx*100);
     //player.setYspeed(diry*100);
 
-    bplayer->ApplyLinearImpulse(b2Vec2(dirx*5,diry*5), bplayer->GetWorldCenter());
-
-//    playSprite1.setXspeed(dirx * 100);
-//    playSprite1.setYspeed(diry * 100);
-
-    //game->changeState(PlayMap::instance());
-    //game->changeState(PlayMapTop::instance());
-    //game->changeState(PlayMapAI::instance());
-    //game->changeState(PlayPhysics::instance());
-    //game->changeState(PlayMapPhysics::instance());
+    bplayer->ApplyLinearImpulse(b2Vec2(dirx*10,diry*10), bplayer->GetWorldCenter());
 }
 
 void PlayPhysics::update(cgf::Game* game)
@@ -213,31 +191,6 @@ void PlayPhysics::update(cgf::Game* game)
         phys->setRenderTarget(*screen);
         firstTime = false;
     }
-
-//    if(playSprite1.bboxCollision(playSprite2))
-//        cout << "Bump!" << endl;
-
-    //checkCollision(2, game, &player);
-
-    //if(checkCollision(2, game, &ghost)) {
-    //    cout << "BUMP!" << endl;
-    //    ghost.setXspeed(-ghost.getXspeed());
-    //}
-
-//    playSprite1.update(game->getUpdateInterval());
-
-
-    /*
-    if(monkey.getPosition().x > 600)
-    {
-        monkey.setXspeed(-100);
-        monkey.setMirror(true);
-    }
-    if(monkey.getPosition().x < 50)
-    {
-        monkey.setXspeed(100);
-        monkey.setMirror(false);
-    }*/
 
     phys->step();
 
@@ -273,11 +226,6 @@ bool PlayPhysics::checkCollision(uint8_t layer, cgf::Game* game, cgf::Sprite* ob
 
     float vx = offset.x;
     float vy = offset.y;
-
-    //cout << "px,py: " << px << " " << py << endl;
-
-    //cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
-    //cout << "mapsize " << mapsize.x << " " << mapsize.y << endl;
 
     // Test the horizontal movement first
     i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
@@ -464,27 +412,14 @@ void PlayPhysics::centerMapOnPlayer()
 
 void PlayPhysics::draw(cgf::Game* game)
 {
-    //sf::View view = screen->getView();
-
     screen->clear(sf::Color(0,0,0));
 
     map->Draw(*screen, 0);
     map->Draw(*screen, 1);
-//    screen->draw(playSprite1);
-//    screen->draw(playSprite2);
-//    screen->draw(playSprite3);
     screen->draw(ghost);
     screen->draw(player);
 
     phys->drawDebugData();
-    //phys->debugDraw(*screen);
 
-    sf::Text text;
-    // select the font
-    text.setFont(font);
-    text.setString(L"Arrá!");
-    text.setCharacterSize(24); // in pixels, not points!
-    text.setColor(sf::Color::Red);
-    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
     screen->draw(text);
 }

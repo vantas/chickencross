@@ -13,7 +13,7 @@ private:
     {
         return sf::Color(static_cast<sf::Uint8>(255*gCol.r),
                         static_cast<sf::Uint8>(255*gCol.g),
-                        static_cast<sf::Uint8>(255*gCol.b), 200);
+                        static_cast<sf::Uint8>(255*gCol.b), 100);
     }
     inline sf::Vector2f EEVector(const b2Vec2& gVec){return sf::Vector2f(gVec.x*pixmeters,gVec.y*pixmeters);}
     const float pixmeters,radegrees;//constants for point and degree conversions
