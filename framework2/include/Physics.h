@@ -27,6 +27,7 @@ struct BodyData
 class Physics
 {
     public:
+        b2World* getWorld() { return world; }
         b2Body* newRect(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
         b2Body* newRect(int id, float x, float y, float width, float height, float density, float friction, float restitution, bool staticObj=false);
         b2Body* newCircle(int id, Sprite* sprite, float density, float friction, float restitution, bool staticObj=false);
@@ -56,6 +57,7 @@ class Physics
 
         static void setConvFactor(float conv);
 
+        // Set where the drawing will take place (texture or screen)
         void setRenderTarget(sf::RenderTarget &win);
 
         // Implement Singleton Pattern

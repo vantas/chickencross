@@ -54,16 +54,19 @@ void PlayPhysics::init()
     }
 
     phys = cgf::Physics::instance();
-    phys->setGravity(0);
-    phys->setConvFactor(30);
+    phys->setGravity(30);
+    phys->setConvFactor(30);   
 
     bplayer = phys->newRect(0, &player, 50, 0.1, 0.1);
     bplayer->SetFixedRotation(true);
+
+//    bplayer->SetLinearDamping(10);
 
     bghost  = phys->newCircle(1, &ghost, 50, 0.1, 0.1);
 
     auto layers = map->GetLayers();
     tmx::MapLayer& layer = layers[1];
+
     for(auto object: layer.objects) //.begin(); object != layer.objects.end(); ++object)
     {
         sf::FloatRect rect = object.GetAABB();
@@ -185,9 +188,9 @@ void PlayPhysics::handleEvents(cgf::Game* game)
 
 void PlayPhysics::update(cgf::Game* game)
 {
-    screen = game->getScreen();
     if(firstTime)
     {
+        screen = game->getScreen();
         phys->setRenderTarget(*screen);
         firstTime = false;
     }
@@ -415,11 +418,11 @@ void PlayPhysics::draw(cgf::Game* game)
     screen->clear(sf::Color(0,0,0));
 
     map->Draw(*screen, 0);
-    map->Draw(*screen, 1);
+//    map->Draw(*screen, 1);
     screen->draw(ghost);
     screen->draw(player);
 
-    phys->drawDebugData();
+//    phys->drawDebugData();
 
     screen->draw(text);
 }
