@@ -1,109 +1,109 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug-Windows" />
-	<File name="..\..\source\InputManager.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="914" topLine="25" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\MenuState.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2078" topLine="65" />
-		</Cursor>
-	</File>
-	<File name="..\..\include\ClockHUD.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2284" topLine="72" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\PlayState.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5922" topLine="223" />
-		</Cursor>
-	</File>
-	<File name="..\..\include\FrameClock.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3005" topLine="36" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\tmxloader\MapLoaderPublic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5339" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\TextureManager.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1198" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="..\..\include\InputManager.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="617" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\tmxloader\QuadTreeNode.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4934" topLine="116" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\main.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<ActiveTarget name="Debug-Linux" />
+	<File name="../../source/main.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="486" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\..\source\Physics.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="645" topLine="34" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\tmxloader\MapLoaderPrivate.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="921" />
-		</Cursor>
-	</File>
-	<File name="..\..\source\EEDebugDraw3.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="206" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="..\..\include\MenuState.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="..\..\lib\Box2D-2.2.1\include\Box2D\Common\b2Math.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../lib/Box2D-2.2.1/include/Box2D/Common/b2Math.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="702" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\..\include\PlayState.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="../../source/Physics.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1016" topLine="35" />
+			<Cursor1 position="645" topLine="34" />
 		</Cursor>
 	</File>
-	<File name="..\..\include\TextureManager.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../source/PlayState.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="443" topLine="9" />
+			<Cursor1 position="5922" topLine="223" />
 		</Cursor>
 	</File>
-	<File name="..\..\lib\Box2D-2.2.1\include\Box2D\Dynamics\b2World.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../source/TextureManager.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1841" topLine="39" />
+			<Cursor1 position="1198" topLine="27" />
 		</Cursor>
 	</File>
-	<File name="..\..\include\tmxloader\MapLoader.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../source/tmxloader/QuadTreeNode.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3253" topLine="48" />
+			<Cursor1 position="4934" topLine="116" />
 		</Cursor>
 	</File>
-	<File name="..\..\include\tmxloader\MapObject.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../source/tmxloader/MapLoaderPrivate.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="921" />
+		</Cursor>
+	</File>
+	<File name="../../include/tmxloader/MapObject.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="13046" topLine="50" />
 		</Cursor>
 	</File>
-	<File name="..\..\source\PlayPhysics.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="../../source/PlayPhysics.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6459" topLine="236" />
+			<Cursor1 position="6271" topLine="59" />
+		</Cursor>
+	</File>
+	<File name="../../include/tmxloader/MapLoader.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3253" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="../../source/tmxloader/MapLoaderPublic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5339" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../include/FrameClock.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3005" topLine="36" />
+		</Cursor>
+	</File>
+	<File name="../../source/InputManager.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="914" topLine="25" />
+		</Cursor>
+	</File>
+	<File name="../../include/TextureManager.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="443" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="../../include/MenuState.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="../../lib/Box2D-2.2.1/include/Box2D/Dynamics/b2World.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1841" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="../../include/PlayState.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1016" topLine="35" />
+		</Cursor>
+	</File>
+	<File name="../../source/MenuState.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2078" topLine="65" />
+		</Cursor>
+	</File>
+	<File name="../../include/InputManager.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="617" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../../source/EEDebugDraw3.cpp" open="1" top="1" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="190" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../include/ClockHUD.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2284" topLine="72" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -68,6 +68,7 @@ class PlayPhysics : public cgf::GameState
 
     cgf::Physics* phys;
     b2Body* bplayer, *bghost;
+    enum { PLAYER, GHOST, WALL };
 
 };
 

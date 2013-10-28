@@ -57,12 +57,12 @@ void PlayPhysics::init()
     phys->setGravity(30);
     phys->setConvFactor(30);   
 
-    bplayer = phys->newRect(0, &player, 50, 0.1, 0.1);
+    bplayer = phys->newRect(PLAYER, &player, 50, 0.1, 0.1);
     bplayer->SetFixedRotation(true);
 
 //    bplayer->SetLinearDamping(10);
 
-    bghost  = phys->newCircle(1, &ghost, 50, 0.1, 0.1);
+    bghost  = phys->newCircle(GHOST, &ghost, 50, 0.1, 0.1);
 
     auto layers = map->GetLayers();
     tmx::MapLayer& layer = layers[1];
@@ -71,7 +71,7 @@ void PlayPhysics::init()
     {
         sf::FloatRect rect = object.GetAABB();
 //        cout << "box: " << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
-        phys->newRect(-3, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
+        phys->newRect(WALL, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
     }
 
     firstTime = true;
@@ -196,6 +196,15 @@ void PlayPhysics::update(cgf::Game* game)
     }
 
     phys->step();
+
+    b2Body* bptr;
+    if((bptr=phys->haveContact(PLAYER, GHOST)) != NULL)
+    {
+        // Trata colisão (em bptr fica o ponteiro para o objeto cujo id é GHOST)
+        cout << "Player hit ghost" << endl;
+        phys->destroy(bptr);
+        ghost.setVisible(false);
+    }
 
     centerMapOnPlayer();
 }

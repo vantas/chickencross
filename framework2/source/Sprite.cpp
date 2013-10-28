@@ -432,7 +432,7 @@ bool Sprite::circleCollision(Sprite& other)
 
 void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    if (tex)
+    if (tex && visible)
     {
         states.transform *= getTransform();
         states.texture = tex;
