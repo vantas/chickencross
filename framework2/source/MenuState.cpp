@@ -16,7 +16,8 @@
 //#include "PlayMap.h"
 //#include "PlayMapTop.h"
 //#include "PlayMapAI.h"
-#include "PlayPhysics.h"
+//#include "PlayPhysics.h"
+#include "PlayBallPhysics.h"
 //#include "PlayMapPhysics.h"
 
 MenuState MenuState::m_MenuState;
@@ -63,7 +64,8 @@ void MenuState::handleEvents(cgf::Game* game)
         case sf::Event::KeyPressed:
             if(event.key.code == sf::Keyboard::Space)
                 //game->changeState(PlayState::instance());
-                game->changeState(PlayPhysics::instance());
+//                game->changeState(PlayPhysics::instance());
+                game->changeState(PlayBallPhysics::instance());
             if(event.key.code == sf::Keyboard::Escape)
                 game->quit();
             //game->changeState(PlayMap::instance());

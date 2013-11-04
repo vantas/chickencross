@@ -59,6 +59,9 @@ public:
     void stop();
     void setLooped(bool looped) { looping = looped; }
     bool isLooped() { return looping; }
+    bool isStopped() { return animState == STOPPED; }
+    bool isPlaying() { return animState == PLAYING; }
+    bool isPaused() { return animState == PAUSED; }
     enum AnimState { STOPPED, PLAYING, PAUSED };
 
     // Fine tuning animation controls

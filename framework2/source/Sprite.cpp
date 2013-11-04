@@ -373,6 +373,10 @@ void Sprite::update(double deltaTime, bool updatePos)
         int lastf = curframe;
         curFrameD += (double)framedelay/1000*deltaTime;
         curframe = (int) curFrameD;
+        if(curframe > lastFrame && !looping)
+        {
+            animState = AnimState::STOPPED;
+        }
         if(curframe > lastFrame && looping || firstFrame == lastFrame) {
             curFrameD = firstFrame;
             curframe = firstFrame;

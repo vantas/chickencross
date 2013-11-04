@@ -26,10 +26,11 @@ void PlayBallPhysics::init()
     speed = 100;   // speed to use
 
     sheep.loadXML("data/img/sheep.xml");
+    sheep.loadAnimation("data/img/sheepanim.xml");
     sheep.setPosition(670,650);
     sheep.setScale(0.8,0.8);
     sheep.setAnimRate(10);
-    sheep.setFrameRange(0,3);
+    sheep.setAnimation("walk");
     sheep.play();
 
     ball.load("data/img/football.png");
@@ -39,9 +40,9 @@ void PlayBallPhysics::init()
     block.load("data/img/tallcolumn.png");
     block.setPosition(500,600);
 
-    //boom.loadXML("data/img/boom.xml");
-    //boom.setVisible(false);
-    //boom.setFrameRange(0,6);
+    boom.loadXML("data/img/boom.xml");
+    boom.loadAnimation("data/img/boomanim.xml");
+    boom.setAnimRate(10);
     exploding = false;
 
     im = cgf::InputManager::instance();
@@ -82,7 +83,7 @@ void PlayBallPhysics::init()
     {
         sf::FloatRect rect = object.GetAABB();
 //        cout << "box: " << rect.left << "," << rect.top << " - " << rect.width << " x " << rect.height << endl;
-        phys->newRect(GROUND_ID, rect.left, rect.top, rect.width, rect.height, 1, 0, 0, true);
+        phys->newRect(GROUND_ID, rect.left, rect.top, rect.width, rect.height, 1, 0.5, 0.1, true);
     }
 
     firstTime = true;
@@ -182,27 +183,30 @@ void PlayBallPhysics::update(cgf::Game* game)
     phys->step();
 
     b2Body* bptr;
-    if((bptr=phys->haveContact(WALL_ID, SHEEP_ID)) != NULL)
+    if((bptr=phys->haveContact(WALL_ID, SHEEP_ID)) != NULL && !exploding)
     {
         // Trata colisão (em bptr fica o ponteiro para o objeto cujo id é SHEEP_ID)
         cout << "Wall hit sheep!" << endl;
         cout << "Velocidade angular: " << pblock->GetAngularVelocity() << endl;
         phys->destroy(psheep);
-        //sheep->setVisible(false);
-        //boom.setPosition(sheep.getPosition().x, sheep.getPosition().y);
-        //boom.setVisible(true);
+        sheep.setVisible(false);
+        boom.setPosition(sheep.getPosition().x-100,sheep.getPosition().y-100);
+        boom.setVisible(true);
+        boom.setAnimation("explode");
+        boom.play();
         exploding = true;
+        cout << "exploding" << endl;
     }
 
 //    ball->update(game->getUpdateInterval());
     if(exploding)
     {
         boom.update(game->getUpdateInterval());
-        if(boom.getCurrentFrame() == 6)
+        if(boom.isStopped())
         {
             sheep.setVisible(false);
-            boom.setVisible(false);
             exploding = false;
+            cout << "Exploded!" << endl;
         }
     }
 
@@ -251,7 +255,9 @@ void PlayBallPhysics::draw(cgf::Game* game)
     screen->draw(ball);
     screen->draw(sheep);
     screen->draw(block);
-//    screen->draw(boom);
+    if(exploding) screen->draw(boom);
+
+//    phys->drawDebugData();
 
     screen->draw(text);
 }
