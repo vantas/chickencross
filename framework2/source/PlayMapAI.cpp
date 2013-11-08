@@ -8,63 +8,57 @@
  */
 
 #include <iostream>
-#include <SDL.h>
-#include "Graphics.h"
 #include <cmath>
-#include "CGame.h"
-#include "PauseState.h"
+#include "Game.h"
 #include "PlayMapAI.h"
+#include "VectorUtils.h"
 
 PlayMapAI PlayMapAI::m_PlayMapAI;
 
 using namespace std;
 
+const string PlayMapAI::modes[] = { "Chase", "Arrive", "Pursuit", "Flee", "Evade" };
+
 void PlayMapAI::init()
 {
-    map.loadMap("data/maps/dungeon.tmx");
-    playerK.vel.X = playerK.vel.Y = 0;   // current player speed
+    map = new tmx::MapLoader("data/maps");
+    map->Load("dungeon2layers.tmx");
+
+    playerK.vel.x = playerK.vel.y = 0;   // current player speed
     cameraSpeed = 8;   // speed to use
     zvel = 0;
 
-    keystate = SDL_GetKeyState(NULL);
+    player.loadXML("data/img/hunter.xml");
+    player.setPosition(50,100);
+    player.loadAnimation("data/img/hunteranim.xml");
+    player.setAnimRate(15);
 
-    player = new CSprite();
-    player->loadSpriteSparrowXML("data/img/ellie.xml");
-    //player->loadSprite("data/img/Char19s.png", 32, 32, 0, 0, 0, 0, 1, 1, 1);
-//    map.getCenter(2,2,playerK.pos.X,playerK.pos.Y);
-    map.getCenter(40,5,playerK.pos.X,playerK.pos.Y);
+    ghost.load("data/img/Char14.png");
+    ghost.setPosition(100,300);
+    ghost.setScale(sf::Vector2f(2,2));
+    ghost.setXspeed(100);
 
-    enemy = new CSprite();
-    enemy->loadSpriteSparrowXML("data/img/juju.xml");
-    //enemy->loadSprite("data/img/Char14s.png", 32, 32, 0, 0, 0, 0, 1, 1, 1);
-    float ex, ey;
-//    map.getCenter(12,15,ex,ey);
-//    map.getCenter(45,4,ex,ey);
-    map.getCenter(45,15,ex,ey);
-    enemyK.pos.X = ex;
-    enemyK.pos.Y = ey;
-    enemyK.maxSpeed = 6;
+    enemyK.pos.x = 100;
+    enemyK.pos.y = 300;
+    enemyK.maxSpeed = 7;
 
-    //steerMode = CHASE_BEHAVIOR; // default: chase player
-    steerMode = EVADE_BEHAVIOR; // default: chase player
+    steerMode = CHASE_BEHAVIOR; // default: chase player
+
+    font = new CFont();
+    font->loadFont("data/fonts/lucida12.png", 112, 208);
 
     firstTime = true; // to set map position at first update
 
-    // Init array of blocking ids
-    for(int i=0; i<256; i++)
-        blocks[i] = 0; // default: not blocking
+    showTrails = false;
 
-    // Set indices of blocking ids
-    blocks[0] = blocks[1] = blocks[2] = 1;
-    blocks[4] = 1;
-    for(int i=8; i<=14; i++)
-        blocks[i] = 1;
 	cout << "PlayMapAI Init Successful" << endl;
 }
 
 void PlayMapAI::cleanup()
 {
     delete player;
+    delete enemy;
+    delete font;
     //  delete playSprite2;
 	cout << "PlayMapAI Clean Successful" << endl;
 }
@@ -99,6 +93,9 @@ void PlayMapAI::handleEvents(CGame* game)
                         if(steerMode > EVADE_BEHAVIOR)
                             steerMode = CHASE_BEHAVIOR;
                         break;
+                    case SDLK_t:
+                        showTrails = !showTrails;
+                        break;
                     case SDLK_ESCAPE:
                         game->quit();
                         break;
@@ -111,43 +108,26 @@ void PlayMapAI::handleEvents(CGame* game)
                 //map.cleanup();
                 //map.loadMap("data/maps/desert.tmx");
 		}
-    }
-    player->setCurrentFrame(1);
-    player->setMirror(false);
-    playerK.vel.X = -keystate[SDLK_LEFT]*cameraSpeed + keystate[SDLK_RIGHT]*cameraSpeed;
-    playerK.vel.Y = -keystate[SDLK_UP]*cameraSpeed + keystate[SDLK_DOWN]*cameraSpeed;
+	}
+    playerK.vel.x = -keystate[SDLK_LEFT]*cameraSpeed + keystate[SDLK_RIGHT]*cameraSpeed;
+    playerK.vel.y = -keystate[SDLK_UP]*cameraSpeed + keystate[SDLK_DOWN]*cameraSpeed;
     zvel = -5*keystate[SDLK_LSHIFT] + 5*keystate[SDLK_RSHIFT];
-    if(playerK.vel.X > 0)
-    {
-        player->setCurrentFrame(2);
-        player->setMirror(true);
-    }
-    else if(playerK.vel.X < 0)
-    {
-        player->setCurrentFrame(2);
-    }
-    else {
-    if(playerK.vel.Y >= 0)
-        player->setCurrentFrame(1);
-    else
-        player->setCurrentFrame(0);
-    }
 }
 
 // Steering Behavior: chase target
-irrklang::vec3df PlayMapAI::chase(Kinematic& vehicle, irrklang::vec3df& target)
+sf::Vector3f PlayMapAI::chase(Kinematic& vehicle, sf::Vector3f& target)
 {
-    irrklang::vec3df desiredVel = target - vehicle.pos;
-    desiredVel.normalize();
+    sf::Vector3f desiredVel = target - vehicle.pos;
+    vecutils::normalize(desiredVel);
     desiredVel *= vehicle.maxSpeed;
     return desiredVel - vehicle.vel;
 }
 
 // Steering Behavior: arrive at target
-irrklang::vec3df PlayMapAI::arrive(Kinematic& vehicle, irrklang::vec3df& target, float decel)
+sf::Vector3f PlayMapAI::arrive(Kinematic& vehicle, sf::Vector3f& target, float decel)
 {
-    irrklang::vec3df toTarget = target - vehicle.pos;
-    float d = toTarget.getLength();
+    sf::Vector3f toTarget = target - vehicle.pos;
+    float d = vecutils::length(toTarget);
     if(d > 0)
     {
         // Calculate the speed required to reach the target given the desired
@@ -160,31 +140,31 @@ irrklang::vec3df PlayMapAI::arrive(Kinematic& vehicle, irrklang::vec3df& target,
         // From here proceed just like chase, except we don't need to normalize
         // the toTarget vector because we have already gone to the trouble
         // of calculating its length: d
-        irrklang::vec3df desiredVel = toTarget * speed / d;
+        sf::Vector3f desiredVel = toTarget * speed / d;
         return desiredVel - vehicle.vel;
     }
-    return irrklang::vec3df(0,0,0);
+    return sf::Vector3f(0,0,0);
 }
 
 // Steering Behavior: flee from target
-irrklang::vec3df PlayMapAI::flee(Kinematic& vehicle, irrklang::vec3df& target, float panicDistance)
+sf::Vector3f PlayMapAI::flee(Kinematic& vehicle, sf::Vector3f& target, float panicDistance)
 {
     float panicDistance2 = panicDistance * panicDistance;
-    if(enemyK.pos.getDistanceFromSQ(target) > panicDistance2)
-        return irrklang::vec3df(0,0,0);
-    irrklang::vec3df desiredVel = vehicle.pos - target;
-    desiredVel.normalize();
+    if(vecutils::distanceSquared(enemyK.pos, target) > panicDistance2)
+        return sf::Vector3f(0,0,0);
+    sf::Vector3f desiredVel = vehicle.pos - target;
+    vecutils::normalize(desiredVel);
     desiredVel *= vehicle.maxSpeed;
     return desiredVel - vehicle.vel;
 }
 
 // Steering Behavior: pursuit target
-irrklang::vec3df PlayMapAI::pursuit(Kinematic& vehicle, Kinematic& target)
+sf::Vector3f PlayMapAI::pursuit(Kinematic& vehicle, Kinematic& target)
 {
-    irrklang::vec3df toEvader = target.pos - vehicle.pos;
-    double relativeHeading = vehicle.heading.dotProduct(target.heading);
+    sf::Vector3f toEvader = target.pos - vehicle.pos;
+    double relativeHeading = vecutils::dotProduct(vehicle.heading, target.heading);
     // If target is facing us, go chase it
-    if(toEvader.dotProduct(vehicle.heading) > 0 && relativeHeading < -0.95) // acos(0.95) = 18 graus
+    if(vecutils::dotProduct(toEvader, vehicle.heading) > 0 && relativeHeading < -0.95) // acos(0.95) = 18 graus
         return arrive(vehicle, target.pos);
 
     // Not facing, so let's predict where the target will be
@@ -193,30 +173,30 @@ irrklang::vec3df PlayMapAI::pursuit(Kinematic& vehicle, Kinematic& target)
     // and the enemy, and is inversely proportional to the sum of the
     // agents' velocities
 
-    float vel = target.vel.getLength();
-    double lookAheadTime = toEvader.getLength() / (vehicle.maxSpeed + vel);
+    float vel = vecutils::length(target.vel);
+    float lookAheadTime = vecutils::length(toEvader) / (vehicle.maxSpeed + vel);
 
     // Now chase to the predicted future position of the target
 
-    irrklang::vec3df predicted(target.pos + target.vel * lookAheadTime);
+    sf::Vector3f predicted(target.pos + target.vel * lookAheadTime);
     return arrive(vehicle, predicted, 1);
 }
 
 // Steering Behavior: evade target
-irrklang::vec3df PlayMapAI::evade(Kinematic& vehicle, Kinematic& target)
+sf::Vector3f PlayMapAI::evade(Kinematic& vehicle, Kinematic& target)
 {
-    irrklang::vec3df toPursuer = target.pos - vehicle.pos;
+    sf::Vector3f toPursuer = target.pos - vehicle.pos;
 
     // The look-ahead time is proportional to the distance between the pursuer
     // and the vehicle, and is inversely proportional to the sum of the
     // agents' velocities
 
-    float vel = target.vel.getLength();
-    double lookAheadTime = toPursuer.getLength() / (vehicle.maxSpeed + vel);
+    float vel = vecutils::length(target.vel);
+    float lookAheadTime = vecutils::length(toPursuer) / (vehicle.maxSpeed + vel);
 
     // Now chase to the predicted future position of the target
 
-    irrklang::vec3df predicted(target.pos + target.vel * lookAheadTime);
+    sf::Vector3f predicted(target.pos + target.vel * lookAheadTime);
     return flee(vehicle, predicted);
 }
 
@@ -243,9 +223,9 @@ void PlayMapAI::update(CGame* game)
 #ifdef STEERING
     // Apply steering behavior(s)
 
-    //irrklang::vec3df steeringForce = flee(enemyK, playerK,100);
-    //irrklang::vec3df steeringForce = pursuit(enemyK, playerK);
-    irrklang::vec3df steeringForce;
+    //sf::Vector3f steeringForce = flee(enemyK, playerK,100);
+    //sf::Vector3f steeringForce = pursuit(enemyK, playerK);
+    sf::Vector3f steeringForce;
 
     switch(steerMode) {
         case CHASE_BEHAVIOR:
@@ -263,17 +243,19 @@ void PlayMapAI::update(CGame* game)
         case EVADE_BEHAVIOR:
             steeringForce = evade(enemyK, playerK);
     }
-    irrklang::vec3df accel = steeringForce/1; // mass;
+    sf::Vector3f accel = steeringForce/1.f; // mass;
 
     enemyK.vel += accel; // * deltaTime
 
     // Can't exceed max speed
-    if(enemyK.vel.getLengthSQ() > enemyK.maxSpeed*enemyK.maxSpeed)
-        enemyK.vel = enemyK.vel.normalize() * enemyK.maxSpeed;
+    if(vecutils::lengthSquared(enemyK.vel) > enemyK.maxSpeed*enemyK.maxSpeed) {
+        vecutils::normalize(enemyK.vel);
+        enemyK.vel *= enemyK.maxSpeed;
+    }
 
     // Only update heading if speed is above minimum threshold
-    if(enemyK.vel.getLengthSQ() > 0.00000001) {
-        enemyK.heading = enemyK.vel / enemyK.vel.getLength();
+    if(vecutils::lengthSquared(enemyK.vel) > 0.00000001) {
+        enemyK.heading = enemyK.vel / vecutils::length(enemyK.vel);
     }
 #else
     // Basic chase
@@ -289,38 +271,42 @@ void PlayMapAI::update(CGame* game)
         enemyK.vel.Y = -2;
 #endif
     checkCollision(game, enemyK);
+
+    if(trail.size()>30)
+        trail.pop_back();
+    trail.push_front(enemyK.pos);
 }
 
-// Collision detection and centering based on code from
-// http://www.parallelrealities.co.uk/tutorials/intermediate/tutorial14.php
-
-void PlayMapAI::centerPlayerOnMap(CGame* game)
+void PlayMapAI::centerMapOnPlayer()
 {
-    float maxMapX = map.getNumMapColumns() * map.getTileWidth();
-    float maxMapY = map.getNumMapRows() * map.getTileHeight();
+    sf::View view = screen->getView();
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2f viewsize = view.getSize();
+    viewsize.x /= 2;
+    viewsize.y /= 2;
+    sf::Vector2f pos = player.getPosition();
 
-    float gameWidth  = game->getWidth();
-    float gameHeight = game->getHeight();
+//    cout << "vw: " << view.getSize().x << " " << view.getSize().y << endl;
 
-    float panX = playerK.pos.X - (gameWidth/2);
+    float panX = viewsize.x; // minimum pan
+    if(pos.x >= viewsize.x)
+        panX = pos.x;
 
-    if(panX < 0)
-        panX = 0;
+    if(panX >= mapsize.x - viewsize.x)
+        panX = mapsize.x - viewsize.x;
 
-    else if(panX + gameWidth >= maxMapX)
-        panX = maxMapX - gameWidth;
+    float panY = viewsize.y; // minimum pan
+    if(pos.y >= viewsize.y)
+        panY = pos.y;
 
-    float panY = playerK.pos.Y - (gameHeight/2);
+    if(panY >= mapsize.y - viewsize.y)
+        panY = mapsize.y - viewsize.y;
 
-    if(panY < 0)
-        panY = 0;
+//    cout << "pos: " << pos.x << " " << pos.y << endl;
+//    cout << "pan: " << panX << " " << panY << endl;
 
-    else if(panY + gameHeight >= maxMapY)
-        panY = maxMapY - gameHeight;
-
-    game->setXpan(panX);
-    game->setYpan(panY);
-    game->updateCamera();
+    view.setCenter(sf::Vector2f(panX,panY));
+    screen->setView(view);
 }
 
 void PlayMapAI::checkCollision(CGame* game, Kinematic& obj)
@@ -339,45 +325,47 @@ void PlayMapAI::checkCollision(CGame* game, Kinematic& obj)
     int playerH = tileH;
     int playerW = tileW;
 
+    // << obj.pos.X << " " << obj.pos.Y << endl;
+
     // Test the horizontal movement first
     i = playerH > tileH ? tileH : playerH;
 
     for (;;)
     {
-        x1 = (obj.pos.X + obj.vel.X) / tileW;
-        x2 = (obj.pos.X + obj.vel.X + playerW - 1) / tileW;
+        x1 = (obj.pos.x + obj.vel.x) / tileW;
+        x2 = (obj.pos.x + obj.vel.x + playerW - 1) / tileW;
 
-        y1 = (obj.pos.Y) / tileH;
-        y2 = (obj.pos.Y + i - 1) / tileH;
+        y1 = (obj.pos.y) / tileH;
+        y2 = (obj.pos.y + i - 1) / tileH;
 
         if (x1 >= 0 && x2 < maxMapX && y1 >= 0 && y2 < maxMapY)
         {
-            if (obj.vel.X > 0)
+            if (obj.vel.x > 0)
             {
                 // Trying to move right
 
-                int upRight   = map.getCell(x2,y1);
-                int downRight = map.getCell(x2,y2);
-                if (blocks[upRight] == 1 || blocks[downRight] == 1)
+                int upRight   = map.getCell(x2,y1,1);
+                int downRight = map.getCell(x2,y2,1);
+                if (upRight || downRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.X = x2 * tileW;
-                    obj.pos.X -= playerW + 1;
-                    obj.vel.X = 0;
+                    obj.pos.x = x2 * tileW;
+                    obj.pos.x -= playerW;
+                    obj.vel.x = 0;
                 }
             }
 
-            else if (obj.vel.X < 0)
+            else if (obj.vel.x < 0)
             {
                 // Trying to move left
 
-                int upLeft   = map.getCell(x1,y1);
-                int downLeft = map.getCell(x1,y2);
-                if (blocks[upLeft] == 1 || blocks[downLeft] == 1)
+                int upLeft   = map.getCell(x1,y1,1);
+                int downLeft = map.getCell(x1,y2,1);
+                if (upLeft || downLeft)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.X = (x1+1) * tileW;
-                    obj.vel.X = 0;
+                    obj.pos.x = (x1+1) * tileW;
+                    obj.vel.x = 0;
                 }
             }
         }
@@ -401,39 +389,39 @@ void PlayMapAI::checkCollision(CGame* game, Kinematic& obj)
 
     for (;;)
     {
-        x1 = (obj.pos.X / tileW);
-        x2 = ((obj.pos.X + i) / tileW);
+        x1 = (obj.pos.x / tileW);
+        x2 = ((obj.pos.x + i -1) / tileW);
 
-        y1 = ((obj.pos.Y + obj.vel.Y) / tileH);
-        y2 = ((obj.pos.Y + obj.vel.Y + playerH) / tileH);
+        y1 = ((obj.pos.y + obj.vel.y) / tileH);
+        y2 = ((obj.pos.y + obj.vel.y + playerH - 1) / tileH);
 
         if (x1 >= 0 && x2 < maxMapX && y1 >= 0 && y2 < maxMapY)
         {
-            if (obj.vel.Y > 0)
+            if (obj.vel.y > 0)
             {
                 // Trying to move down
-                int downLeft  = map.getCell(x1,y2);
-                int downRight = map.getCell(x2,y2);
-                if (blocks[downLeft] == 1 || blocks[downRight] == 1)
+                int downLeft  = map.getCell(x1,y2,1);
+                int downRight = map.getCell(x2,y2,1);
+                if (downLeft || downRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.Y = y2 * tileH;
-                    obj.pos.Y -= playerH;
-                    obj.vel.Y = 0;
+                    obj.pos.y = y2 * tileH;
+                    obj.pos.y -= playerH;
+                    obj.vel.y = 0;
                 }
             }
 
-            else if (obj.vel.Y < 0)
+            else if (obj.vel.y < 0)
             {
                 // Trying to move up
 
-                int upLeft  = map.getCell(x1,y1);
-                int upRight = map.getCell(x2,y1);
-                if (blocks[upLeft] == 1 || blocks[upRight] == 1)
+                int upLeft  = map.getCell(x1,y1,1);
+                int upRight = map.getCell(x2,y1,1);
+                if (upLeft || upRight)
                 {
                     // Place the player as close to the solid tile as possible
-                    obj.pos.Y = (y1 + 1) * tileH;
-                    obj.vel.Y = 0;
+                    obj.pos.y = (y1 + 1) * tileH;
+                    obj.vel.y = 0;
                 }
             }
         }
@@ -455,15 +443,15 @@ void PlayMapAI::checkCollision(CGame* game, Kinematic& obj)
 
     obj.pos += obj.vel;
 
-    if (obj.pos.X < 0)
-        obj.pos.X = 0;
-    else if (obj.pos.X + playerW >= maxMapX * tileW)
-        obj.pos.X = maxMapX*tileW - playerW - 1;
+    if (obj.pos.x < 0)
+        obj.pos.x = 0;
+    else if (obj.pos.x + playerW >= maxMapX * tileW)
+        obj.pos.x = maxMapX*tileW - playerW - 1;
 
-    if(obj.pos.Y < 0)
-        obj.pos.Y = 0;
-    else if(obj.pos.Y + playerH >= maxMapY * tileH)
-        obj.pos.Y = maxMapY*tileH - playerH - 1;
+    if(obj.pos.y < 0)
+        obj.pos.y = 0;
+    else if(obj.pos.y + playerH >= maxMapY * tileH)
+        obj.pos.y = maxMapY*tileH - playerH - 1;
 }
 
 
@@ -475,11 +463,25 @@ void PlayMapAI::draw(CGame* game)
 
     map.draw();
 
-    player->setPosition(playerK.pos.X,playerK.pos.Y);
+    player->setPosition(playerK.pos.x,playerK.pos.y);
     player->draw();
 
-    enemy->setPosition(enemyK.pos.X, enemyK.pos.Y);
+    if(showTrails)
+    {
+        list<sf::Vector3f>::iterator it = trail.begin();
+        while(it != trail.end())
+        {
+            glColor4f(1,1,1,0.1);
+            enemy->setPosition(it->x, it->y);
+            enemy->draw();
+            it++;
+        }
+        glColor4f(1,1,1,1);
+    }
+
+    enemy->setPosition(enemyK.pos.x, enemyK.pos.y);
     enemy->draw();
+    font->draw(enemyK.pos.x, enemyK.pos.y-14, (char *)modes[steerMode].c_str());
 
     SDL_GL_SwapBuffers();
 }

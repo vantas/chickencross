@@ -10,23 +10,24 @@
 #ifndef PLAY_MAPAI_H_
 #define PLAY_MAPAI_H_
 
-#include <SDL.h>
-//#include <irrKlang.h>
-#include "CGameState.h"
-#include "CSprite.h"
-#include "TMXLoader.h"
+#include <list>
+#include <string>
+#include "GameState.h"
+#include "Sprite.h"
+#include "InputManager.h"
+#include <MapLoader.h>
 
 struct Kinematic
 {
-//    irrklang::vec3df pos;
-//    irrklang::vec3df vel;
-//    irrklang::vec3df heading;
+    sf::Vector3f pos;
+    sf::Vector3f vel;
+    sf::Vector3f heading;
     float maxForce;
     float maxSpeed;
     float maxTurnRate;
 };
 
-class PlayMapAI : public CGameState
+class PlayMapAI : public cgf::GameState
 {
 public:
 
@@ -36,9 +37,9 @@ public:
     void pause();
     void resume();
 
-    void handleEvents(CGame* game);
-    void update(CGame* game);
-    void draw(CGame* game);
+    void handleEvents(cgf::Game* game);
+    void update(cgf::Game* game);
+    void draw(cgf::Game* game);
 
     // Implement Singleton Pattern
     static PlayMapAI* instance()
@@ -57,27 +58,33 @@ private:
     int x, y;
     float cameraSpeed;
     float zvel;
-    CSprite* player;
-    CSprite* enemy;
-    Kinematic playerK, enemyK;
-    TMXLoader map;
-    Uint8* keystate; // state of all keys (1 means key is pressed)
-    bool firstTime;
-    int blocks[256]; // indicate collision status of each block id
+    cgf::Sprite player;
+    cgf::Sprite enemy;
 
-    void checkCollision(CGame* game);
-    void checkCollision(CGame* game, Kinematic& obj);
-    void centerPlayerOnMap(CGame* game);
+    std::list<sf::Vector3f> trail;
+    bool showTrails;
+
+    sf::Font font;
+    Kinematic playerK, enemyK;
+    tmx::MapLoader* map;
+    bool firstTime;
+
+    void checkCollision(cgf::Game* game);
+    void checkCollision(cgf::Game* game, Kinematic& obj);
+    void centerMapOnPlayer();
 
     enum {
-         CHASE_BEHAVIOR, ARRIVE_BEHAVIOR, PURSUIT_BEHAVIOR, FLEE_BEHAVIOR, EVADE_BEHAVIOR
+         CHASE_BEHAVIOR=0, ARRIVE_BEHAVIOR, PURSUIT_BEHAVIOR, FLEE_BEHAVIOR, EVADE_BEHAVIOR
     };
+
+    const static std::string modes[];
+
     int steerMode;
-    irrklang::vec3df chase(Kinematic& vehicle, irrklang::vec3df& target); // ir diretamente ao jogador
-    irrklang::vec3df arrive(Kinematic& vehicle, irrklang::vec3df& target, float decel=0.3); // ir diretamente ao jogador
-    irrklang::vec3df pursuit(Kinematic& vehicle, Kinematic& target); // perseguir o jogador, prevendo a posição futura
-	irrklang::vec3df flee(Kinematic& vehicle, irrklang::vec3df& target, float panicDistance=100);  // fugir do jogador
-    irrklang::vec3df evade(Kinematic& vehicle, Kinematic& target);
+    sf::Vector3f chase(Kinematic& vehicle, sf::Vector3f& target); // ir diretamente ao jogador
+    sf::Vector3f arrive(Kinematic& vehicle, sf::Vector3f& target, float decel=0.3); // ir diretamente ao jogador
+    sf::Vector3f pursuit(Kinematic& vehicle, Kinematic& target); // perseguir o jogador, prevendo a posição futura
+	sf::Vector3f flee(Kinematic& vehicle, sf::Vector3f& target, float panicDistance=100);  // fugir do jogador
+    sf::Vector3f evade(Kinematic& vehicle, Kinematic& target);
 };
 
 #endif

@@ -16,7 +16,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add directory="../../lib/Box2D-2.1.0/lib-Linux32" />
+					<Add directory="../../lib/Box2D-2.2.1/lib-Linux64" />
 					<Add directory="../../lib/SFML-2.0/lib-Linux64" />
 				</Linker>
 			</Target>
@@ -32,7 +32,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add directory="../../lib/Box2D-2.1.0/lib-Linux32" />
+					<Add directory="../../lib/Box2D-2.2.1/lib-Linux64" />
 					<Add directory="../../lib/SFML-2.0/lib-Linux64" />
 				</Linker>
 			</Target>
@@ -83,6 +83,8 @@
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
+			<Add library="sfml-audio" />
+			<Add library="Box2D" />
 		</Linker>
 		<Unit filename="../../include/ClockHUD.h" />
 		<Unit filename="../../include/FrameClock.h" />
@@ -91,10 +93,13 @@
 		<Unit filename="../../include/InputManager.h" />
 		<Unit filename="../../include/MenuState.h" />
 		<Unit filename="../../include/Physics.h" />
+		<Unit filename="../../include/PlayBallPhysics.h" />
+		<Unit filename="../../include/PlayMapAI.h" />
 		<Unit filename="../../include/PlayPhysics.h" />
 		<Unit filename="../../include/PlayState.h" />
 		<Unit filename="../../include/Sprite.h" />
 		<Unit filename="../../include/TextureManager.h" />
+		<Unit filename="../../include/VectorUtils.h" />
 		<Unit filename="../../include/pugixml/pugiconfig.hpp" />
 		<Unit filename="../../include/pugixml/pugixml.hpp" />
 		<Unit filename="../../include/tmxloader/Helpers.h" />
@@ -154,6 +159,8 @@
 		<Unit filename="../../source/InputManager.cpp" />
 		<Unit filename="../../source/MenuState.cpp" />
 		<Unit filename="../../source/Physics.cpp" />
+		<Unit filename="../../source/PlayBallPhysics.cpp" />
+		<Unit filename="../../source/PlayMapAI.cpp" />
 		<Unit filename="../../source/PlayPhysics.cpp" />
 		<Unit filename="../../source/PlayState.cpp" />
 		<Unit filename="../../source/Sprite.cpp" />
