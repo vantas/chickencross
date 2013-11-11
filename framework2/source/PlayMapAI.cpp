@@ -36,7 +36,6 @@ void PlayMapAI::init()
     ghost.load("data/img/Char14.png");
     ghost.setPosition(100,300);
     ghost.setScale(sf::Vector2f(2,2));
-    ghost.setXspeed(100);
 
     enemyK.pos.x = 100;
     enemyK.pos.y = 300;
@@ -44,8 +43,7 @@ void PlayMapAI::init()
 
     steerMode = CHASE_BEHAVIOR; // default: chase player
 
-    font = new CFont();
-    font->loadFont("data/fonts/lucida12.png", 112, 208);
+    font.loadFromFile("data/fonts/arial.png");
 
     firstTime = true; // to set map position at first update
 
@@ -56,9 +54,7 @@ void PlayMapAI::init()
 
 void PlayMapAI::cleanup()
 {
-    delete player;
-    delete enemy;
-    delete font;
+    delete map;
     //  delete playSprite2;
 	cout << "PlayMapAI Clean Successful" << endl;
 }
@@ -73,45 +69,88 @@ void PlayMapAI::resume()
 	cout << "PlayMapAI Resumed" << endl;
 }
 
-void PlayMapAI::handleEvents(CGame* game)
+void PlayMapAI::handleEvents(cgf::Game* game)
 {
-	SDL_Event event;
+    sf::Event event;
+    sf::View view = screen->getView();
 
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				game->quit();
-				break;
+    while (screen->pollEvent(event))
+    {
+        if(event.type == sf::Event::Closed)
+            game->quit();
+        if(event.type == sf::Event::KeyPressed)
+            if(event.key.code == sf::Keyboard::S)
+                game->toggleStats();
+            else if(event.key.code == sf::Keyboard::A)
+            {
+                steerMode++;
+                if(steerMode > EVADE_BEHAVIOR)
+                    steerMode = CHASE_BEHAVIOR;
+            }
+            else if(event.key.code == sf::Keyboard::T)
+                showTrails = !showTrails;
+    }
 
-            case SDL_KEYDOWN:
-				switch(event.key.keysym.sym){
-                    case SDLK_p:
-                        game->pushState(PauseState::instance());
-                        break;
-                    case SDLK_a:
-                        steerMode++;
-                        if(steerMode > EVADE_BEHAVIOR)
-                            steerMode = CHASE_BEHAVIOR;
-                        break;
-                    case SDLK_t:
-                        showTrails = !showTrails;
-                        break;
-                    case SDLK_ESCAPE:
-                        game->quit();
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case SDL_VIDEORESIZE:
-                game->resize(event.resize.w, event.resize.h);
-                //map.cleanup();
-                //map.loadMap("data/maps/desert.tmx");
-		}
-	}
-    playerK.vel.x = -keystate[SDLK_LEFT]*cameraSpeed + keystate[SDLK_RIGHT]*cameraSpeed;
-    playerK.vel.y = -keystate[SDLK_UP]*cameraSpeed + keystate[SDLK_DOWN]*cameraSpeed;
-    zvel = -5*keystate[SDLK_LSHIFT] + 5*keystate[SDLK_RSHIFT];
+    int dirx, diry;
+    dirx = diry = 0;
+
+    if(im->testEvent("left")) {
+        if(player.getXspeed() >= 0) {
+            player.setAnimation("walk-left");
+            player.play();
+        }
+        dirx = -1;
+    }
+    else
+    if(im->testEvent("right")) {
+        if(player.getXspeed() <= 0) {
+            player.setAnimation("walk-right");
+            player.play();
+        }
+        dirx = 1;
+    }
+
+    if(im->testEvent("up")) {
+        if(player.getYspeed() >= 0) {
+            player.setAnimation("walk-up");
+            player.play();
+        }
+        diry = -1;
+    }
+
+    if(im->testEvent("down")) {
+        if(player.getYspeed() <= 0) {
+            player.setAnimation("walk-down");
+            player.play();
+        }
+        diry = 1;
+    }
+
+    if(!dirx && !diry) // parado?
+    {
+        player.setCurrentFrame(0);
+        player.pause();
+    }
+
+    if(im->testEvent("quit") || im->testEvent("rightclick"))
+        game->quit();
+
+    if(im->testEvent("zoomin"))
+    {
+        view.zoom(1.01);
+        screen->setView(view);
+    }
+    else if(im->testEvent("zoomout"))
+    {
+        view.zoom(0.99);
+        screen->setView(view);
+    }
+
+    //player.setXspeed(dirx*100);
+    //player.setYspeed(diry*100);
+
+    playerK.vel.x = dirx*cameraSpeed;
+    playerK.vel.y = diry*cameraSpeed;
 }
 
 // Steering Behavior: chase target
@@ -200,24 +239,16 @@ sf::Vector3f PlayMapAI::evade(Kinematic& vehicle, Kinematic& target)
     return flee(vehicle, predicted);
 }
 
-void PlayMapAI::update(CGame* game)
+void PlayMapAI::update(cgf::Game* game)
 {
     // First time in update, set initial camera pos
     if(firstTime) {
-        game->setYpan(6*32);
-        game->setXpan(-10*32);
-        game->updateCamera();
+        screen = game->getScreen();
         firstTime = false;
     }
 
-    // Player motion ?
-    if(zvel != 0) {
-        game->setZoom(game->getZoom()+zvel);
-        game->updateCamera();
-    }
-
     checkCollision(game, playerK);
-    centerPlayerOnMap(game);
+    centerMapOnPlayer();
 
 #define STEERING
 #ifdef STEERING
@@ -309,7 +340,7 @@ void PlayMapAI::centerMapOnPlayer()
     screen->setView(view);
 }
 
-void PlayMapAI::checkCollision(CGame* game, Kinematic& obj)
+void PlayMapAI::checkCollision(cgf::Game* game, Kinematic& obj)
 {
     int i, x1, x2, y1, y2;
 

@@ -59,13 +59,17 @@ private:
     float cameraSpeed;
     float zvel;
     cgf::Sprite player;
-    cgf::Sprite enemy;
+    cgf::Sprite ghost;
+
+    sf::RenderWindow* screen;
 
     std::list<sf::Vector3f> trail;
     bool showTrails;
 
-    sf::Font font;
     Kinematic playerK, enemyK;
+    cgf::InputManager* im;
+    sf::Font font;
+    sf::Text text;
     tmx::MapLoader* map;
     bool firstTime;
 
