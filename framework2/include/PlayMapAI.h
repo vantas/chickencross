@@ -19,6 +19,7 @@
 
 struct Kinematic
 {
+    cgf::Sprite* sprite;
     sf::Vector3f pos;
     sf::Vector3f vel;
     sf::Vector3f heading;
@@ -73,9 +74,9 @@ private:
     tmx::MapLoader* map;
     bool firstTime;
 
-    void checkCollision(cgf::Game* game);
-    void checkCollision(cgf::Game* game, Kinematic& obj);
+    bool checkCollision(uint8_t layer, cgf::Game* game, Kinematic& obj);
     void centerMapOnPlayer();
+    sf::Uint16 getCellFromMap(uint8_t layernum, float x, float y);
 
     enum {
          CHASE_BEHAVIOR=0, ARRIVE_BEHAVIOR, PURSUIT_BEHAVIOR, FLEE_BEHAVIOR, EVADE_BEHAVIOR

@@ -27,7 +27,8 @@ SOURCES += ../../source/PlayState.cpp \
     ../../source/Game.cpp \
     ../../source/Physics.cpp \
     ../../source/EEDebugDraw3.cpp \
-    ../../source/PlayBallPhysics.cpp
+    ../../source/PlayBallPhysics.cpp \
+    ../../source/PlayMapAI.cpp
 
 HEADERS += \
     ../../include/TextureManager.h \
@@ -52,7 +53,8 @@ HEADERS += \
     ../../include/Anim.h \
     ../../include/Physics.h \
     ../../include/EEDebugDraw3.h \
-    ../../include/PlayBallPhysics.h
+    ../../include/PlayBallPhysics.h \
+    ../../include/PlayMapAI.h
 
 ###############################################
 # CONFIGURATION

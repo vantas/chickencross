@@ -24,9 +24,9 @@ void PlayMapAI::init()
     map = new tmx::MapLoader("data/maps");
     map->Load("dungeon2layers.tmx");
 
+    playerK.sprite = &player;
     playerK.vel.x = playerK.vel.y = 0;   // current player speed
     cameraSpeed = 8;   // speed to use
-    zvel = 0;
 
     player.loadXML("data/img/hunter.xml");
     player.setPosition(50,100);
@@ -37,13 +37,14 @@ void PlayMapAI::init()
     ghost.setPosition(100,300);
     ghost.setScale(sf::Vector2f(2,2));
 
+    enemyK.sprite = &ghost;
     enemyK.pos.x = 100;
     enemyK.pos.y = 300;
     enemyK.maxSpeed = 7;
 
     steerMode = CHASE_BEHAVIOR; // default: chase player
 
-    font.loadFromFile("data/fonts/arial.png");
+    font.loadFromFile("data/fonts/arial.ttf");
 
     firstTime = true; // to set map position at first update
 
@@ -247,7 +248,7 @@ void PlayMapAI::update(cgf::Game* game)
         firstTime = false;
     }
 
-    checkCollision(game, playerK);
+    checkCollision(1, game, playerK);
     centerMapOnPlayer();
 
 #define STEERING
@@ -301,7 +302,7 @@ void PlayMapAI::update(cgf::Game* game)
     else if(enemyK.pos.Y > playerK.pos.Y)
         enemyK.vel.Y = -2;
 #endif
-    checkCollision(game, enemyK);
+    checkCollision(1, game, enemyK);
 
     if(trail.size()>30)
         trail.pop_back();
@@ -340,7 +341,183 @@ void PlayMapAI::centerMapOnPlayer()
     screen->setView(view);
 }
 
-void PlayMapAI::checkCollision(cgf::Game* game, Kinematic& obj)
+bool PlayMapAI::checkCollision(uint8_t layer, cgf::Game* game, Kinematic& obj)
+{
+    int i, x1, x2, y1, y2;
+    bool bump = false;
+
+    // Get the limits of the map
+    sf::Vector2u mapsize = map->GetMapSize();
+    // Get the width and height of a single tile
+    sf::Vector2u tilesize = map->GetMapTileSize();
+
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+    mapsize.x--;
+    mapsize.y--;
+
+    // Get the height and width of the object (in this case, 100% of a tile)
+    sf::Vector2u objsize = obj.sprite->getSize();
+    objsize.x *= obj.sprite->getScale().x;
+    objsize.y *= obj.sprite->getScale().y;
+
+    float px = obj.pos.x; //->getPosition().x;
+    float py = obj.pos.y; //->getPosition().y;
+
+    double deltaTime = game->getUpdateInterval();
+
+    sf::Vector2f offset(obj.vel.x/1000 * deltaTime, obj.vel.y/1000 * deltaTime);
+
+    float vx = offset.x;
+    float vy = offset.y;
+
+    //cout << "px,py: " << px << " " << py << endl;
+
+    //cout << "tilesize " << tilesize.x << " " << tilesize.y << endl;
+    //cout << "mapsize " << mapsize.x << " " << mapsize.y << endl;
+
+    // Test the horizontal movement first
+    i = objsize.y > tilesize.y ? tilesize.y : objsize.y;
+
+    for (;;)
+    {
+        x1 = (px + vx) / tilesize.x;
+        x2 = (px + vx + objsize.x - 1) / tilesize.x;
+
+        y1 = (py) / tilesize.y;
+        y2 = (py + i - 1) / tilesize.y;
+
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
+        {
+            if (vx > 0)
+            {
+                // Trying to move right
+
+                int upRight   = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
+                if (upRight || downRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    px = x2 * tilesize.x;
+                    px -= objsize.x;// + 1;
+                    vx = 0;
+                    bump = true;
+                }
+            }
+
+            else if (vx < 0)
+            {
+                // Trying to move left
+
+                int upLeft   = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int downLeft = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
+                if (upLeft || downLeft)
+                {
+                    // Place the player as close to the solid tile as possible
+                    px = (x1+1) * tilesize.x;
+                    vx = 0;
+                    bump = true;
+                }
+            }
+        }
+
+        if (i == objsize.y) // Checked player height with all tiles ?
+        {
+            break;
+        }
+
+        i += tilesize.y; // done, check next tile upwards
+
+        if (i > objsize.y)
+        {
+            i = objsize.y;
+        }
+    }
+
+    // Now test the vertical movement
+
+    i = objsize.x > tilesize.x ? tilesize.x : objsize.x;
+
+    for (;;)
+    {
+        x1 = (px / tilesize.x);
+        x2 = ((px + i-1) / tilesize.x);
+
+        y1 = ((py + vy) / tilesize.y);
+        y2 = ((py + vy + objsize.y-1) / tilesize.y);
+
+        if (x1 >= 0 && x2 < mapsize.x && y1 >= 0 && y2 < mapsize.y)
+        {
+            if (vy > 0)
+            {
+                // Trying to move down
+                int downLeft  = getCellFromMap(layer, x1*tilesize.x, y2*tilesize.y);
+                int downRight = getCellFromMap(layer, x2*tilesize.x, y2*tilesize.y);
+                if (downLeft || downRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    py = y2 * tilesize.y;
+                    py -= objsize.y;
+                    vy = 0;
+                    bump = true;
+                }
+            }
+
+            else if (vy < 0)
+            {
+                // Trying to move up
+
+                int upLeft  = getCellFromMap(layer, x1*tilesize.x, y1*tilesize.y);
+                int upRight = getCellFromMap(layer, x2*tilesize.x, y1*tilesize.y);
+                if (upLeft || upRight)
+                {
+                    // Place the player as close to the solid tile as possible
+                    py = (y1 + 1) * tilesize.y;
+                    vy = 0;
+                    bump = true;
+                }
+            }
+        }
+
+        if (i == objsize.x)
+        {
+            break;
+        }
+
+        i += tilesize.x; // done, check next tile to the right
+
+        if (i > objsize.x)
+        {
+            i = objsize.x;
+        }
+    }
+
+    // Now apply the movement and animation
+
+    obj.pos.x = px+vx;
+    obj.pos.y = py+vy;
+    obj.sprite->setPosition(px+vx,py+vy);
+    px = obj.sprite->getPosition().x;
+    py = obj.sprite->getPosition().y;
+
+    obj.sprite->update(deltaTime, false); // only update animation
+
+    // Check collision with edges of map
+    if (px < 0)
+        obj.sprite->setPosition(px,py);
+    else if (px + objsize.x >= mapsize.x * tilesize.x)
+        obj.sprite->setPosition(mapsize.x*tilesize.x - objsize.x - 1,py);
+
+    if(py < 0)
+        obj.sprite->setPosition(px,0);
+    else if(py + objsize.y >= mapsize.y * tilesize.y)
+        obj.sprite->setPosition(px, mapsize.y*tilesize.y - objsize.y - 1);
+
+    return bump;
+}
+
+#ifdef OLDCOLL
+void PlayMapAI::checkCollision(uint8_t layer, cgf::Game* game, Kinematic& obj)
 {
     int i, x1, x2, y1, y2;
 
@@ -484,19 +661,34 @@ void PlayMapAI::checkCollision(cgf::Game* game, Kinematic& obj)
     else if(obj.pos.y + playerH >= maxMapY * tileH)
         obj.pos.y = maxMapY*tileH - playerH - 1;
 }
+#endif
 
-
-void PlayMapAI::draw(CGame* game)
+sf::Uint16 PlayMapAI::getCellFromMap(uint8_t layernum, float x, float y)
 {
-    glClearColor(0.8,0.8,0.8,1); // light gray
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
+    auto layers = map->GetLayers();
+    tmx::MapLayer& layer = layers[layernum];
+    sf::Vector2u mapsize = map->GetMapSize();
+    sf::Vector2u tilesize = map->GetMapTileSize();
+    mapsize.x /= tilesize.x;
+    mapsize.y /= tilesize.y;
+    int col = floor(x / tilesize.x);
+    int row = floor(y / tilesize.y);
+    return layer.tiles[row*mapsize.x + col].gid;
+}
 
-    map.draw();
+void PlayMapAI::draw(cgf::Game* game)
+{
+    //sf::View view = screen->getView();
 
-    player->setPosition(playerK.pos.x,playerK.pos.y);
-    player->draw();
+    screen->clear(sf::Color(0,0,0));
 
+    map->Draw(*screen, 0);
+    map->Draw(*screen, 1);
+
+    //player->setPosition(playerK.pos.x,playerK.pos.y);
+    screen->draw(player);
+
+    /*
     if(showTrails)
     {
         list<sf::Vector3f>::iterator it = trail.begin();
@@ -509,10 +701,18 @@ void PlayMapAI::draw(CGame* game)
         }
         glColor4f(1,1,1,1);
     }
+    */
 
-    enemy->setPosition(enemyK.pos.x, enemyK.pos.y);
-    enemy->draw();
-    font->draw(enemyK.pos.x, enemyK.pos.y-14, (char *)modes[steerMode].c_str());
+    ghost.setPosition(enemyK.pos.x, enemyK.pos.y);
+    screen->draw(ghost);
 
-    SDL_GL_SwapBuffers();
+    sf::Text text;
+    // select the font
+    text.setFont(font);
+    text.setCharacterSize(12);
+    text.setColor(sf::Color::Red);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    text.setPosition(enemyK.pos.x, enemyK.pos.y-14);
+    text.setString(modes[steerMode]);
+    screen->draw(text);
 }
