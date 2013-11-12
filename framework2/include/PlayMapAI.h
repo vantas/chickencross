@@ -57,7 +57,7 @@ private:
     static PlayMapAI m_PlayMapAI;
 
     int x, y;
-    float cameraSpeed;
+    float speed; // player speed
     float zvel;
     cgf::Sprite player;
     cgf::Sprite ghost;
@@ -86,7 +86,7 @@ private:
 
     int steerMode;
     sf::Vector3f chase(Kinematic& vehicle, sf::Vector3f& target); // ir diretamente ao jogador
-    sf::Vector3f arrive(Kinematic& vehicle, sf::Vector3f& target, float decel=0.3); // ir diretamente ao jogador
+    sf::Vector3f arrive(Kinematic& vehicle, sf::Vector3f& target, float decel=0.2); // ir diretamente ao jogador
     sf::Vector3f pursuit(Kinematic& vehicle, Kinematic& target); // perseguir o jogador, prevendo a posição futura
 	sf::Vector3f flee(Kinematic& vehicle, sf::Vector3f& target, float panicDistance=100);  // fugir do jogador
     sf::Vector3f evade(Kinematic& vehicle, Kinematic& target);
