@@ -233,7 +233,7 @@ const bool MapLoader::m_ProcessTiles(const pugi::xml_node& tilesetNode)
 			m_tileTextures.push_back(texture);
 
 			//store texture coords and tileset index for vertex array
-			m_tileInfo.push_back(TileInfo(rect, 
+			m_tileInfo.push_back(TileInfo(rect,
 				sf::Vector2f(static_cast<float>(rect.width), static_cast<float>(rect.height)),
 				m_tilesetTextures.size() - 1u));
 		}
@@ -426,7 +426,7 @@ void MapLoader::m_AddTileToLayer(MapLayer& layer, sf::Uint16 x, sf::Uint16 y, sf
 	v1.position = sf::Vector2f(static_cast<float>(m_tileWidth * x) + m_tileInfo[gid].Size.x, static_cast<float>(m_tileHeight * y));
 	v2.position = sf::Vector2f(static_cast<float>(m_tileWidth * x) + m_tileInfo[gid].Size.x, static_cast<float>(m_tileHeight * y) + m_tileInfo[gid].Size.y);
 	v3.position = sf::Vector2f(static_cast<float>(m_tileWidth * x), static_cast<float>(m_tileHeight * y) + m_tileInfo[gid].Size.y);
-	
+
 	//offset tiles with size not equal to map grid size
 	sf::Uint16 tileHeight = static_cast<sf::Uint16>(m_tileInfo[gid].Size.y);
 	if(tileHeight != m_tileHeight)
@@ -754,8 +754,11 @@ void MapLoader::m_DrawLayer(sf::RenderTarget& rt, const MapLayer& layer)
 	if(!layer.visible) return; //skip invisible layers
 	m_SetDrawingBounds(rt.getView());
 	for(unsigned i = 0; i < layer.vertexArrays.size(); i++)
-	{
-		rt.draw(layer.vertexArrays[i], &m_tilesetTextures[i]);
+    {
+        sf::RenderStates states;
+        states.transform = transf;
+        states.texture = &m_tilesetTextures[i];
+        rt.draw(layer.vertexArrays[i], states); //&m_tilesetTextures[i]);
 	}
 	if(layer.type == ObjectGroup || layer.type == ImageLayer)
 	{

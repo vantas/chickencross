@@ -27,6 +27,7 @@ void PlayMapAI::init()
     playerK.sprite = &player;
     playerK.vel.x = playerK.vel.y = 0;   // current player speed
     speed = 100;   // speed to use
+    ytrans = 0;
 
     player.loadXML("data/img/hunter.xml");
     player.setPosition(50,100);
@@ -266,6 +267,10 @@ void PlayMapAI::update(cgf::Game* game)
         screen = game->getScreen();
         firstTime = false;
     }
+
+//    ytrans++;
+//    sf::Transform& trans = map->getTransform();
+//    trans.translate(0,ytrans);
 
     checkCollision(1, game, playerK);
     centerMapOnPlayer();

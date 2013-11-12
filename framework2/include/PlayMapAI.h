@@ -58,7 +58,7 @@ private:
 
     int x, y;
     float speed; // player speed
-    float zvel;
+    float ytrans;
     cgf::Sprite player;
     cgf::Sprite ghost;
 
