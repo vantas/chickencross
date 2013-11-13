@@ -110,6 +110,18 @@ void PlayMapAI::handleEvents(cgf::Game* game)
             }
             else if(event.key.code == sf::Keyboard::T)
                 showTrails = !showTrails;
+            else if(event.key.code == sf::Keyboard::Delete) {
+                ytrans+=32;
+                sf::Transform& trans = map->getTransform();
+                trans = sf::Transform::Identity;
+                trans.translate(0,ytrans);
+            }
+            else if(event.key.code == sf::Keyboard::PageDown) {
+                ytrans-=32;
+                sf::Transform& trans = map->getTransform();
+                trans = sf::Transform::Identity;
+                trans.translate(0,ytrans);
+            }
     }
 
     int dirx, diry;
@@ -268,9 +280,6 @@ void PlayMapAI::update(cgf::Game* game)
         firstTime = false;
     }
 
-//    ytrans++;
-//    sf::Transform& trans = map->getTransform();
-//    trans.translate(0,ytrans);
 
     checkCollision(1, game, playerK);
     centerMapOnPlayer();
@@ -546,8 +555,13 @@ sf::Uint16 PlayMapAI::getCellFromMap(uint8_t layernum, float x, float y)
     sf::Vector2u tilesize = map->GetMapTileSize();
     mapsize.x /= tilesize.x;
     mapsize.y /= tilesize.y;
-    int col = floor(x / tilesize.x);
-    int row = floor(y / tilesize.y);
+    //sf::Transform transf = map->getTransform().getInverse();
+    //sf::Vector2f v = transf.transformPoint(x,y);
+    sf::Vector2f v(x,y-ytrans);
+    //cout << "x,y = " << x << "," << y << " - vx,vy = " << v.x << ","<<v.y << endl;
+    int col = floor(v.x / tilesize.x);
+    int row = floor(v.y / tilesize.y);
+//    cout << col << ","<<row << endl;
     return layer.tiles[row*mapsize.x + col].gid;
 }
 
