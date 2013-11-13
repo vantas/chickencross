@@ -755,6 +755,8 @@ void MapLoader::m_DrawLayer(sf::RenderTarget& rt, const MapLayer& layer)
 	m_SetDrawingBounds(rt.getView());
 	for(unsigned i = 0; i < layer.vertexArrays.size(); i++)
     {
+        // MC 11/2013: added a states variable to allow setting the transform to be applied
+        // to the map (warning: will only work for tile layers)
         sf::RenderStates states;
         states.transform = transf;
         states.texture = &m_tilesetTextures[i];
