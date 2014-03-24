@@ -83,7 +83,12 @@ namespace tmx
 				return m_properties[name];
 			else
 				return std::string();
-		}
+        }
+
+        // MC 11/2013: support for map transforms (not quite right yet but...)
+        sf::Transform& getTransform() { return transf; }
+        void setTransform(const sf::Transform& t) { transf = t; }
+
 	private:
 		//properties which correspond to tmx
 		sf::Uint16 m_width, m_height; //tile count
@@ -117,7 +122,9 @@ namespace tmx
 		sf::VertexArray m_gridVertices; //used to draw map grid in debug
 		bool m_mapLoaded, m_quadTreeAvailable;
 		//root node for quad tree partition
-		QuadTreeRoot m_rootNode;
+        QuadTreeRoot m_rootNode;
+
+        sf::Transform transf; // MC 11/2013: the transform applied to the drawing
 
 		//resets any loaded map properties
 		void m_Unload(void);

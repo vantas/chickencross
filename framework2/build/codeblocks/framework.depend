@@ -2558,7 +2558,7 @@
 	"GameState.h"
 	"Sprite.h"
 
-1383580933 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Sprite.h
+1384173586 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/Sprite.h
 	<vector>
 	<map>
 	<SFML/Graphics/RenderTarget.hpp>
@@ -2686,7 +2686,7 @@
 	<new>
 	<stdint.h>
 
-1383580933 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/Sprite.cpp
+1384172267 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/Sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<iomanip>
@@ -2728,11 +2728,23 @@
 	"PauseState.h"
 	"InputManager.h"
 
-1384163871 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayMapAI.h
+1384170580 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/PlayMapAI.h
 	<list>
 	<string>
 	"GameState.h"
 	"Sprite.h"
 	"InputManager.h"
 	<MapLoader.h>
+
+1384173714 source:/home/PORTOALEGRE/10049190/hg/ed/framework2/source/PlayMapAI.cpp
+	<iostream>
+	<cmath>
+	"Game.h"
+	"PlayMapAI.h"
+	"VectorUtils.h"
+
+1384163329 /home/PORTOALEGRE/10049190/hg/ed/framework2/include/VectorUtils.h
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<cassert>
 

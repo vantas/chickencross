@@ -81,7 +81,15 @@ public:
     bool bboxCollision(Sprite& other);
     bool circleCollision(Sprite& other);
 
-//    void setColor(const sf::Color& color);
+    void setColor(const sf::Color& color) {
+        vertices[0].color = color;
+        vertices[1].color = color;
+        vertices[2].color = color;
+        vertices[3].color = color;
+    }
+
+    sf::Color getColor() { return vertices[0].color; }
+
 //    sf::FloatRect getLocalBounds() const;
 //    sf::FloatRect getGlobalBounds() const;
 //    bool isPlaying() const;
