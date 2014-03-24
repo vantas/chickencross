@@ -123,7 +123,7 @@ void PlayPhysics::handleEvents(cgf::Game* game)
                     phys->setGravity(0);
             }
             else if(event.key.code == sf::Keyboard::Space)
-                bplayer->ApplyLinearImpulse(b2Vec2(0,-700), bplayer->GetWorldCenter());
+                bplayer->ApplyLinearImpulse(b2Vec2(0,-700), bplayer->GetWorldCenter(), true);
     }
 
     dirx = diry = 0;
@@ -183,7 +183,7 @@ void PlayPhysics::handleEvents(cgf::Game* game)
     //player.setXspeed(dirx*100);
     //player.setYspeed(diry*100);
 
-    bplayer->ApplyLinearImpulse(b2Vec2(dirx*10,diry*10), bplayer->GetWorldCenter());
+    bplayer->ApplyLinearImpulse(b2Vec2(dirx*10,diry*10), bplayer->GetWorldCenter(), true);
 }
 
 void PlayPhysics::update(cgf::Game* game)

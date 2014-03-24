@@ -4,14 +4,13 @@ QT       -= gui
 CONFIG   += console
 CONFIG   += opengl
 CONFIG   -= app_bundle
-CONFIG   += warn_off
+CONFIG   -= warning
 
 TEMPLATE = app
 
 #DESTDIR = ../../../bin
 
 QMAKE_CXXFLAGS += -std=c++11
-QMAKE_CXXFLAGS += -stdlib=libc++
 QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
 SOURCES += ../../source/PlayState.cpp \
@@ -29,8 +28,10 @@ SOURCES += ../../source/PlayState.cpp \
     ../../source/Physics.cpp \
     ../../source/EEDebugDraw3.cpp \
     ../../source/PlayMapAI.cpp
+#    ../../source/PlayBallPhysics.cpp
 
-HEADERS += ../../include/TextureManager.h \
+HEADERS += \
+    ../../include/TextureManager.h \
     ../../include/PlayState.h \
     ../../include/PlayPhysics.h \
     ../../include/InputManager.h \
@@ -51,8 +52,8 @@ HEADERS += ../../include/TextureManager.h \
     ../../include/GameState.h \
     ../../include/Anim.h \
     ../../include/Physics.h \
-    ../../include/EEDebugDraw3.h \
-    ../../include/PlayMapAI.h
+    ../../include/EEDebugDraw3.h
+#    ../../include/PlayBallPhysics.h
 
 ###############################################
 # CONFIGURATION
@@ -95,8 +96,7 @@ LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
     -lsfml-audio \
     -lsfml-network \
     -lBox2D \
-    -lz \
-    -stdlib=libc++
+    -lz
 
 #macx {
 #    QMAKE_POST_LINK += $(MKDIR) Frameworks &&
