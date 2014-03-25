@@ -11,7 +11,6 @@ TEMPLATE = app
 #DESTDIR = ../../../bin
 
 QMAKE_CXXFLAGS += -std=c++11
-QMAKE_CXXFLAGS += -stdlib=libc++
 QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
 SOURCES += ../../source/PlayState.cpp \
@@ -61,6 +60,7 @@ HEADERS += ../../include/TextureManager.h \
 #CONFIG += copy_dir_files
 
 macx {
+    QMAKE_CXXFLAGS += -stdlib=libc++
     CONFIG_PLATFORM_PATH  = mac
     CONFIG_ICON_EXTENSION = icns
 
@@ -95,21 +95,21 @@ LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
     -lsfml-audio \
     -lsfml-network \
     -lBox2D \
-    -lz \
-    -stdlib=libc++
+    -lz
 
-#macx {
+macx {
+     LIBS += -stdlib=libc++
 #    QMAKE_POST_LINK += $(MKDIR) Frameworks &&
 #    QMAKE_POST_LINK += $${QMAKE_COPY} -R $${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib/* Frameworks
-#}
+}
 
 #win32 {
 #    QMAKE_POST_LINK += $${QMAKE_COPY} $${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/bin/* $(OBJECTS_DIR)
 #}
 
 unix:!macx {
-    INCLUDEPATH += /usr/local/include/SFML ../../lib/Box2D-2.2.1/include
-    LIBS += -lGLEW -L../../lib/Box2D-2.2.1/lib-Linux64
+    INCLUDEPATH += /usr/local/include/SFML ../../lib/Box2D-2.3.0/include
+    LIBS += -lGLEW -L../../lib/Box2D-2.3.0/lib-Linux64
 }
 
 OTHER_FILES += \
