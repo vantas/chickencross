@@ -76,7 +76,7 @@
 			<Add directory="../../include" />
 			<Add directory="../../include/tmxloader" />
 			<Add directory="../../include/pugixml" />
-			<Add directory="../../lib/Box2D-2.2.1/include" />
+			<Add directory="../../lib/Box2D-2.3.0/include" />
 			<Add directory="../../lib/SFML-2.0/include" />
 		</Compiler>
 		<Linker>
@@ -85,6 +85,8 @@
 			<Add library="sfml-system" />
 			<Add library="sfml-audio" />
 			<Add library="Box2D" />
+			<Add library="z" />
+			<Add directory="../../lib/Box2D-2.3.0/lib-Linux64" />
 		</Linker>
 		<Unit filename="../../include/ClockHUD.h" />
 		<Unit filename="../../include/FrameClock.h" />

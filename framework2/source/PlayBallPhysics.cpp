@@ -135,7 +135,7 @@ void PlayBallPhysics::handleEvents(cgf::Game* game)
                     phys->setGravity(0);
             }
             else if(event.key.code == sf::Keyboard::Space)
-                pball->ApplyLinearImpulse(b2Vec2(0,-1200), pball->GetWorldCenter());
+                pball->ApplyLinearImpulse(b2Vec2(0,-1200), pball->GetWorldCenter(), true);
     }
 
     int dirx, diry;
@@ -167,7 +167,7 @@ void PlayBallPhysics::handleEvents(cgf::Game* game)
         screen->setView(view);
     }
 
-    pball->ApplyLinearImpulse(b2Vec2(dirx*100,diry*100), pball->GetWorldCenter());
+    pball->ApplyLinearImpulse(b2Vec2(dirx*100,diry*100), pball->GetWorldCenter(), true);
 }
 
 void PlayBallPhysics::update(cgf::Game* game)
