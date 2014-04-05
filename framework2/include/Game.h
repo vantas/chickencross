@@ -52,7 +52,6 @@ class Game
         bool showStats;
 
         int bpp; // bits per pixel (screen colour depth)
-        int flags; // SDL initialization flags
         std::stack<GameState*> states;
         // Fixed interval time-based animation
         sf::Clock gameClock;
