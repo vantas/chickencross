@@ -10,7 +10,6 @@
 #ifndef CGF_TEXTUREMANAGER_H
 #define CGF_TEXTUREMANAGER_H
 
-#include "Graphics.h"
 #include <map>
 #include <string>
 #include <SFML/Graphics.hpp>

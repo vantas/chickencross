@@ -11,7 +11,7 @@
 #include <cmath>
 #include "Game.h"
 #include "PlayPhysics.h"
-#include "PauseState.h"
+//#include "PauseState.h"
 #include "InputManager.h"
 
 PlayPhysics PlayPhysics::m_PlayPhysics;

@@ -11,7 +11,7 @@
 #include <cmath>
 #include "Game.h"
 #include "PlayState.h"
-#include "PauseState.h"
+//#include "PauseState.h"
 #include "InputManager.h"
 
 PlayState PlayState::m_PlayState;
