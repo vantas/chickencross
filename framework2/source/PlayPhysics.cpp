@@ -55,10 +55,10 @@ void PlayPhysics::init()
 
     phys = cgf::Physics::instance();
     phys->setGravity(30);
-    phys->setConvFactor(30);   
+    phys->setConvFactor(30);
 
     bplayer = phys->newRect(PLAYER, &player, 50, 0.1, 0.1);
-    bplayer->SetFixedRotation(true);
+//    bplayer->SetFixedRotation(true);
 
 //    bplayer->SetLinearDamping(10);
 

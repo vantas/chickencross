@@ -16,6 +16,11 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
+					<Add library="Box2D" />
 					<Add library="CGF-Linux" />
 					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Linux64" />
@@ -34,7 +39,13 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
+					<Add library="Box2D" />
 					<Add library="CGF-Linux" />
+					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Linux64" />
 					<Add directory="../../lib/SFML-2.2/lib-Linux64" />
 				</Linker>
@@ -49,6 +60,11 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add library="..\..\bin\sfml-graphics-2.dll" />
+					<Add library="..\..\bin\sfml-window-2.dll" />
+					<Add library="..\..\bin\sfml-system-2.dll" />
+					<Add library="..\..\bin\sfml-audio-2.dll" />
+					<Add library="CGF-Windows" />
 					<Add library="libz" />
 					<Add library="Box2D" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Windows-CB" />
@@ -67,8 +83,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="libz" />
 					<Add library="Box2D" />
+					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Windows-CB" />
 					<Add directory="../../lib/SFML-2.2/lib-Windows" />
 				</Linker>
@@ -83,11 +99,6 @@
 			<Add directory="../../lib/SFML-2.2/include" />
 		</Compiler>
 		<Linker>
-			<Add library="sfml-graphics" />
-			<Add library="sfml-window" />
-			<Add library="sfml-system" />
-			<Add library="sfml-audio" />
-			<Add library="Box2D" />
 			<Add directory="../../lib/Box2D-2.3.0/lib-Linux64" />
 			<Add directory="../../lib" />
 		</Linker>
