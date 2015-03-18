@@ -64,11 +64,11 @@
 					<Add library="..\..\bin\sfml-window-2.dll" />
 					<Add library="..\..\bin\sfml-system-2.dll" />
 					<Add library="..\..\bin\sfml-audio-2.dll" />
-					<Add library="CGF-Windows" />
-					<Add library="libz" />
+					<Add library="..\..\bin\CGF-Windows.dll" />
 					<Add library="Box2D" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Windows-CB" />
-					<Add directory="../../lib/SFML-2.2/lib-Windows" />
+					<Add directory="../../bin" />
+					<Add directory="../../lib" />
 				</Linker>
 			</Target>
 			<Target title="Release-Windows">
@@ -83,10 +83,14 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="..\..\bin\sfml-graphics-2.dll" />
+					<Add library="..\..\bin\sfml-window-2.dll" />
+					<Add library="..\..\bin\sfml-system-2.dll" />
+					<Add library="..\..\bin\sfml-audio-2.dll" />
+					<Add library="..\..\bin\CGF-Windows.dll" />
 					<Add library="Box2D" />
-					<Add library="libz" />
 					<Add directory="../../lib/Box2D-2.3.0/lib-Windows-CB" />
-					<Add directory="../../lib/SFML-2.2/lib-Windows" />
+					<Add directory="../../bin" />
 				</Linker>
 			</Target>
 		</Build>
@@ -99,7 +103,6 @@
 			<Add directory="../../lib/SFML-2.2/include" />
 		</Compiler>
 		<Linker>
-			<Add directory="../../lib/Box2D-2.3.0/lib-Linux64" />
 			<Add directory="../../lib" />
 		</Linker>
 		<Unit filename="../../include/MenuState.h" />

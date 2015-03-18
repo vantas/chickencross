@@ -58,7 +58,7 @@ void PlayPhysics::init()
     phys->setConvFactor(30);
 
     bplayer = phys->newRect(PLAYER, &player, 50, 0.1, 0.1);
-//    bplayer->SetFixedRotation(true);
+    bplayer->SetFixedRotation(true);
 
 //    bplayer->SetLinearDamping(10);
 
@@ -191,6 +191,7 @@ void PlayPhysics::update(cgf::Game* game)
     if(firstTime)
     {
         screen = game->getScreen();
+        screen->setVerticalSyncEnabled(true);
         phys->setRenderTarget(*screen);
         firstTime = false;
     }
