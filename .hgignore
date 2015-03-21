@@ -5,4 +5,4 @@ syntax: glob
 *.lyx~
 .DS_Store
 #framework2
-
+*-build-desktop
