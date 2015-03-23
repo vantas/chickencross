@@ -38,9 +38,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
-			<Add directory="../../include" />
-			<Add directory="../../include/tmxloader" />
-			<Add directory="../../include/pugixml" />
+			<Add directory="../../lib/CGF/include" />
+			<Add directory="../../lib/CGF/include/tmxloader" />
+			<Add directory="../../lib/CGF/include/pugixml" />
 			<Add directory="../../lib/Box2D-2.3.0/include" />
 			<Add directory="../../lib/SFML-2.2/include" />
 		</Compiler>
@@ -52,34 +52,37 @@
 			<Add library="Box2D" />
 			<Add library="z" />
 		</Linker>
-		<Unit filename="../../include/ClockHUD.h" />
-		<Unit filename="../../include/FrameClock.h" />
-		<Unit filename="../../include/Game.h" />
-		<Unit filename="../../include/GameState.h" />
-		<Unit filename="../../include/InputManager.h" />
-		<Unit filename="../../include/MenuState.h" />
-		<Unit filename="../../include/Physics.h" />
-		<Unit filename="../../include/Sprite.h" />
-		<Unit filename="../../include/TextureManager.h" />
-		<Unit filename="../../include/VectorUtils.h" />
-		<Unit filename="../../include/pugixml/pugiconfig.hpp" />
-		<Unit filename="../../include/pugixml/pugixml.hpp" />
-		<Unit filename="../../include/tmxloader/Helpers.h" />
-		<Unit filename="../../include/tmxloader/MapLoader.h" />
-		<Unit filename="../../include/tmxloader/MapObject.h" />
-		<Unit filename="../../include/tmxloader/QuadTreeNode.h" />
-		<Unit filename="../../include/tmxloader/zconf.h" />
-		<Unit filename="../../include/tmxloader/zlib.h" />
-		<Unit filename="../../source/EEDebugDraw3.cpp" />
-		<Unit filename="../../source/Game.cpp" />
-		<Unit filename="../../source/InputManager.cpp" />
-		<Unit filename="../../source/Physics.cpp" />
-		<Unit filename="../../source/Sprite.cpp" />
-		<Unit filename="../../source/TextureManager.cpp" />
-		<Unit filename="../../source/pugixml/pugixml.cpp" />
-		<Unit filename="../../source/tmxloader/MapLoaderPrivate.cpp" />
-		<Unit filename="../../source/tmxloader/MapLoaderPublic.cpp" />
-		<Unit filename="../../source/tmxloader/QuadTreeNode.cpp" />
+		<Unit filename="../../lib/CGF/include/Anim.h" />
+		<Unit filename="../../lib/CGF/include/ClockHUD.h" />
+		<Unit filename="../../lib/CGF/include/EEDebugDraw3.h" />
+		<Unit filename="../../lib/CGF/include/FrameClock.h" />
+		<Unit filename="../../lib/CGF/include/Game.h" />
+		<Unit filename="../../lib/CGF/include/GameState.h" />
+		<Unit filename="../../lib/CGF/include/InputManager.h" />
+		<Unit filename="../../lib/CGF/include/MenuState.h" />
+		<Unit filename="../../lib/CGF/include/Physics.h" />
+		<Unit filename="../../lib/CGF/include/Sprite.h" />
+		<Unit filename="../../lib/CGF/include/TexRect.h" />
+		<Unit filename="../../lib/CGF/include/TextureManager.h" />
+		<Unit filename="../../lib/CGF/include/VectorUtils.h" />
+		<Unit filename="../../lib/CGF/include/pugixml/pugiconfig.hpp" />
+		<Unit filename="../../lib/CGF/include/pugixml/pugixml.hpp" />
+		<Unit filename="../../lib/CGF/include/tmxloader/Helpers.h" />
+		<Unit filename="../../lib/CGF/include/tmxloader/MapLoader.h" />
+		<Unit filename="../../lib/CGF/include/tmxloader/MapObject.h" />
+		<Unit filename="../../lib/CGF/include/tmxloader/QuadTreeNode.h" />
+		<Unit filename="../../lib/CGF/include/tmxloader/zconf.h" />
+		<Unit filename="../../lib/CGF/include/tmxloader/zlib.h" />
+		<Unit filename="../../lib/CGF/source/EEDebugDraw3.cpp" />
+		<Unit filename="../../lib/CGF/source/Game.cpp" />
+		<Unit filename="../../lib/CGF/source/InputManager.cpp" />
+		<Unit filename="../../lib/CGF/source/Physics.cpp" />
+		<Unit filename="../../lib/CGF/source/Sprite.cpp" />
+		<Unit filename="../../lib/CGF/source/TextureManager.cpp" />
+		<Unit filename="../../lib/CGF/source/pugixml/pugixml.cpp" />
+		<Unit filename="../../lib/CGF/source/tmxloader/MapLoaderPrivate.cpp" />
+		<Unit filename="../../lib/CGF/source/tmxloader/MapLoaderPublic.cpp" />
+		<Unit filename="../../lib/CGF/source/tmxloader/QuadTreeNode.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

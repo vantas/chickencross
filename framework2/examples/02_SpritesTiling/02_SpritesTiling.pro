@@ -76,8 +76,10 @@ macx {
 #}
 
 unix:!macx {
-    INCLUDEPATH += /usr/local/include/SFML ../../lib/Box2D-2.3.0/include
-    LIBS += -lGLEW -L../../lib/Box2D-2.3.0/lib-Linux64
+    INCLUDEPATH += ../../lib/Box2D-2.3.0/include ../../lib/SFML-2.2/include
+    CURLIB = $$LIBS
+    LIBS = -L$${PWD}/../../lib/Box2D-2.3.0/lib-Linux64 -L$${PWD}/../../lib/SFML-2.2/lib-Linux64 -L$${PWD}/../../lib
+    LIBS += $$CURLIB -lGLEW -lCGF-Linux
 }
 
 OTHER_FILES += \
