@@ -6,7 +6,9 @@ The framework is based on SFML (Simple and Fast Multimedia Library), which alrea
 ### Quick start ###
 
 * Clone or download the repository contents
-* The "build" directory contains build files (projects) for a number of IDEs and platforms. Each directory also has a README file.
+* The repository contains a precompiled version of the library for Linux 64 bits (compiled on Mint 17.1), Windows and OSX (Compiled on Mavericks).
+* Examples can be found in the "examples" directory. Each has corresponding project files.
+* In order to rebuild the library, the "build" directory contains build files (projects) for Code::Blocks and QtCreator. Each directory also has a README file.
 
 ### Credits ###
 
