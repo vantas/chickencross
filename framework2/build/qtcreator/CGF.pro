@@ -14,36 +14,35 @@ TEMPLATE = lib
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
-SOURCES += ../../source/InputManager.cpp \
-    ../../source/tmxloader/QuadTreeNode.cpp \
-    ../../source/tmxloader/MapLoaderPublic.cpp \
-    ../../source/tmxloader/MapLoaderPrivate.cpp \
-    ../../source/pugixml/pugixml.cpp \
-    ../../source/TextureManager.cpp \
-    ../../source/Sprite.cpp \
-    ../../source/Game.cpp \
-    ../../source/Physics.cpp \
-    ../../source/EEDebugDraw3.cpp
+SOURCES += ../../lib/CGF/source/InputManager.cpp \
+    ../../lib/CGF/source/tmxloader/QuadTreeNode.cpp \
+    ../../lib/CGF/source/tmxloader/MapLoaderPublic.cpp \
+    ../../lib/CGF/source/tmxloader/MapLoaderPrivate.cpp \
+    ../../lib/CGF/source/pugixml/pugixml.cpp \
+    ../../lib/CGF/source/TextureManager.cpp \
+    ../../lib/CGF/source/Sprite.cpp \
+    ../../lib/CGF/source/Game.cpp \
+    ../../lib/CGF/source/Physics.cpp \
+    ../../lib/CGF/source/EEDebugDraw3.cpp
 
-HEADERS += ../../include/TextureManager.h \
-    ../../include/InputManager.h \
-    ../../include/Graphics.h \
-    ../../include/FrameClock.h \
-    ../../include/ClockHUD.h \
-    ../../include/tmxloader/zlib.h \
-    ../../include/tmxloader/zconf.h \
-    ../../include/tmxloader/QuadTreeNode.h \
-    ../../include/tmxloader/MapObject.h \
-    ../../include/tmxloader/MapLoader.h \
-    ../../include/tmxloader/Helpers.h \
-    ../../include/pugixml/pugixml.hpp \
-    ../../include/pugixml/pugiconfig.hpp \
-    ../../include/Sprite.h \
-    ../../include/Game.h \
-    ../../include/GameState.h \
-    ../../include/Anim.h \
-    ../../include/Physics.h \
-    ../../include/EEDebugDraw3.h
+HEADERS += ../../lib/CGF/include/TextureManager.h \
+    ../../lib/CGF/include/InputManager.h \
+    ../../lib/CGF/include/FrameClock.h \
+    ../../lib/CGF/include/ClockHUD.h \
+    ../../lib/CGF/include/tmxloader/zlib.h \
+    ../../lib/CGF/include/tmxloader/zconf.h \
+    ../../lib/CGF/include/tmxloader/QuadTreeNode.h \
+    ../../lib/CGF/include/tmxloader/MapObject.h \
+    ../../lib/CGF/include/tmxloader/MapLoader.h \
+    ../../lib/CGF/include/tmxloader/Helpers.h \
+    ../../lib/CGF/include/pugixml/pugixml.hpp \
+    ../../lib/CGF/include/pugixml/pugiconfig.hpp \
+    ../../lib/CGF/include/Sprite.h \
+    ../../lib/CGF/include/Game.h \
+    ../../lib/CGF/include/GameState.h \
+    ../../lib/CGF/include/Anim.h \
+    ../../lib/CGF/include/Physics.h \
+    ../../lib/CGF/include/EEDebugDraw3.h
 
 ###############################################
 # CONFIGURATION
@@ -77,7 +76,7 @@ unix:!macx {
 # SFML LIBRARY
 ###############################################
 
-INCLUDEPATH += ../../include ../../include/tinyxml ../../include/tmxloader
+INCLUDEPATH += ../../lib/CGF/include ../../lib/CGF/include/tinyxml ../../lib/CGF/include/tmxloader
 
 #INCLUDEPATH += "$${PWD}/library/sfml/include"
 LIBS += \#-L"$${PWD}/library/sfml/$${CONFIG_PLATFORM_PATH}/lib" \
