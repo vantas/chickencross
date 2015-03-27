@@ -13,6 +13,7 @@
 #include "GameState.h"
 #include "Sprite.h"
 #include "InputManager.h"
+#include "tmx/MapLoader.h"
 
 class PlayState : public cgf::GameState
 {
@@ -50,6 +51,8 @@ class PlayState : public cgf::GameState
     cgf::Sprite player;
     sf::RenderWindow* screen;
     cgf::InputManager* im;
+
+    tmx::MapLoader* map;
 };
 
 #endif
