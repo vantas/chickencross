@@ -83,6 +83,9 @@ void PlayState::handleEvents(cgf::Game* game)
 
     if(im->testEvent("stats"))
         game->toggleStats();
+
+    playSprite1.setXspeed(50*dirx);
+    playSprite1.setYspeed(50*diry);
 }
 
 void PlayState::update(cgf::Game* game)
