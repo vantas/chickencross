@@ -22,12 +22,6 @@ void PlayState::init()
     playSprite1.load("data/img/Char14.png");
     playSprite1.setPosition(10,100);
 
-    playSprite2.load("data/img/Char01.png");
-    playSprite2.setPosition(10,300);
-
-    playSprite3.load("data/img/Char01.png");
-    playSprite3.setPosition(50,300);
-
     dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
     diry = 0; // baixo (1), cima (-1)
 
@@ -93,18 +87,11 @@ void PlayState::handleEvents(cgf::Game* game)
 
 void PlayState::update(cgf::Game* game)
 {
-    float x = playSprite1.getPosition().x;
-    float y = playSprite1.getPosition().y;
-    x += dirx*5;
-    y += diry*5;
-    playSprite1.setPosition(x,y);
-    player.update(game->getUpdateInterval());
+    playSprite1.update(game->getUpdateInterval());
 }
 
 void PlayState::draw(cgf::Game* game)
 {
     screen = game->getScreen();
     screen->draw(playSprite1);
-    screen->draw(playSprite2);
-    screen->draw(playSprite3);
 }
