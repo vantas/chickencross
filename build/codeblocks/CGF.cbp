@@ -39,7 +39,7 @@
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add directory="../../lib/CGF/include" />
-			<Add directory="../../lib/CGF/include/tmxloader" />
+			<Add directory="../../lib/CGF/include/tmx" />
 			<Add directory="../../lib/CGF/include/pugixml" />
 			<Add directory="../../lib/Box2D-2.3.0/include" />
 			<Add directory="../../lib/SFML-2.2/include" />
