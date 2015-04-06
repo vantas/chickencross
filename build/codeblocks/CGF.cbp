@@ -54,6 +54,7 @@
 		</Linker>
 		<Unit filename="../../lib/CGF/include/Anim.h" />
 		<Unit filename="../../lib/CGF/include/ClockHUD.h" />
+		<Unit filename="../../lib/CGF/include/Collision.h" />
 		<Unit filename="../../lib/CGF/include/EEDebugDraw3.h" />
 		<Unit filename="../../lib/CGF/include/FrameClock.h" />
 		<Unit filename="../../lib/CGF/include/Game.h" />
@@ -76,6 +77,7 @@
 		<Unit filename="../../lib/CGF/include/tmx/tmx2box2d.h" />
 		<Unit filename="../../lib/CGF/include/tmx/zconf.h" />
 		<Unit filename="../../lib/CGF/include/tmx/zlib.h" />
+		<Unit filename="../../lib/CGF/source/Collision.cpp" />
 		<Unit filename="../../lib/CGF/source/EEDebugDraw3.cpp" />
 		<Unit filename="../../lib/CGF/source/Game.cpp" />
 		<Unit filename="../../lib/CGF/source/InputManager.cpp" />
