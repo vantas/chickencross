@@ -1,5 +1,5 @@
 /*********************************************************************
-Matt Marchant 2013 - 2014
+Matt Marchant 2013
 
 The zlib license has been used to make this software fully compatible
 with SFML. See http://www.sfml-dev.org/license.php
@@ -28,9 +28,8 @@ it freely, subject to the following restrictions:
 #ifndef HELPERS_H_
 #define HELPERS_H_
 
-#include <cmath>
+#include <math.h>
 #include <SFML/Graphics/Rect.hpp>
-#include <SFML/System/Vector2.hpp>
 
 //helper functions
 namespace Helpers
@@ -38,60 +37,21 @@ namespace Helpers
 	namespace Vectors
 	{
 		//returns length squared
-		static float GetLengthSquared(const sf::Vector2f& source)
+		static const float GetLengthSquared(const sf::Vector2f& source)
 		{
 			return (source.x * source.x) + (source.y * source.y);
 		}
 
 		//Returns length of a given vector
-		static float GetLength(const sf::Vector2f& source)
+		static const float GetLength(const sf::Vector2f& source)
 		{
-			return std::sqrt(GetLengthSquared(source));
+			return sqrt(GetLengthSquared(source));
 		}
 
 		//calculats dot product of 2 vectors
-		static float Dot(sf::Vector2f lv, sf::Vector2f rv)
+		static const float Dot(sf::Vector2f lv, sf::Vector2f rv)
 		{
 			return lv.x * rv.x + lv.y * rv.y;
-		}
-
-		static float Cross(const sf::Vector2f& lv, const sf::Vector2f& rv)
-		{
-			return lv.x * rv.y - lv.y * rv.x;
-		}
-		static float Cross(const sf::Vector2f& a, const sf::Vector2f& b, const sf::Vector2f& c)
-		{
-			sf::Vector2f BA = a - b;
-			sf::Vector2f BC = c - b;
-			return (BA.x * BC.y - BA.y * BC.x);
-		}
-
-		//Returns a given vector with its length normalized to 1
-		static sf::Vector2f Normalize(sf::Vector2f& source)
-		{
-			float length = std::sqrt(Dot(source, source));
-			if (length != 0) source /= length;
-
-			return source;
-		}
-
-		//Returns angle in degrees of a given vector where 0 is horizontal
-		static float GetAngle(const sf::Vector2f& source)
-		{
-			return std::atan2(source.y , source.x) * 180.f / 3.14159265f;
-		}
-	};
-	
-	namespace Math
-	{
-		static float Clamp(float x, float a, float b)
-		{
-			return x < a ? a : (x > b ? b : x);
-		}
-
-		static float Round(float val)
-		{
-			return std::floor(val + 0.5f);
 		}
 	};
 };

@@ -16,12 +16,8 @@ QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
 
 SOURCES += ../../lib/CGF/source/InputManager.cpp \
     ../../lib/CGF/source/tmxloader/QuadTreeNode.cpp \
-    ../../lib/CGF/source/tmxloader/MapLayer.cpp \
-    ../../lib/CGF/source/tmxloader/MapObject.cpp \
     ../../lib/CGF/source/tmxloader/MapLoaderPublic.cpp \
     ../../lib/CGF/source/tmxloader/MapLoaderPrivate.cpp \
-    ../../lib/CGF/source/tmxloader/DebugShape.cpp \
-    ../../lib/CGF/source/tmxloader/tmx2box2d.cpp \
     ../../lib/CGF/source/pugixml/pugixml.cpp \
     ../../lib/CGF/source/TextureManager.cpp \
     ../../lib/CGF/source/Sprite.cpp \
@@ -37,11 +33,8 @@ HEADERS += ../../lib/CGF/include/TextureManager.h \
     ../../lib/CGF/include/tmxloader/zconf.h \
     ../../lib/CGF/include/tmxloader/QuadTreeNode.h \
     ../../lib/CGF/include/tmxloader/MapObject.h \
-    ../../lib/CGF/include/tmxloader/MapLayer.h \
     ../../lib/CGF/include/tmxloader/MapLoader.h \
     ../../lib/CGF/include/tmxloader/Helpers.h \
-    ../../lib/CGF/include/tmxloader/DebugShape.h \
-    ../../lib/CGF/include/tmxloader/tmx2box2d.h \
     ../../lib/CGF/include/pugixml/pugixml.hpp \
     ../../lib/CGF/include/pugixml/pugiconfig.hpp \
     ../../lib/CGF/include/Sprite.h \

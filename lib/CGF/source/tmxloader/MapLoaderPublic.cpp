@@ -1,7 +1,6 @@
 /*********************************************************************
-Matt Marchant 2013 - 2014
+Matt Marchant 2013
 SFML Tiled Map Loader - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
-						http://trederia.blogspot.com/2013/05/tiled-map-loader-for-sfml.html
 
 The zlib license has been used to make this software fully compatible
 with SFML. See http://www.sfml-dev.org/license.php
@@ -32,34 +31,43 @@ it freely, subject to the following restrictions:
 using namespace tmx;
 
 //ctor
-MapLoader::MapLoader(const std::string& mapDirectory)
+MapLoader::MapLoader(const std::string mapDirectory)
 	: m_width			(1u),
 	m_height			(1u),
 	m_tileWidth			(1u),
 	m_tileHeight		(1u),
-	m_tileRatio			(1.f),
 	m_mapLoaded			(false),
-	m_quadTreeAvailable	(false),
-	m_failedImage		(false)
+    m_quadTreeAvailable	(false),
+	m_mapDirectory		(mapDirectory),
+	m_tileRatio			(1.f)
 {
 	//reserve some space to help reduce reallocations
 	m_layers.reserve(10);
+	m_tileTextures.reserve(80);
 
-	AddSearchPath(mapDirectory);
+	//check map directory contains trailing slash
+	if(!m_mapDirectory.empty() && *m_mapDirectory.rbegin() != '/')
+		m_mapDirectory += '/';
+
+}
+//dtor
+MapLoader::~MapLoader()
+{
+
 }
 
-bool MapLoader::Load(const std::string& map)
+const bool MapLoader::Load(std::string map)
 {
-	std::string mapPath = m_searchPaths[0] + m_FileFromPath(map);
+	map = m_mapDirectory + map;
 	m_Unload(); //clear any old data first
 
 	//parse map xml, return on error
 	pugi::xml_document mapDoc;
-	pugi::xml_parse_result result = mapDoc.load_file(mapPath.c_str());
+	pugi::xml_parse_result result = mapDoc.load_file(map.c_str());
 	if(!result)
 	{
-		std::cerr << "Failed to open " << map << std::endl;
-		std::cerr << "Reason: " << result.description() << std::endl;
+		std::cout << "Failed to open " << map << std::endl;
+		std::cout << "Reason: " << result.description() << std::endl;
 		return m_mapLoaded = false;
 	}
 
@@ -67,12 +75,14 @@ bool MapLoader::Load(const std::string& map)
 	pugi::xml_node mapNode = mapDoc.child("map");
 	if(!mapNode)
 	{
-		std::cerr << "Map node not found. Map " << map << " not loaded." << std::endl;
+		std::cout << "Map node not found. Map " << map << " not loaded." << std::endl;
 		return m_mapLoaded = false;
 	}
 	if(!(m_mapLoaded = m_ParseMapNode(mapNode))) return false;
+
 	//load map textures / tilesets
 	if(!(m_mapLoaded = m_ParseTileSets(mapNode))) return false;
+
 
 	//actually we need to traverse map node children and parse each layer as found
 	pugi::xml_node currentNode = mapNode.first_child();
@@ -103,38 +113,26 @@ bool MapLoader::Load(const std::string& map)
 				return false;
 			}
 		}
-		//std::cerr << name << std::endl;
+		//std::cout << name << std::endl;
 		currentNode = currentNode.next_sibling();
 	}
 
 	m_CreateDebugGrid();
 
-	std::cerr << "Parsed " << m_layers.size() << " layers." << std::endl;
-	std::cerr << "Loaded " << map << " successfully." << std::endl;
+	std::cout << "Parsed " << m_layers.size() << " layers." << std::endl;
+	std::cout << "Loaded " << map << " successfully." << std::endl;
 
 	return m_mapLoaded = true;
-}
-
-void MapLoader::AddSearchPath(const std::string& path)
-{
-	m_searchPaths.push_back(path);
-
-	std::string& s = m_searchPaths.back();
-	std::replace(s.begin(), s.end(), '\\', '/');
-
-	if(s.size() > 1 && *s.rbegin() != '/')
-		s += '/';
-	else if(s == "/" || s == "\\") s = "";
 }
 
 void MapLoader::UpdateQuadTree(const sf::FloatRect& rootArea)
 {
 	m_rootNode.Clear(rootArea);
-	for(const auto& layer : m_layers)
+	for(auto layer = m_layers.begin(); layer != m_layers.end(); ++layer)
 	{
-		for(const auto& object : layer.objects)
+		for(auto object = layer->objects.begin(); object != layer->objects.end(); ++object)
 		{
-			m_rootNode.Insert(object);
+			m_rootNode.Insert(*object);
 		}
 	}
 	m_quadTreeAvailable = true;
@@ -143,66 +141,111 @@ void MapLoader::UpdateQuadTree(const sf::FloatRect& rootArea)
 std::vector<MapObject*> MapLoader::QueryQuadTree(const sf::FloatRect& testArea)
 {
 	//quad tree must be updated at least once with UpdateQuadTree before we can call this
-	assert(m_quadTreeAvailable);
+	if(!m_quadTreeAvailable) throw;
 	return m_rootNode.Retrieve(testArea);
 }
 
-std::vector<MapLayer>& MapLoader::GetLayers()
-{
-	return m_layers;
-}
-
-const std::vector<MapLayer>& MapLoader::GetLayers() const
-{
-	return m_layers;
-}
-
-void MapLoader::Draw(sf::RenderTarget& rt, MapLayer::DrawType type, bool debug)
+void MapLoader::Draw(sf::RenderTarget& rt)
 {
 	m_SetDrawingBounds(rt.getView());
+	for(auto layer = m_layers.begin(); layer != m_layers.end(); ++layer)
+	{
+		if(!layer->visible) continue; //skip invisible layers
+		for(unsigned i = 0; i < layer->vertexArrays.size(); i++)
+		{
+			rt.draw(layer->vertexArrays[i], &m_tilesetTextures[i]);
+		}
+		if(layer->type == ObjectGroup || layer->type == ImageLayer)
+		{
+			//draw tiles used on objects
+			for(auto tile = layer->tiles.begin(); tile != layer->tiles.end(); ++tile)
+			{
+				//draw tile if in bounds and is not transparent
+				if((m_bounds.contains(tile->sprite.getPosition()) && tile->sprite.getColor().a)
+					|| layer->type == ImageLayer) //always draw image layer
+				{
+					rt.draw(tile->sprite, tile->renderStates);
+				}
+			}
+		}
+	}
+}
+
+void MapLoader::Draw(sf::RenderTarget& rt, MapLayer::DrawType type)
+{
 	switch(type)
 	{
 	default:
 	case MapLayer::All:
-		for(const auto& l : m_layers)
-			rt.draw(l);
+		Draw(rt);
 		break;
 	case MapLayer::Back:
 		{
 		//remember front of vector actually draws furthest back
 		MapLayer& layer = m_layers.front();
-		m_DrawLayer(rt, layer, debug);
+		m_DrawLayer(rt, layer);
 		}
 		break;
 	case MapLayer::Front:
 		{
 		MapLayer& layer = m_layers.back();
-		m_DrawLayer(rt, layer, debug);
+		m_DrawLayer(rt, layer);
 		}
 		break;
 	case MapLayer::Debug:
+		m_SetDrawingBounds(rt.getView());
 		for(auto layer : m_layers)
 		{
-			if(layer.type == ObjectGroup)
+			if(layer.type = ObjectGroup)
 			{
-				for(const auto& object : layer.objects)
-					if (m_bounds.intersects(object.GetAABB()))
-						object.DrawDebugShape(rt);
+			for(auto object : layer.objects)		
+				object.DrawDebugShape(rt);
 			}
 		}
 		rt.draw(m_gridVertices);
-		rt.draw(m_rootNode);
+		m_rootNode.DebugDraw(rt);
 		break;
 	}
 }
 
-void MapLoader::Draw(sf::RenderTarget& rt, sf::Uint16 index, bool debug)
+void MapLoader::Draw(sf::RenderTarget& rt, sf::Uint16 index)
 {
-	m_SetDrawingBounds(rt.getView());
-	m_DrawLayer(rt, m_layers[index], debug);
+	m_DrawLayer(rt, m_layers[index]);
 }
 
-sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projectedCoords)
+//legacy draw function, avoid using this if possible
+void MapLoader::Draw2(sf::RenderTarget& rt, bool debug)
+{
+	if(!m_mapLoaded) return; //no need to log this really
+	//draw only visible tiles
+	m_SetDrawingBounds(rt.getView());
+	for(auto layer = m_layers.begin(); layer != m_layers.end(); ++layer)
+	{
+		if(!layer->visible) continue; //skip invisible layers
+		for(auto tile = layer->tiles.begin(); tile != layer->tiles.end(); ++tile)
+		{
+			//draw tile if in bounds and is not transparent
+			if((m_bounds.contains(tile->sprite.getPosition()) && tile->sprite.getColor().a)
+				|| layer->type == ImageLayer) //always draw image layer
+			{
+				rt.draw(tile->sprite, tile->renderStates);
+			}
+		}
+		if(debug && layer->type == ObjectGroup)
+		{
+			//draw debug shapes for each object
+			for(auto object = layer->objects.begin(); object != layer->objects.end(); ++object)
+				object->DrawDebugShape(rt);
+		}
+	}
+	if(debug)
+	{
+		rt.draw(m_gridVertices);
+		m_rootNode.DebugDraw(rt);
+	}
+}
+
+const sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projectedCoords)
 {
 	//skip converting if we don't actually have an isometric map loaded
 	if(m_orientation != Isometric) return projectedCoords;
@@ -210,49 +253,10 @@ sf::Vector2f MapLoader::IsometricToOrthogonal(const sf::Vector2f& projectedCoord
 	return sf::Vector2f(projectedCoords.x - projectedCoords.y, (projectedCoords.x / m_tileRatio) + (projectedCoords.y / m_tileRatio));
 }
 
-sf::Vector2f MapLoader::OrthogonalToIsometric(const sf::Vector2f& worldCoords)
+const sf::Vector2f MapLoader::OrthogonalToIsometric(const sf::Vector2f& worldCoords)
 {
 	if(m_orientation != Isometric) return worldCoords;
 
 	return sf::Vector2f(((worldCoords.x / m_tileRatio) + worldCoords.y),
 							(worldCoords.y - (worldCoords.x / m_tileRatio)));
-}
-
-sf::Vector2u MapLoader::GetMapSize() const
-{
-	return sf::Vector2u(m_width * m_tileWidth, m_height * m_tileHeight);
-}
-
-std::string MapLoader::GetPropertyString(const std::string& name)
-{
-	assert(m_properties.find(name) != m_properties.end());
-	return m_properties[name];
-}
-
-void MapLoader::SetLayerShader(sf::Uint16 layerId, const sf::Shader& shader)
-{
-	m_layers[layerId].SetShader(shader);
-}
-
-bool MapLoader::QuadTreeAvailable() const
-{
-	return m_quadTreeAvailable;
-}
-
-
-
-MapLoader::TileInfo::TileInfo()
-	: TileSetId (0u)
-{
-
-}
-
-MapLoader::TileInfo::TileInfo(const sf::IntRect& rect, const sf::Vector2f& size, sf::Uint16 tilesetId)
-	: Size		(size),
-	TileSetId	(tilesetId)
-{
-	Coords[0] = sf::Vector2f(static_cast<float>(rect.left), static_cast<float>(rect.top));
-	Coords[1] = sf::Vector2f(static_cast<float>(rect.left + rect.width), static_cast<float>(rect.top));
-	Coords[2] = sf::Vector2f(static_cast<float>(rect.left + rect.width), static_cast<float>(rect.top + rect.height));
-	Coords[3] = sf::Vector2f(static_cast<float>(rect.left), static_cast<float>(rect.top + rect.height));
 }

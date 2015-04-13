@@ -1,34 +1,3 @@
-/*********************************************************************
-Matt Marchant 2013 - 2014
-SFML Tiled Map Loader - https://github.com/bjorn/tiled/wiki/TMX-Map-Format
-						http://trederia.blogspot.com/2013/05/tiled-map-loader-for-sfml.html
-
-The zlib license has been used to make this software fully compatible
-with SFML. See http://www.sfml-dev.org/license.php
-
-This software is provided 'as-is', without any express or
-implied warranty. In no event will the authors be held
-liable for any damages arising from the use of this software.
-
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute
-it freely, subject to the following restrictions:
-
-1. The origin of this software must not be misrepresented;
-   you must not claim that you wrote the original software.
-   If you use this software in a product, an acknowledgment
-   in the product documentation would be appreciated but
-   is not required.
-
-2. Altered source versions must be plainly marked as such,
-   and must not be misrepresented as being the original software.
-
-3. This notice may not be removed or altered from any
-   source distribution.
-*********************************************************************/
-
-
-
 ///Creates a node used to build quad trees for spatial partitioning of MapObjects///
 //Example usage: create a root node the size of the viewable area, and insert each
 //available map object. Then test the root node by calling retrieve passing for example
@@ -39,22 +8,37 @@ it freely, subject to the following restrictions:
 #ifndef QUADTREE_NODE_H_
 #define QUADTREE_NODE_H_
 
+//#include <Game/Common.h>
 #include <tmx/MapObject.h>
 #include <memory>
 
 namespace tmx
 {
-	class QuadTreeNode : public sf::Drawable
+	class QuadTreeNode
 	{
 	public:
-		QuadTreeNode(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+		QuadTreeNode(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f))
+			: MAX_OBJECTS(5u), MAX_LEVELS(5u), m_level(level),
+			m_bounds(bounds)
+		{ 
+			m_children.reserve(4); 
+			m_debugShape = sf::RectangleShape(sf::Vector2f(bounds.width, bounds.height));
+			m_debugShape.setPosition(bounds.left, bounds.top);
+			m_debugShape.setFillColor(sf::Color::Transparent);
+			m_debugShape.setOutlineColor(sf::Color::Green);
+			m_debugShape.setOutlineThickness(-2.f);
+
+		};
+
 		virtual ~QuadTreeNode(){};
 
 		//fills vector with references to all objects which
 		//appear in quads which are contained or intersect bounds.
 		std::vector<MapObject*> Retrieve(const sf::FloatRect& bounds, sf::Uint16& currentDepth);
 		//inserts a reference to the object into the node's object list
-		void Insert(const MapObject& object);
+		void Insert(MapObject& object);
+		//draws the node and any child nodes to given target
+		void DebugDraw(sf::RenderTarget& rt);
 	protected:
 		//maximum objects per node before splitting
 		const sf::Uint16 MAX_OBJECTS;
@@ -75,12 +59,10 @@ namespace tmx
 		//divides node by creating 4 children
 		void m_Split(void);
 
-	private:
-		void draw(sf::RenderTarget& rt, sf::RenderStates states) const;
 	};
 
 	//specialisation of QuadTreeNode for counting tree depth
-	class QuadTreeRoot final : public QuadTreeNode
+	class QuadTreeRoot : public QuadTreeNode
 	{
 	public:
 		QuadTreeRoot(sf::Uint16 level = 0, const sf::FloatRect& bounds = sf::FloatRect(0.f, 0.f, 1.f, 1.f))

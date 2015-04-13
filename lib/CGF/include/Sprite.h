@@ -41,6 +41,19 @@ public:
     void setVisible(bool vis) { visible = vis; }
     bool isVisible() { return visible; }
 
+    // Get sprite bounds in local coords
+    sf::FloatRect getLocalBounds() {
+        float width = static_cast<float>(spriteW);
+        float height = static_cast<float>(spriteH);
+
+        return sf::FloatRect(0.f, 0.f, width, height);
+    }
+
+    // Get sprite bounds in global coords
+    sf::FloatRect getGlobalBounds() {
+        return getTransform().transformRect(getLocalBounds());
+    }
+
     // Mirroring (X-axis)
     void setMirror(bool mirror) { this->mirror = mirror; setCurrentFrame(curframe); }
     bool getMirror() { return mirror; }
