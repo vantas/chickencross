@@ -154,7 +154,7 @@ void PlayState::update(cgf::Game* game)
 void PlayState::draw(cgf::Game* game)
 {
     screen = game->getScreen();
-    screen->draw(*map);          // draw all layers
+    map->Draw(*screen);          // draw all layers
 //    map->Draw(*screen, 1);     // draw only the second layer
     screen->draw(player);
     screen->draw(text);
