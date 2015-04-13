@@ -85,13 +85,9 @@
 		<Unit filename="../../lib/CGF/source/Sprite.cpp" />
 		<Unit filename="../../lib/CGF/source/TextureManager.cpp" />
 		<Unit filename="../../lib/CGF/source/pugixml/pugixml.cpp" />
-		<Unit filename="../../lib/CGF/source/tmxloader/DebugShape.cpp" />
-		<Unit filename="../../lib/CGF/source/tmxloader/MapLayer.cpp" />
 		<Unit filename="../../lib/CGF/source/tmxloader/MapLoaderPrivate.cpp" />
 		<Unit filename="../../lib/CGF/source/tmxloader/MapLoaderPublic.cpp" />
-		<Unit filename="../../lib/CGF/source/tmxloader/MapObject.cpp" />
 		<Unit filename="../../lib/CGF/source/tmxloader/QuadTreeNode.cpp" />
-		<Unit filename="../../lib/CGF/source/tmxloader/tmx2box2d.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
