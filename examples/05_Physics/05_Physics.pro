@@ -18,7 +18,6 @@ SOURCES += \
     PlayState.cpp
 
 HEADERS += \
-    MenuState.h \
     PlayState.h
 
 ###############################################
