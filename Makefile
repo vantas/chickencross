@@ -1,6 +1,6 @@
-TARGET       = ../../bin/chicken
-INCLUDE_PATH = -I../../lib/CGF/include
-LIB_PATH     = -L../../lib/CFG/lib -L../../lib
+TARGET       = bin/chicken
+INCLUDE_PATH = -Ilib/CGF/include
+LIB_PATH     = -Llib/CFG/lib -Llib
 CXX          = clang++
 CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
 
@@ -8,7 +8,7 @@ CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
 SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system
 CGF_LIB = -lCGF-Linux
 
-SOURCES = $(wildcard ../../source/*.cpp)
+SOURCES = $(wildcard source/*.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: $(OBJECTS)
