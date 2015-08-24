@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "MenuState.h"
 
-int main(int argc, char **argv)
+int main(int /*argc*/, char** /*argv*/)
 {
   cgf::Game game(5,30);
 
