@@ -7,43 +7,39 @@
  *
  */
 
-#ifndef _MENU_STATE_H_
-#define _MENU_STATE_H_
+#pragma once
 
 #include "GameState.h"
 #include "Sprite.h"
 
 class MenuState : public cgf::GameState
 {
-    public:
+public:
 
-    void init();
-    void cleanup();
+  void init();
+  void cleanup();
 
-    void pause();
-    void resume();
+  void pause();
+  void resume();
 
-    void handleEvents(cgf::Game* game);
-    void update(cgf::Game* game);
-    void draw(cgf::Game* game);
+  void handleEvents(cgf::Game* game);
+  void update(cgf::Game* game);
+  void draw(cgf::Game* game);
 
     // Implement Singleton Pattern
-    static MenuState* instance()
-    {
-        return &m_MenuState;
-    }
+  static MenuState* instance()
+  {
+    return &m_MenuState;
+  }
 
-    protected:
+protected:
 
-    MenuState() {}
+  MenuState() {}
 
-    private:
+private:
 
-    static MenuState m_MenuState;
+  static MenuState m_MenuState;
 
-    cgf::Sprite menuSprite;
+  cgf::Sprite menuSprite;
 
 };
-
-#endif
-

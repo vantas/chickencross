@@ -7,8 +7,7 @@
  *
  */
 
-#ifndef PLAY_STATE_H_
-#define PLAY_STATE_H_
+#pragma once
 
 #include "GameState.h"
 #include "Sprite.h"
@@ -16,40 +15,35 @@
 
 class PlayState : public cgf::GameState
 {
-    public:
+public:
+  void init();
+  void cleanup();
 
-    void init();
-    void cleanup();
+  void pause();
+  void resume();
 
-    void pause();
-    void resume();
+  void handleEvents(cgf::Game* game);
+  void update(cgf::Game* game);
+  void draw(cgf::Game* game);
 
-    void handleEvents(cgf::Game* game);
-    void update(cgf::Game* game);
-    void draw(cgf::Game* game);
+  // Implement Singleton Pattern
+  static PlayState* instance()
+  {
+      return &m_PlayState;
+  }
 
-    // Implement Singleton Pattern
-    static PlayState* instance()
-    {
-        return &m_PlayState;
-    }
+protected:
+  PlayState() {}
 
-    protected:
+private:
+  static PlayState m_PlayState;
 
-    PlayState() {}
-
-    private:
-
-    static PlayState m_PlayState;
-
-    int x, y;
-    int dirx, diry;
-    cgf::Sprite playSprite1;
-    cgf::Sprite playSprite2;
-    cgf::Sprite playSprite3;
-    cgf::Sprite player;
-    sf::RenderWindow* screen;
-    cgf::InputManager* im;
+  int x, y;
+  int dirx, diry;
+  cgf::Sprite playSprite1;
+  cgf::Sprite playSprite2;
+  cgf::Sprite playSprite3;
+  cgf::Sprite player;
+  sf::RenderWindow* screen;
+  cgf::InputManager* im;
 };
-
-#endif
