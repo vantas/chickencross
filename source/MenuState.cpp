@@ -78,7 +78,7 @@ void MenuState::handleEvents(cgf::Game* game)
   }
 }
 
-void MenuState::update(cgf::Game* game)
+void MenuState::update(cgf::Game* /*game*/)
 {
 }
 
