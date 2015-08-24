@@ -1,5 +1,5 @@
 TARGET       = bin/chicken
-INCLUDE_PATH = -Ilib/CGF/include
+INCLUDE_PATH = -I/usr/include/ -Ilib/CGF/include
 LIB_PATH     = -Llib/CFG/lib -Llib
 CXX          = clang++
 CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
