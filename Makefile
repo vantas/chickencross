@@ -1,10 +1,10 @@
 TARGET       = bin/chicken
 INCLUDE_PATH = -I/usr/include/ -Ilib/CGF/include -Ilib/CGF/include/tmxloader -Ilib/CGF/include/pugixml
-LIB_PATH     = -Llib/CFG/lib -Llib
+LIB_PATH     = -Llib/CGF/lib -Llib
 CXX          = clang++
 CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
 
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lBox2D -lCGF-Linux -lz
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lBox2D -lCGF -lz
 
 SOURCES = $(wildcard source/*.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
