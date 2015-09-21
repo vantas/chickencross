@@ -1,13 +1,14 @@
 TARGET 		   = ../../bin/libCGF.dylib
-INCLUDE_PATH = -Iinclude -Iinclude/tmxloader -Iinclude/pugixml
+INCLUDE_PATH = -Iinclude -Iinclude/tmxloader -Iinclude/pugixml -I../Box2D-2.3.0/include
 CXX          = clang++
 CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
 LIB_FLAGS    = -dynamiclib
 UNAME_S      = $(shell uname -s)
-LIBS         = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lBox2D -lz
+LIBS         = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lz
 
 ifeq ($(UNAME_S),Linux)
-	TARGET     = ../../bin/libCGF.so
+	#TARGET     = ../../bin/libCGF.so
+	TARGET     = lib/libCGF.so
 	CXX_FLAGS  += -fPIC
 	LIB_FLAGS  = -shared
 endif
