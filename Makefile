@@ -1,6 +1,6 @@
 TARGET       = bin/chicken
-INCLUDE_PATH = -I/usr/include/ -Ilib/CGF/include -Ilib/CGF/include/tmxloader -Ilib/CGF/include/pugixml
-LIB_PATH     = -Llib/CGF/lib -Llib -Llib/Box2D-2.3.0/lib-Linux64
+INCLUDE_PATH = -I/usr/include/ -I/usr/local/include -Ilib/CGF/include -Ilib/CGF/include/tmxloader -Ilib/CGF/include/pugixml
+LIB_PATH     = -Llib/CGF/lib -Llib -Llib/Box2D-2.3.0/lib-Linux64 -L/usr/local/lib
 CXX          = clang++
 CXX_FLAGS    = -std=c++11 -Wall -Wextra $(INCLUDE_PATH)
 
