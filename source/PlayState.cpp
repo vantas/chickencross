@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "PlayState.h"
 #include "InputManager.h"
+#include "WonState.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -93,6 +94,7 @@ void PlayState::update(cgf::Game* game)
 
   if (y < 50) {
     cout << "Player won, yo" << endl;
+    game->changeState(WonState::instance());
   }
 
   playSprite1.setPosition(x,y);
