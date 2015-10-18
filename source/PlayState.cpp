@@ -20,7 +20,7 @@ using namespace std;
 void PlayState::init()
 {
   playSprite1.load("data/img/Char14.png");
-  playSprite1.setPosition(10,100);
+  playSprite1.setPosition(400,550);
 
   dirx = 0; // sprite direction: right (1), left (-1)
   diry = 0; // down (1), up (-1)
@@ -90,6 +90,11 @@ void PlayState::update(cgf::Game* game)
   float y = playSprite1.getPosition().y;
   x += dirx*5;
   y += diry*5;
+
+  if (y < 50) {
+    cout << "Player won, yo" << endl;
+  }
+
   playSprite1.setPosition(x,y);
   player.update(game->getUpdateInterval());
 }
