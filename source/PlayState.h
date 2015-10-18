@@ -40,8 +40,6 @@ private:
 
   int dirx, diry;
   cgf::Sprite playSprite1;
-  cgf::Sprite playSprite2;
-  cgf::Sprite playSprite3;
   cgf::Sprite player;
   sf::RenderWindow* screen;
   cgf::InputManager* im;

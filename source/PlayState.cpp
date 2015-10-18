@@ -22,12 +22,6 @@ void PlayState::init()
   playSprite1.load("data/img/Char14.png");
   playSprite1.setPosition(10,100);
 
-  playSprite2.load("data/img/Char01.png");
-  playSprite2.setPosition(10,300);
-
-  playSprite3.load("data/img/Char01.png");
-  playSprite3.setPosition(50,300);
-
   dirx = 0; // sprite direction: right (1), left (-1)
   diry = 0; // down (1), up (-1)
 
@@ -104,6 +98,4 @@ void PlayState::draw(cgf::Game* game)
 {
   screen = game->getScreen();
   screen->draw(playSprite1);
-  screen->draw(playSprite2);
-  screen->draw(playSprite3);
 }
