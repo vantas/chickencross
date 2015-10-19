@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animation name="walk">
+    <sequence name="walk-up"    start="0" end="2" loop="true" />
+    <sequence name="walk-right" start="3" end="5" loop="true" />
+    <sequence name="walk-down"  start="6" end="8" loop="true" />
+    <sequence name="walk-left"  start="9" end="11" loop="true" />
+</animation>
