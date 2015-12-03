@@ -62,6 +62,33 @@ void PlayState::resume()
   cout << "PlayState: Resumed" << endl;
 }
 
+void PlayState::centerMapOnPlayer()
+{
+  sf::View view = screen->getView();
+  sf::Vector2u mapsize = map->GetMapSize();
+  sf::Vector2f viewsize = view.getSize();
+  viewsize.x /= 2;
+  viewsize.y /= 2;
+  sf::Vector2f pos = player.getPosition();
+
+  float panX = viewsize.x; // minimum pan
+  if(pos.x >= viewsize.x)
+    panX = pos.x;
+
+  if(panX >= mapsize.x - viewsize.x)
+    panX = mapsize.x - viewsize.x;
+
+  float panY = viewsize.y; // minimum pan
+  if(pos.y >= viewsize.y)
+    panY = pos.y;
+
+  if(panY >= mapsize.y - viewsize.y)
+    panY = mapsize.y - viewsize.y;
+
+  view.setCenter(sf::Vector2f(panX,panY));
+  screen->setView(view);
+}
+
 void PlayState::handleEvents(cgf::Game* game)
 {
   sf::Event event;
@@ -112,6 +139,9 @@ void PlayState::update(cgf::Game* game)
     cout << "Player won, yo" << endl;
     game->changeState(WonState::instance());
   }
+
+  screen = game->getScreen();
+  centerMapOnPlayer();
 
   playSprite1.setPosition(x,y);
   playSprite1.update(game->getUpdateInterval());

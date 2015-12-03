@@ -47,4 +47,6 @@ private:
   cgf::InputManager* im;
 
   tmx::MapLoader* map;
+
+  void centerMapOnPlayer();
 };
