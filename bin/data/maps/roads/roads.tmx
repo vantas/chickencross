@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="roadEW" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadEW.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="65" name="roadNE" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadNE.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="129" name="roadNEWS" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadNEWS.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="193" name="roadNS" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadNS.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="257" name="roadNW" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadNW.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="321" name="roadPLAZA" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadPLAZA.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="385" name="roadSE" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadSE.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="449" name="roadSW\" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadSW.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="513" name="roadTE" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadTE.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="577" name="roadTE" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadTE.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="641" name="roadTN" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadTN.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="705" name="roadTS" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadTS.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="769" name="roadTW" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="roadTW.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Road" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1VlOwzAYhdFugaFAaSljmSnsf3XcBURypCbKL/kc6XuJ7dfc1YpKztJ5ukiXaZ2u0nW6mfG89a5Xm3SbtmmX7tI+3aeHGc9b73r1mJ7Sc3pJh/Sa3tL7jOetd736SJ/pK32nn3RMv+lvxvPWu15NvQ9j79uPYVPvw9j79mPY1Psw9r79GDb1Poy9bz+G2Y9a7Ect9qMW+1GL/ajFftRiP2qxH7XYj1rsRy32oxb7UUvrP77U9161/uNLfe9V6z++1Pdetf7jS30HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOA0/1Cdc0k=
+  </data>
+ </layer>
+ <layer name="Finish" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzLENwCAQBEFcGmBs+q+Ia8BIRE5mpE3upa9XKS31dKeRnlQ/9ndzO9l3/2cCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/LEBCCjU=
+  </data>
+ </layer>
+ <layer name="Start" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzDsKgEAQRMHZo/nb9f4nsgMjEcRwoQpeMjRTBQAAAAAAAAAAAPNbW9WW9nSknkY675b2vvl7H49/XzsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYD4X1IkKRw==
+  </data>
+ </layer>
+</map>
