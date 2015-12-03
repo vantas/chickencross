@@ -39,11 +39,16 @@ void PlayState::init()
   im->addKeyInput("stats", sf::Keyboard::S);
   im->addMouseInput("rightclick", sf::Mouse::Right);
 
+  map = new tmx::MapLoader("data/maps/roads");
+
+  map->Load("roads.tmx");
+
   cout << "PlayState: Init" << endl;
 }
 
 void PlayState::cleanup()
 {
+  delete map;
   cout << "PlayState: Clean" << endl;
 }
 
@@ -117,5 +122,6 @@ void PlayState::update(cgf::Game* game)
 void PlayState::draw(cgf::Game* game)
 {
   screen = game->getScreen();
+  map->Draw(*screen);
   screen->draw(playSprite1);
 }
