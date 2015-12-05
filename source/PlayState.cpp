@@ -7,11 +7,12 @@
  *
  */
 
-#include <iostream>
 #include <cmath>
+#include <iostream>
+
 #include "Game.h"
-#include "PlayState.h"
 #include "InputManager.h"
+#include "PlayState.h"
 #include "WonState.h"
 
 PlayState PlayState::m_PlayState;
@@ -37,6 +38,14 @@ void PlayState::init()
   music.setLoop(true);  // modo de loop: repete continuamente.
   music.play();
 
+  int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
+  for (int i = 0; i < 10; i++)
+  {
+    auto car = new Car(rand() % 801, carY[i]);
+    car->init();
+    cars.insert(car);
+  }
+
   chicken.init();
 
   cout << "PlayState: Init" << endl;
@@ -45,6 +54,12 @@ void PlayState::init()
 void PlayState::cleanup()
 {
   chicken.cleanup();
+
+  for (auto it = cars.begin(); it != cars.end(); ++it)
+  {
+    (*it)->cleanup();
+    delete *it;
+  }
   delete map;
   cout << "PlayState: Clean" << endl;
 }
@@ -71,11 +86,15 @@ void PlayState::handleEvents(cgf::Game* game)
   }
 
   chicken.handleEvents(game, im);
+  for (auto it = cars.begin(); it != cars.end(); ++it)
+    (*it)->handleEvents(game, im);
 }
 
 void PlayState::update(cgf::Game* game)
 {
   chicken.update(game);
+  for (auto it = cars.begin(); it != cars.end(); ++it)
+    (*it)->update(game);
 }
 
 void PlayState::draw(cgf::Game* game)
@@ -83,4 +102,6 @@ void PlayState::draw(cgf::Game* game)
   screen = game->getScreen();
   map->Draw(*screen);
   chicken.draw(game);
+  for (auto it = cars.begin(); it != cars.end(); ++it)
+    (*it)->draw(game);
 }

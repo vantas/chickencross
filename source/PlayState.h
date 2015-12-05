@@ -9,8 +9,10 @@
 
 #pragma once
 
+#include <set>
 #include <tmx/MapLoader.h>
 
+#include "Car.h"
 #include "Chicken.h"
 #include "GameState.h"
 #include "InputManager.h"
@@ -48,6 +50,8 @@ private:
   sf::Music music;
 
   Chicken chicken;
+
+  set<Car*> cars;
 
   void centerMapOnPlayer();
 };

@@ -25,8 +25,8 @@ private:
   int dirx, diry;
 
   sf::RenderWindow* screen;
-  cgf::Sprite chickenSprite;
+  cgf::Sprite sprite;
 
-  sf::SoundBuffer chickenSoundBuffer;
-  sf::Sound chickenSound;
+  sf::SoundBuffer cluckSoundBuffer;
+  sf::Sound cluckSound;
 };

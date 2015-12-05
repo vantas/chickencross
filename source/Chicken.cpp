@@ -15,20 +15,20 @@ void Chicken::init()
   walkStates[3] = "walk-down";
   currentDir = RIGHT;
 
-  chickenSprite.load("data/maps/chicken.png", 32, 32, 20, 32, 8, 24, 3, 4, 12);
-  chickenSprite.setPosition(400,550);
+  sprite.load("data/maps/chicken.png", 32, 32, 20, 32, 8, 24, 3, 4, 12);
+  sprite.setPosition(400,550);
 
-  chickenSprite.loadAnimation("data/maps/chicken.xml");
-  chickenSprite.setAnimation(walkStates[currentDir]);
-  chickenSprite.setAnimRate(15);
-  chickenSprite.play();
+  sprite.loadAnimation("data/maps/chicken.xml");
+  sprite.setAnimation(walkStates[currentDir]);
+  sprite.setAnimRate(15);
+  sprite.play();
 
   dirx = 0; // sprite direction: right (1), left (-1)
   diry = 0; // down (1), up (-1)
 
-  chickenSoundBuffer.loadFromFile("data/audio/chicken.wav");
-  chickenSound.setBuffer(chickenSoundBuffer);
-  chickenSound.setAttenuation(0);
+  cluckSoundBuffer.loadFromFile("data/audio/chicken.wav");
+  cluckSound.setBuffer(cluckSoundBuffer);
+  cluckSound.setAttenuation(0);
 }
 
 void Chicken::cleanup() {}
@@ -69,33 +69,33 @@ void Chicken::handleEvents(cgf::Game* game, cgf::InputManager* im)
     game->toggleStats();
 
   if (dirx == 0 && diry == 0)
-    chickenSprite.pause();
+    sprite.pause();
   else
   {
     if (currentDir != newDir)
     {
-      chickenSprite.setAnimation(walkStates[newDir]);
+      sprite.setAnimation(walkStates[newDir]);
       currentDir = newDir;
     }
-    chickenSprite.play();
+    sprite.play();
   }
 
-  chickenSprite.setXspeed(100*dirx);
-  chickenSprite.setYspeed(100*diry);
+  sprite.setXspeed(100*dirx);
+  sprite.setYspeed(100*diry);
 }
 
 void Chicken::update(cgf::Game* game)
 {
-  chickenSprite.update(game->getUpdateInterval());
+  sprite.update(game->getUpdateInterval());
 }
 
 void Chicken::draw(cgf::Game* game)
 {
   screen = game->getScreen();
-  screen->draw(chickenSprite);
+  screen->draw(sprite);
 }
 
 void Chicken::cluck()
 {
-  chickenSound.play();
+  cluckSound.play();
 }

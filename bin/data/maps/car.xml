@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animation name="drive">
+    <sequence name="drive-down"  start="0" end="3" loop="true" />
+    <sequence name="drive-left"  start="4" end="7" loop="true" />
+    <sequence name="drive-right" start="8" end="11" loop="true" />
+    <sequence name="drive-up"    start="12" end="15" loop="true" />
+</animation>
