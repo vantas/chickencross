@@ -20,26 +20,7 @@ using namespace std;
 
 void PlayState::init()
 {
-  walkStates[0] = "walk-right";
-  walkStates[1] = "walk-left";
-  walkStates[2] = "walk-up";
-  walkStates[3] = "walk-down";
-  currentDir = RIGHT;
-
-  //                                           w,  h,  hSpace, vSpace, xIni, yIni, cols, rows, total
-  chickenSprite.load("data/maps/chicken.png", 32, 32,      20,     32,    8,   24,    3,    4,    12);
-  chickenSprite.setPosition(400,550);
-
-  chickenSprite.loadAnimation("data/maps/chicken.xml");
-  chickenSprite.setAnimation(walkStates[currentDir]);
-  chickenSprite.setAnimRate(15);
-  chickenSprite.play();
-
-  dirx = 0; // sprite direction: right (1), left (-1)
-  diry = 0; // down (1), up (-1)
-
   im = cgf::InputManager::instance();
-
   im->addKeyInput("left", sf::Keyboard::Left);
   im->addKeyInput("right", sf::Keyboard::Right);
   im->addKeyInput("up", sf::Keyboard::Up);
@@ -51,11 +32,19 @@ void PlayState::init()
   map = new tmx::MapLoader("data/maps/roads");
   map->Load("roads.tmx");
 
+  music.openFromFile("data/audio/road.wav");
+  music.setVolume(30);  // 30% do volume máximo
+  music.setLoop(true);  // modo de loop: repete continuamente.
+  music.play();
+
+  chicken.init();
+
   cout << "PlayState: Init" << endl;
 }
 
 void PlayState::cleanup()
 {
+  chicken.cleanup();
   delete map;
   cout << "PlayState: Clean" << endl;
 }
@@ -72,7 +61,7 @@ void PlayState::resume()
 
 void PlayState::centerMapOnPlayer()
 {
-  sf::View view = screen->getView();
+  /*sf::View view = screen->getView();
   sf::Vector2u mapsize = map->GetMapSize();
   sf::Vector2f viewsize = view.getSize();
   viewsize.x /= 2;
@@ -94,7 +83,7 @@ void PlayState::centerMapOnPlayer()
     panY = mapsize.y - viewsize.y;
 
   view.setCenter(sf::Vector2f(panX,panY));
-  screen->setView(view);
+  screen->setView(view);*/
 }
 
 void PlayState::handleEvents(cgf::Game* game)
@@ -108,53 +97,7 @@ void PlayState::handleEvents(cgf::Game* game)
       game->quit();
   }
 
-  dirx = diry = 0;
-  int newDir = currentDir;
-
-  if (im->testEvent("left"))
-  {
-    dirx = -1;
-    newDir = LEFT;
-  }
-
-  if (im->testEvent("right"))
-  {
-    dirx = 1;
-    newDir = RIGHT;
-  }
-
-  if (im->testEvent("up"))
-  {
-    diry = -1;
-    newDir = UP;
-  }
-
-  if (im->testEvent("down"))
-  {
-    diry = 1;
-    newDir = DOWN;
-  }
-
-  if (im->testEvent("quit") || im->testEvent("rightclick"))
-    game->quit();
-
-  if (im->testEvent("stats"))
-    game->toggleStats();
-
-  if (dirx == 0 && diry == 0)
-    chickenSprite.pause();
-  else
-  {
-    if (currentDir != newDir)
-    {
-      chickenSprite.setAnimation(walkStates[newDir]);
-      currentDir = newDir;
-    }
-    chickenSprite.play();
-  }
-
-  chickenSprite.setXspeed(100*dirx);
-  chickenSprite.setYspeed(100*diry);
+  chicken.handleEvents(game, im);
 }
 
 void PlayState::update(cgf::Game* game)
@@ -173,12 +116,12 @@ void PlayState::update(cgf::Game* game)
   centerMapOnPlayer();
 
   chickenSprite.setPosition(x,y);*/
-  chickenSprite.update(game->getUpdateInterval());
+  chicken.update(game);
 }
 
 void PlayState::draw(cgf::Game* game)
 {
   screen = game->getScreen();
   map->Draw(*screen);
-  screen->draw(chickenSprite);
+  chicken.draw(game);
 }

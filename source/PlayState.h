@@ -10,9 +10,8 @@
 #pragma once
 
 #include "GameState.h"
-#include "Sprite.h"
 #include "InputManager.h"
-
+#include "chicken.h"
 #include <tmx/MapLoader.h>
 
 using namespace std;
@@ -42,15 +41,12 @@ protected:
 private:
   static PlayState m_PlayState;
 
-  enum { RIGHT=0, LEFT, UP, DOWN };
-  string walkStates[4];
-  int currentDir;
-
-  int dirx, diry;
-  cgf::Sprite chickenSprite;
   sf::RenderWindow* screen;
   cgf::InputManager* im;
   tmx::MapLoader* map;
+  sf::Music music;
+
+  Chicken chicken;
 
   void centerMapOnPlayer();
 };
