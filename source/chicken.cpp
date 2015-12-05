@@ -28,8 +28,6 @@ void Chicken::init()
   chickenSoundBuffer.loadFromFile("data/audio/chicken.wav");
   chickenSound.setBuffer(chickenSoundBuffer);
   chickenSound.setAttenuation(0);
-  chickenSound.setLoop(true);
-  chickenSound.play();
 }
 
 void Chicken::cleanup() {}
@@ -94,4 +92,9 @@ void Chicken::draw(cgf::Game* game)
 {
   screen = game->getScreen();
   screen->draw(chickenSprite);
+}
+
+void Chicken::cluck()
+{
+  chickenSound.play();
 }

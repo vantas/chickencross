@@ -16,6 +16,8 @@ public:
   void update(cgf::Game*);
   void draw(cgf::Game*);
 
+  void cluck();
+
 private:
   enum { RIGHT=0, LEFT, UP, DOWN };
   string walkStates[4];
