@@ -9,10 +9,11 @@
 
 #pragma once
 
+#include <tmx/MapLoader.h>
+
+#include "Chicken.h"
 #include "GameState.h"
 #include "InputManager.h"
-#include "chicken.h"
-#include <tmx/MapLoader.h>
 
 using namespace std;
 

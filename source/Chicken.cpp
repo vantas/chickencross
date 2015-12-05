@@ -1,9 +1,10 @@
-#include "chicken.h"
 #include <iostream>
 #include <cmath>
+
+#include "Chicken.h"
 #include "Game.h"
-#include "PlayState.h"
 #include "InputManager.h"
+#include "PlayState.h"
 #include "WonState.h"
 
 void Chicken::init()

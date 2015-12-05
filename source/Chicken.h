@@ -1,8 +1,8 @@
 #pragma once
 
 #include "GameState.h"
-#include "Sprite.h"
 #include "InputManager.h"
+#include "Sprite.h"
 
 using namespace std;
 
