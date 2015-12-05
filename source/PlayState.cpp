@@ -22,6 +22,7 @@ using namespace std;
 void PlayState::init()
 {
   im = cgf::InputManager::instance();
+  im->addKeyInput("space", sf::Keyboard::Space);
   im->addKeyInput("left", sf::Keyboard::Left);
   im->addKeyInput("right", sf::Keyboard::Right);
   im->addKeyInput("up", sf::Keyboard::Up);

@@ -62,6 +62,11 @@ void Chicken::handleEvents(cgf::Game* game, cgf::InputManager* im)
     newDir = DOWN;
   }
 
+  if (im->testEvent("space"))
+  {
+    cluck();
+  }
+
   if (im->testEvent("quit") || im->testEvent("rightclick"))
     game->quit();
 
