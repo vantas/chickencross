@@ -20,11 +20,20 @@ using namespace std;
 
 void PlayState::init()
 {
-  playSprite1.load("data/maps/chicken.png", 32, 32, 20, 32, 8, 24, 3, 4, 12);
-  playSprite1.loadAnimation("data/maps/chicken.xml");
-  playSprite1.setPosition(400,550);
-  //playSprite1.setAnimRate(1);
-  playSprite1.setAnimation("walk-up");
+  walkStates[0] = "walk-right";
+  walkStates[1] = "walk-left";
+  walkStates[2] = "walk-up";
+  walkStates[3] = "walk-down";
+  currentDir = RIGHT;
+
+  //                                           w,  h,  hSpace, vSpace, xIni, yIni, cols, rows, total
+  chickenSprite.load("data/maps/chicken.png", 32, 32,      20,     32,    8,   24,    3,    4,    12);
+  chickenSprite.setPosition(400,550);
+
+  chickenSprite.loadAnimation("data/maps/chicken.xml");
+  chickenSprite.setAnimation(walkStates[currentDir]);
+  chickenSprite.setAnimRate(15);
+  chickenSprite.play();
 
   dirx = 0; // sprite direction: right (1), left (-1)
   diry = 0; // down (1), up (-1)
@@ -40,7 +49,6 @@ void PlayState::init()
   im->addMouseInput("rightclick", sf::Mouse::Right);
 
   map = new tmx::MapLoader("data/maps/roads");
-
   map->Load("roads.tmx");
 
   cout << "PlayState: Init" << endl;
@@ -69,7 +77,7 @@ void PlayState::centerMapOnPlayer()
   sf::Vector2f viewsize = view.getSize();
   viewsize.x /= 2;
   viewsize.y /= 2;
-  sf::Vector2f pos = player.getPosition();
+  sf::Vector2f pos = chickenSprite.getPosition();
 
   float panX = viewsize.x; // minimum pan
   if(pos.x >= viewsize.x)
@@ -91,47 +99,68 @@ void PlayState::centerMapOnPlayer()
 
 void PlayState::handleEvents(cgf::Game* game)
 {
+  screen = game->getScreen();
   sf::Event event;
 
   while (screen->pollEvent(event))
   {
-    if(event.type == sf::Event::Closed)
+    if (event.type == sf::Event::Closed)
       game->quit();
   }
 
   dirx = diry = 0;
+  int newDir = currentDir;
 
-  if(im->testEvent("left")) {
-    playSprite1.setAnimation("walk-left");
+  if (im->testEvent("left"))
+  {
     dirx = -1;
+    newDir = LEFT;
   }
 
-  if(im->testEvent("right")) {
-    playSprite1.setAnimation("walk-right");
+  if (im->testEvent("right"))
+  {
     dirx = 1;
+    newDir = RIGHT;
   }
 
-  if(im->testEvent("up")) {
-    playSprite1.setAnimation("walk-up");
+  if (im->testEvent("up"))
+  {
     diry = -1;
+    newDir = UP;
   }
 
-  if(im->testEvent("down")) {
-    playSprite1.setAnimation("walk-down");
+  if (im->testEvent("down"))
+  {
     diry = 1;
+    newDir = DOWN;
   }
 
-  if(im->testEvent("quit") || im->testEvent("rightclick"))
+  if (im->testEvent("quit") || im->testEvent("rightclick"))
     game->quit();
 
-  if(im->testEvent("stats"))
+  if (im->testEvent("stats"))
     game->toggleStats();
+
+  if (dirx == 0 && diry == 0)
+    chickenSprite.pause();
+  else
+  {
+    if (currentDir != newDir)
+    {
+      chickenSprite.setAnimation(walkStates[newDir]);
+      currentDir = newDir;
+    }
+    chickenSprite.play();
+  }
+
+  chickenSprite.setXspeed(100*dirx);
+  chickenSprite.setYspeed(100*diry);
 }
 
 void PlayState::update(cgf::Game* game)
 {
-  float x = playSprite1.getPosition().x;
-  float y = playSprite1.getPosition().y;
+  /*float x = chickenSprite.getPosition().x;
+  float y = chickenSprite.getPosition().y;
   x += dirx*5;
   y += diry*5;
 
@@ -143,15 +172,13 @@ void PlayState::update(cgf::Game* game)
   screen = game->getScreen();
   centerMapOnPlayer();
 
-  playSprite1.setPosition(x,y);
-  playSprite1.update(game->getUpdateInterval());
-  //playSprite1.play();
-  player.update(game->getUpdateInterval());
+  chickenSprite.setPosition(x,y);*/
+  chickenSprite.update(game->getUpdateInterval());
 }
 
 void PlayState::draw(cgf::Game* game)
 {
   screen = game->getScreen();
   map->Draw(*screen);
-  screen->draw(playSprite1);
+  screen->draw(chickenSprite);
 }

@@ -15,6 +15,8 @@
 
 #include <tmx/MapLoader.h>
 
+using namespace std;
+
 class PlayState : public cgf::GameState
 {
 public:
@@ -40,12 +42,14 @@ protected:
 private:
   static PlayState m_PlayState;
 
+  enum { RIGHT=0, LEFT, UP, DOWN };
+  string walkStates[4];
+  int currentDir;
+
   int dirx, diry;
-  cgf::Sprite playSprite1;
-  cgf::Sprite player;
+  cgf::Sprite chickenSprite;
   sf::RenderWindow* screen;
   cgf::InputManager* im;
-
   tmx::MapLoader* map;
 
   void centerMapOnPlayer();
