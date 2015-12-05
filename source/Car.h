@@ -21,6 +21,8 @@ public:
   void update(cgf::Game*);
   void draw(cgf::Game*);
 
+  cgf::Sprite& getSprite() { return sprite; }
+
 private:
   enum { RIGHT=0, LEFT, UP, DOWN };
   string driveStates[4];

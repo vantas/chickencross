@@ -39,6 +39,10 @@ void PlayState::init()
   music.setLoop(true);  // modo de loop: repete continuamente.
   music.play();
 
+  fartSoundBuffer.loadFromFile("data/audio/chicken_death.wav");
+  fartSound.setBuffer(fartSoundBuffer);
+  fartSound.setAttenuation(0);
+
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
   {
@@ -94,8 +98,17 @@ void PlayState::handleEvents(cgf::Game* game)
 void PlayState::update(cgf::Game* game)
 {
   chicken.update(game);
+  auto chickenSprite = chicken.getSprite();
   for (auto it = cars.begin(); it != cars.end(); ++it)
+  {
     (*it)->update(game);
+    auto carSprite = (*it)->getSprite();
+    if (chickenSprite.bboxCollision(carSprite))
+    {
+      fartSound.play();
+      // aqui a galinha morreu :P
+    }
+  }
 }
 
 void PlayState::draw(cgf::Game* game)

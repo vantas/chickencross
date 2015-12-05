@@ -49,8 +49,10 @@ private:
   tmx::MapLoader* map;
   sf::Music music;
 
-  Chicken chicken;
+  sf::SoundBuffer fartSoundBuffer;
+  sf::Sound fartSound;
 
+  Chicken chicken;
   set<Car*> cars;
 
   void centerMapOnPlayer();

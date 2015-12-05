@@ -18,6 +18,8 @@ public:
 
   void cluck();
 
+  cgf::Sprite& getSprite() { return sprite; }
+
 private:
   enum { RIGHT=0, LEFT, UP, DOWN };
   string walkStates[4];
