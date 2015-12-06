@@ -6,6 +6,7 @@
 #include "CarDirection.h"
 #include "GameState.h"
 #include "InputManager.h"
+#include "Sprite.h"
 
 using namespace std;
 
@@ -20,8 +21,9 @@ public:
   void update(cgf::Game*);
   void draw(cgf::Game*);
 
+  bool bboxCollision(cgf::Sprite& sprite);
+
 private:
   int carCount, yPos;
   set<Car*> cars;
-  sf::RenderWindow* screen;
 };

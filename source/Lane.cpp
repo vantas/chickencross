@@ -33,18 +33,22 @@ void Lane::handleEvents(cgf::Game* game)
 void Lane::update(cgf::Game* game)
 {
   for (auto it = cars.begin(); it != cars.end(); ++it)
-  {
     (*it)->update(game);
-    // auto carSprite = (*it)->getSprite();
-    // if (chickenSprite.bboxCollision(carSprite))
-    // {
-    //   fartSound.play();
-    //   // aqui a galinha morreu :P
-  }
 }
 
 void Lane::draw(cgf::Game* game)
 {
   for (auto it = cars.begin(); it != cars.end(); ++it)
     (*it)->draw(game);
+}
+
+bool Lane::bboxCollision(cgf::Sprite& sprite)
+{
+  for (auto it = cars.begin(); it != cars.end(); ++it)
+  {
+    auto carSprite = (*it)->getSprite();
+    if (carSprite.bboxCollision(sprite))
+      return true;
+  }
+  return false;
 }

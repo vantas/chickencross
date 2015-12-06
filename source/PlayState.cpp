@@ -97,10 +97,14 @@ void PlayState::handleEvents(cgf::Game* game)
 void PlayState::update(cgf::Game* game)
 {
   chicken.update(game);
-  auto chickenSprite = chicken.getSprite();
   for (auto it = lanes.begin(); it != lanes.end(); ++it)
   {
-    (*it)->update(game);
+    auto lane = *it;
+    lane->update(game);
+    if (lane->bboxCollision(chicken.getSprite()))
+    {
+      fartSound.play();
+    }
   }
 }
 
