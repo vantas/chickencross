@@ -17,7 +17,7 @@ public:
   void init();
   void cleanup();
 
-  void handleEvents(cgf::Game*, cgf::InputManager*);
+  void handleEvents(cgf::Game*);
   void update(cgf::Game*);
   void draw(cgf::Game*);
 

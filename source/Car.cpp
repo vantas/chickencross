@@ -43,7 +43,7 @@ void Car::init()
 
 void Car::cleanup() {}
 
-void Car::handleEvents(cgf::Game* game, cgf::InputManager* im)
+void Car::handleEvents(cgf::Game* game)
 {
   int newDir = currentDir;
 

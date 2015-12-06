@@ -12,10 +12,10 @@
 #include <set>
 #include <tmx/MapLoader.h>
 
-#include "Car.h"
 #include "Chicken.h"
 #include "GameState.h"
 #include "InputManager.h"
+#include "Lane.h"
 
 using namespace std;
 
@@ -53,7 +53,7 @@ private:
   sf::Sound fartSound;
 
   Chicken chicken;
-  set<Car*> cars;
+  set<Lane*> lanes;
 
   void centerMapOnPlayer();
 };

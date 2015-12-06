@@ -11,7 +11,6 @@
 #include <iostream>
 
 #include "Game.h"
-#include "InputManager.h"
 #include "PlayState.h"
 #include "WonState.h"
 
@@ -46,9 +45,9 @@ void PlayState::init()
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
   {
-    auto car = new Car(rand() % 801, carY[i]);
-    car->init();
-    cars.insert(car);
+    auto lane = new Lane(1, carY[i]);
+    lane->init();
+    lanes.insert(lane);
   }
 
   chicken.init();
@@ -60,7 +59,7 @@ void PlayState::cleanup()
 {
   chicken.cleanup();
 
-  for (auto it = cars.begin(); it != cars.end(); ++it)
+  for (auto it = lanes.begin(); it != lanes.end(); ++it)
   {
     (*it)->cleanup();
     delete *it;
@@ -91,23 +90,17 @@ void PlayState::handleEvents(cgf::Game* game)
   }
 
   chicken.handleEvents(game, im);
-  for (auto it = cars.begin(); it != cars.end(); ++it)
-    (*it)->handleEvents(game, im);
+  for (auto it = lanes.begin(); it != lanes.end(); ++it)
+    (*it)->handleEvents(game);
 }
 
 void PlayState::update(cgf::Game* game)
 {
   chicken.update(game);
   auto chickenSprite = chicken.getSprite();
-  for (auto it = cars.begin(); it != cars.end(); ++it)
+  for (auto it = lanes.begin(); it != lanes.end(); ++it)
   {
     (*it)->update(game);
-    auto carSprite = (*it)->getSprite();
-    if (chickenSprite.bboxCollision(carSprite))
-    {
-      fartSound.play();
-      // aqui a galinha morreu :P
-    }
   }
 }
 
@@ -116,6 +109,6 @@ void PlayState::draw(cgf::Game* game)
   screen = game->getScreen();
   map->Draw(*screen);
   chicken.draw(game);
-  for (auto it = cars.begin(); it != cars.end(); ++it)
+  for (auto it = lanes.begin(); it != lanes.end(); ++it)
     (*it)->draw(game);
 }
