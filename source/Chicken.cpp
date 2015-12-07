@@ -93,8 +93,8 @@ void Chicken::handleEvents(cgf::Game* game, cgf::InputManager* im)
     sprite.play();
   }
 
-  sprite.setXspeed(60*dirx);
-  sprite.setYspeed(60*diry);
+  sprite.setXspeed(120*dirx);
+  sprite.setYspeed(120*diry);
 }
 
 void Chicken::update(cgf::Game* game)
