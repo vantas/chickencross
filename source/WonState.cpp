@@ -16,7 +16,13 @@ using namespace std;
 
 void WonState::init()
 {
-  wonSprite.load("data/img/won.png"); // load menu state bitmap
+  wonSprite.load("data/img/chicken_dance.png"); // load menu state bitmap
+
+  music.openFromFile("data/audio/chicken_dance.wav");
+  music.setVolume(100);  // 30% do volume máximo
+  music.setLoop(true);  // modo de loop: repete continuamente.
+  music.play();
+
   cout << "WonState Init Successful" << endl;
 }
 
@@ -45,25 +51,17 @@ void WonState::handleEvents(cgf::Game* game)
 // check the type of the event...
     switch (event.type)
     {
-// window closed
       case sf::Event::Closed:
         game->quit();
         break;
 
-// key pressed
       case sf::Event::KeyPressed:
         if(event.key.code == sf::Keyboard::Space)
           game->changeState(PlayState::instance());
         if(event.key.code == sf::Keyboard::Escape)
           game->quit();
-  //game->changeState(PlayMap::instance());
-  //game->changeState(PlayMapTop::instance());
-  //game->changeState(PlayMapAI::instance());
-  //game->changeState(PlayPhysics::instance());
-  //game->changeState(PlayMapPhysics::instance());
         break;
 
-// we don't process other types of events
       default:
         break;
     }
@@ -77,6 +75,5 @@ void WonState::update(cgf::Game* /*game*/)
 void WonState::draw(cgf::Game *game)
 {
   wonSprite.setPosition(50,50);
-  // menuSprite->draw(game->getScreen());
   game->getScreen()->draw(wonSprite);
 }

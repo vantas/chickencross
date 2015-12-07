@@ -16,6 +16,7 @@ public:
   void update(cgf::Game*);
   void draw(cgf::Game*);
 
+  int getPosition() { return sprite.getPosition().y; }
   void cluck();
   void die();
 

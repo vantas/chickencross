@@ -37,5 +37,5 @@ private:
   static WonState m_WonState;
 
   cgf::Sprite wonSprite;
-
+  sf::Music music;
 };

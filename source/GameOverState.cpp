@@ -19,7 +19,7 @@ void GameOverState::init()
   gameOverSprite.load("data/img/gameover.png"); // load menu state bitmap
 
   music.openFromFile("data/audio/funeral.wav");
-  music.setVolume(30);  // 30% do volume máximo
+  music.setVolume(100);
   music.setLoop(true);  // modo de loop: repete continuamente.
   music.play();
 

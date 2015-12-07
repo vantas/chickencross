@@ -54,9 +54,12 @@ private:
 
   sf::Clock clock;
   sf::Time timeOfDeath;
+  sf::Time timeOfVictory;
 
+  bool isGameWon;
   bool isGameOver;
 
   void centerMapOnPlayer();
   void gameOver(cgf::Game* game);
+  void gameWon(cgf::Game* game);
 };

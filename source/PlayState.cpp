@@ -42,7 +42,7 @@ void PlayState::init()
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
   {
-    auto lane = new Lane(2, carY[i]);
+    auto lane = new Lane(0, carY[i]);
     lane->init();
     lanes.insert(lane);
   }
@@ -85,6 +85,12 @@ void PlayState::handleEvents(cgf::Game* game)
     return;
   }
 
+  if (isGameWon && clock.getElapsedTime().asSeconds() - timeOfVictory.asSeconds() > 2.0f)
+  {
+    game->changeState(WonState::instance());
+    return;
+  }
+
   screen = game->getScreen();
   sf::Event event;
 
@@ -102,14 +108,16 @@ void PlayState::handleEvents(cgf::Game* game)
 void PlayState::update(cgf::Game* game)
 {
   chicken.update(game);
+
+  if (chicken.getPosition() < 2)
+    gameWon(game);
+
   for (auto it = lanes.begin(); it != lanes.end(); ++it)
   {
     auto lane = *it;
     lane->update(game);
-    if (lane->bboxCollision(chicken.getSprite()))
-    {
+    if (!isGameWon && lane->bboxCollision(chicken.getSprite()))
       gameOver(game);
-    }
   }
 }
 
@@ -129,5 +137,15 @@ void PlayState::gameOver(cgf::Game* game)
     chicken.die();
     timeOfDeath = clock.getElapsedTime();
     isGameOver = true;
+  }
+}
+
+void PlayState::gameWon(cgf::Game* game)
+{
+  if (!isGameWon)
+  {
+    chicken.cluck();
+    timeOfVictory = clock.getElapsedTime();
+    isGameWon = true;
   }
 }
