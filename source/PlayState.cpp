@@ -42,7 +42,7 @@ void PlayState::init()
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
   {
-    auto lane = new Lane(0, carY[i]);
+    auto lane = new Lane(1, carY[i]);
     lane->init();
     lanes.insert(lane);
   }
