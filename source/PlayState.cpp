@@ -47,6 +47,8 @@ void PlayState::init()
     lanes.insert(lane);
   }
 
+  isGameOver = false;
+
   chicken.init();
 
   cout << "PlayState: Init" << endl;
@@ -77,6 +79,12 @@ void PlayState::resume()
 
 void PlayState::handleEvents(cgf::Game* game)
 {
+  if (isGameOver && clock.getElapsedTime().asSeconds() - timeOfDeath.asSeconds() > 2.0f)
+  {
+    game->changeState(GameOverState::instance());
+    return;
+  }
+
   screen = game->getScreen();
   sf::Event event;
 
@@ -118,5 +126,6 @@ void PlayState::draw(cgf::Game* game)
 void PlayState::gameOver(cgf::Game* game)
 {
   chicken.die();
-  //game->changeState(GameOverState::instance());
+  timeOfDeath = clock.getElapsedTime();
+  isGameOver = true;
 }

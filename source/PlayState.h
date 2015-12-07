@@ -52,6 +52,11 @@ private:
   Chicken chicken;
   set<Lane*> lanes;
 
+  sf::Clock clock;
+  sf::Time timeOfDeath;
+
+  bool isGameOver;
+
   void centerMapOnPlayer();
   void gameOver(cgf::Game* game);
 };
