@@ -42,7 +42,7 @@ void PlayState::init()
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
   {
-    auto lane = new Lane(1, carY[i]);
+    auto lane = new Lane(2, carY[i]);
     lane->init();
     lanes.insert(lane);
   }
@@ -109,7 +109,6 @@ void PlayState::update(cgf::Game* game)
     if (lane->bboxCollision(chicken.getSprite()))
     {
       gameOver(game);
-      return;
     }
   }
 }
@@ -125,7 +124,10 @@ void PlayState::draw(cgf::Game* game)
 
 void PlayState::gameOver(cgf::Game* game)
 {
-  chicken.die();
-  timeOfDeath = clock.getElapsedTime();
-  isGameOver = true;
+  if (!isGameOver)
+  {
+    chicken.die();
+    timeOfDeath = clock.getElapsedTime();
+    isGameOver = true;
+  }
 }
