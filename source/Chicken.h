@@ -17,6 +17,7 @@ public:
   void draw(cgf::Game*);
 
   void cluck();
+  void die();
 
   cgf::Sprite& getSprite() { return sprite; }
 
@@ -25,10 +26,15 @@ private:
   string walkStates[4];
   int currentDir;
   int dirx, diry;
+  bool isAlive;
 
   sf::RenderWindow* screen;
   cgf::Sprite sprite;
+  cgf::Sprite deadSprite;
 
   sf::SoundBuffer cluckSoundBuffer;
   sf::Sound cluckSound;
+
+  sf::SoundBuffer fartSoundBuffer;
+  sf::Sound fartSound;
 };

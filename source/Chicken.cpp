@@ -16,7 +16,7 @@ void Chicken::init()
   currentDir = RIGHT;
 
   sprite.load("data/maps/chicken.png", 32, 32, 20, 32, 8, 24, 3, 4, 12);
-  sprite.setPosition(400,550);
+  sprite.setPosition(400,680);
 
   sprite.loadAnimation("data/maps/chicken.xml");
   sprite.setAnimation(walkStates[currentDir]);
@@ -25,6 +25,11 @@ void Chicken::init()
 
   dirx = 0; // sprite direction: right (1), left (-1)
   diry = 0; // down (1), up (-1)
+  isAlive = true;
+
+  fartSoundBuffer.loadFromFile("data/audio/chicken_death.wav");
+  fartSound.setBuffer(fartSoundBuffer);
+  fartSound.setAttenuation(0);
 
   cluckSoundBuffer.loadFromFile("data/audio/chicken.wav");
   cluckSound.setBuffer(cluckSoundBuffer);
@@ -38,33 +43,36 @@ void Chicken::handleEvents(cgf::Game* game, cgf::InputManager* im)
   dirx = diry = 0;
   int newDir = currentDir;
 
-  if (im->testEvent("left"))
+  if (isAlive)
   {
-    dirx = -1;
-    newDir = LEFT;
-  }
+    if (im->testEvent("left"))
+    {
+      dirx = -1;
+      newDir = LEFT;
+    }
 
-  if (im->testEvent("right"))
-  {
-    dirx = 1;
-    newDir = RIGHT;
-  }
+    if (im->testEvent("right"))
+    {
+      dirx = 1;
+      newDir = RIGHT;
+    }
 
-  if (im->testEvent("up"))
-  {
-    diry = -1;
-    newDir = UP;
-  }
+    if (im->testEvent("up"))
+    {
+      diry = -1;
+      newDir = UP;
+    }
 
-  if (im->testEvent("down"))
-  {
-    diry = 1;
-    newDir = DOWN;
-  }
+    if (im->testEvent("down"))
+    {
+      diry = 1;
+      newDir = DOWN;
+    }
 
-  if (im->testEvent("space"))
-  {
-    cluck();
+    if (im->testEvent("space"))
+    {
+      cluck();
+    }
   }
 
   if (im->testEvent("quit") || im->testEvent("rightclick"))
@@ -103,4 +111,13 @@ void Chicken::draw(cgf::Game* game)
 void Chicken::cluck()
 {
   cluckSound.play();
+}
+
+void Chicken::die()
+{
+  if (isAlive) {
+    fartSound.play();
+    isAlive = false;
+    sprite.load("data/img/dead_marylou.png");
+  }
 }

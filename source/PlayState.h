@@ -49,11 +49,9 @@ private:
   tmx::MapLoader* map;
   sf::Music music;
 
-  sf::SoundBuffer fartSoundBuffer;
-  sf::Sound fartSound;
-
   Chicken chicken;
   set<Lane*> lanes;
 
   void centerMapOnPlayer();
+  void gameOver(cgf::Game* game);
 };

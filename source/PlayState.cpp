@@ -12,6 +12,7 @@
 
 #include "Game.h"
 #include "PlayState.h"
+#include "GameOverState.h"
 #include "WonState.h"
 
 PlayState PlayState::m_PlayState;
@@ -37,10 +38,6 @@ void PlayState::init()
   music.setVolume(30);  // 30% do volume máximo
   music.setLoop(true);  // modo de loop: repete continuamente.
   music.play();
-
-  fartSoundBuffer.loadFromFile("data/audio/chicken_death.wav");
-  fartSound.setBuffer(fartSoundBuffer);
-  fartSound.setAttenuation(0);
 
   int carY[10] = { 35, 95, 165, 225, 290, 350, 420, 480, 545, 605 };
   for (int i = 0; i < 10; i++)
@@ -103,7 +100,8 @@ void PlayState::update(cgf::Game* game)
     lane->update(game);
     if (lane->bboxCollision(chicken.getSprite()))
     {
-      fartSound.play();
+      gameOver(game);
+      return;
     }
   }
 }
@@ -115,4 +113,10 @@ void PlayState::draw(cgf::Game* game)
   chicken.draw(game);
   for (auto it = lanes.begin(); it != lanes.end(); ++it)
     (*it)->draw(game);
+}
+
+void PlayState::gameOver(cgf::Game* game)
+{
+  chicken.die();
+  //game->changeState(GameOverState::instance());
 }
